@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction:column;
+  justify-content: center;
+  height: 100vh;
+  overflow: auto;
+  background: #f0f2f5;
+}
+.login {
+  width: 400px;
+  padding: 20px;
+  border-radius: 12px;
+  background: white;
+}

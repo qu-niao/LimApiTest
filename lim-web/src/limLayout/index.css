@@ -1,0 +1,13 @@
+.ant-notification-notice-message:hover{
+    /* background-color: red; */
+    cursor: move;
+}
+.ant-modal-title:hover{
+    cursor: move;
+}
+.user-cfg-but{
+    position: fixed;
+    right: 30px;
+    bottom: 40px;
+    z-index: 999;
+}

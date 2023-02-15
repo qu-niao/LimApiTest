@@ -1,0 +1,8 @@
+.remark {
+  padding-bottom: 0px;
+  margin-top: -20px;
+}
+
+.remark>.ant-collapse-header {
+  padding-left: 0px !important;
+}

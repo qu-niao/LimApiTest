@@ -1,0 +1,11 @@
+.mouse:hover{
+    cursor: pointer;
+}
+.title {
+    clear: both;
+    font-weight: normal;
+    margin-top: .48rem;
+    margin-bottom: .16rem;
+    border-left: 3px solid #2395f1;
+    padding-left: 8px;
+  }

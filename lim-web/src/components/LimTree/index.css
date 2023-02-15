@@ -1,0 +1,22 @@
+.hideTreeName{
+    max-width:180px;
+    display: block;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.modTreeCfg {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
+  .modTreeCfg li {
+    /* margin-left:20px; */
+    display: inline-block;
+  }
+  
+  .operationStyle {
+    cursor: pointer;
+    color: #1890ff;
+  }
+  
