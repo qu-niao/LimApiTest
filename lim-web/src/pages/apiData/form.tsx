@@ -1,6 +1,18 @@
 import React, { useState, useRef, useImperativeHandle, useContext } from 'react';
 import { unstable_batchedUpdates } from 'react-dom'; //批量更新状态时使用
-import { Modal, Button, message, Drawer, Tooltip, AutoComplete, Tabs, Tag, Input, Collapse } from 'antd';
+import {
+  Modal,
+  Button,
+  message,
+  Drawer,
+  Tooltip,
+  AutoComplete,
+  Tabs,
+  Tag,
+  Input,
+  Collapse,
+  Popover,
+} from 'antd';
 import {
   ProFormText,
   ProFormTextArea,
@@ -32,7 +44,11 @@ import {
   REQ_METHOD_LABEL,
 } from '@/utils/constant';
 import apiDataContext from './context';
-import { ExclamationCircleTwoTone, QuestionCircleOutlined } from '@ant-design/icons';
+import {
+  ExclamationCircleTwoTone,
+  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
 import { debounce } from 'lodash';
 import './index.css';
 import { LimDrawerForm } from '@/components/limDrawerForm';
@@ -159,7 +175,7 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
       });
     }
   }, 200);
-  const loadApiData = async (apiId: any) => {
+  const loadApiData = async (apiId: any, isSetParams: boolean = true) => {
     if (apiId) {
       await apiDataView(GET, apiId).then((res: any) => {
         const formValue = formRef.current.getFieldsValue();
@@ -178,30 +194,33 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
           }
         });
         unstable_batchedUpdates(() => {
-          setParamEditableKeys(() => {
-            let _json = {};
-            ['header', 'query', 'body', 'expect', 'output'].forEach((type) => {
-              _json[`${type}_source`] = Array.isArray(apiParams[`${type}_source`])
-                ? apiParams[`${type}_source`]?.map((item: any) => item.id) || []
-                : [];
-            });
-            return _json;
-          });
           setCurApiId(results.api_id);
-          setHostType(apiParams.host_type);
-          const modeType = {
-            header_mode: apiParams['header_mode'] || TABLE_MODE,
-            query_mode: apiParams['query_mode'] || TABLE_MODE,
-            body_mode: apiParams['body_mode'] || TABLE_MODE,
-            expect_mode: apiParams['expect_mode'] || TABLE_MODE,
-            output_mode: apiParams['output_mode'] || TABLE_MODE,
-          };
+          if (isSetParams) {
+            setParamEditableKeys(() => {
+              let _json = {};
+              ['header', 'query', 'body', 'expect', 'output'].forEach((type) => {
+                _json[`${type}_source`] = Array.isArray(apiParams[`${type}_source`])
+                  ? apiParams[`${type}_source`]?.map((item: any) => item.id) || []
+                  : [];
+              });
+              return _json;
+            });
+            setHostType(apiParams.host_type);
+            const modeType = {
+              header_mode: apiParams['header_mode'] || TABLE_MODE,
+              query_mode: apiParams['query_mode'] || TABLE_MODE,
+              body_mode: apiParams['body_mode'] || TABLE_MODE,
+              expect_mode: apiParams['expect_mode'] || TABLE_MODE,
+              output_mode: apiParams['output_mode'] || TABLE_MODE,
+            };
+            setParamMode(modeType);
+          }
+
           formRef.current.setFieldsValue({
             ...formValue,
-            ...apiParams,
+            ...(isSetParams ? apiParams : {}),
             ...results,
           });
-          setParamMode(modeType);
         });
       });
     }
@@ -365,7 +384,7 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
                   placement="right"
                   title={`仅显示配置了${STEP_TYPE_LABEL[API_HOST]}的项目`}
                 >
-                  选择项目
+                  请求地址
                   <ExclamationCircleTwoTone
                     twoToneColor="#FAAD14"
                     style={{ marginLeft: 3, marginRight: 8 }}
@@ -406,29 +425,41 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
             }}
           />
         </Input.Group>
-        <ProFormItem
-          label="接口地址"
-          rules={[
-            { required: true, message: '接口地址必填!' },
-            { type: 'string' },
-            { max: 255, message: '最多255个字' },
-          ]}
-          name="path"
+        <Tooltip
+          title="会根据地址或名称筛选之前录入过的接口，点击它们可以回填上次录入的参数，减少重复工作。"
+          placement="topLeft"
+          overlayStyle={{ maxWidth: 500 }}
         >
-          <AutoComplete
-            // disabled={
-            //   apiType === SWAGGER_API && editStatus !== ABANDONED_API && !isPlan
-            //     ? true
-            //     : false
-            // }
-            style={{ width: 500 }}
-            placeholder="请输入接口地址或接口名称"
-            onSelect={(...data: any) => loadApiData(data[1].api_id)}
-            onChange={(v) => searchApiFunc(v)}
-            onBlur={(e: any) => pathToQueryParams(e.target.value)}
-            options={searchApiData}
-          />
-        </ProFormItem>
+          <ProFormItem
+            label="接口地址"
+            rules={[
+              { required: true, message: '接口地址必填!' },
+              { type: 'string' },
+              { max: 255, message: '最多255个字' },
+            ]}
+            name="path"
+          >
+            <AutoComplete
+              style={{ width: 500 }}
+              placeholder="请输入接口地址或接口名称"
+              onSelect={(...data: any) => {
+                Modal.confirm({
+                  width:300,
+                  title: '是否回填上次填写的参数？',
+                  icon: <ExclamationCircleOutlined />,
+                  onOk: () => loadApiData(data[1].api_id),
+                  onCancel: () => loadApiData(data[1].api_id, false),
+                  okText: '是',
+                  cancelText: '否',
+                });
+              }}
+              // onSelect={(...data: any) => loadApiData(data[1].api_id)}
+              onChange={(v) => searchApiFunc(v)}
+              onBlur={(e: any) => pathToQueryParams(e.target.value)}
+              options={searchApiData}
+            />
+          </ProFormItem>
+        </Tooltip>
         <Button type="primary" style={{ top: 30.5 }} onClick={() => sendReq()} loading={sendButLoading}>
           发送请求
         </Button>

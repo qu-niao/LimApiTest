@@ -55,7 +55,9 @@ const Index: React.FC = () => {
                           />
                         </Tooltip>
                       </div>
-                      <p style={{ fontSize: 36, marginBottom: 0 }}>{data[item.countKey]}</p>
+                      <p style={{ fontSize: 36, marginBottom: 0, fontWeight: 'bold' }}>
+                        {data[item.countKey]}
+                      </p>
                       <span style={{ position: 'absolute', right: 16, fontSize: 10 }}>
                         较昨日新增：{data[item.newCountKey]}
                       </span>
@@ -96,7 +98,22 @@ const Index: React.FC = () => {
         </Col>
       </Row>
       <Footer style={{ textAlign: 'center', backgroundColor: '#F5F5F5' }}>
-        Lim测试平台 ©2023 作者: 曲鸟
+        Lim测试平台 ©2023 作者：
+        
+        <a href="https://quniao.blog.csdn.net/">
+          <img
+            style={{ marginBottom: 4 }}
+            src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-CSDN-FC5531"
+            alt="曲鸟-CSDN"
+          />
+        </a>
+        <a href="https://www.zhihu.com/people/qing-ci-64-16">
+          <img
+            style={{ marginBottom: 4, marginLeft: 3 }}
+            src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-%E7%9F%A5%E4%B9%8E-blue"
+            alt="曲鸟-知乎"
+          />
+        </a>
       </Footer>
     </>
   );
