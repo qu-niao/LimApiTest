@@ -98,7 +98,7 @@ const Index: React.FC = () => {
         </Col>
       </Row>
       <Footer style={{ textAlign: 'center', backgroundColor: '#F5F5F5' }}>
-        Lim测试平台 ©2023 作者：
+        Lim接口测试平台 ©2023 作者：
         
         <a href="https://quniao.blog.csdn.net/">
           <img

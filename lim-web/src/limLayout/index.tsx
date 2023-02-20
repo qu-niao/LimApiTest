@@ -41,8 +41,8 @@ const BasicLayout: React.FC<{}> = (props: any) => {
       title="Lim 接口测试平台"
       pageTitleRender={false}
       headerContentRender={() => (
-        <span style={{ fontWeight: 'bold' }}>
-          使用中遇到疑问？请访问项目仓库提出你的issue：
+        <span>
+          使用中遇到疑问？请访问项目仓库提出你的问题：
           <Tooltip title="Gitee(国内用户推荐)">
             <Button
               icon={

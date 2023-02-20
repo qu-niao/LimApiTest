@@ -44,10 +44,10 @@ export const LimDrawerForm = ({
       {...props}
       drawerProps={{
         zIndex: 102,
-        ...extraDrawerProps,
         maskClosable: false,
         destroyOnClose: true,
         onClose: diyCancel ? async () => await diyCancel() : () => setOpen(false),
+        ...extraDrawerProps,
       }}
     >
       {formItems}

@@ -1,37 +1,33 @@
 # Lim接口测试平台
 
 #### 介绍
-123
+Lim是Less is More（少即是多）的缩写，旨在通过更少的交互获得更友好方便的功能体验。为此我们做了很多创新大胆的设计，例如：打破常规的取消了局部变量、取消前后置计划、
+抛弃“先接口后用例”的传统自动化建设思想，甚至取消了“登录”。你是否会疑问，这群Diao毛去掉了这些还如何高效的开展自动化？
+那还在等什么？赶快进入Lim的世界，体验“Less is More”的接口测试吧！
+我们知道，市面上的接口测试平台有很多，但Lim会给你更棒的体验！
+使用Lim，您不需要成为测试专家；你所需要的只是简单了解事情是如何运作的，我们的系统将负责其余的工作。那么你还在等什么呢？立即试用我们的自动测试平台，简化您的生活。
+在线体验：
+功能特点：
+使用文档：
+联系作者：
+#### 五步部署到linux
 
-#### 软件架构
-软件架构说明
+#### 快捷部署（windows）
+待维护
+#### 开发环境教程
 
-
-#### 安装教程
-
-1.  xxxx
+前端环境
+1.  安装yarn
 2.  xxxx
 3.  xxxx
 
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
 
 
-#### 特技
+后端环境
+1.  安装python3.9+
+2.  安装mysql5.7+
+3.  进入目录执行
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+
+ 
