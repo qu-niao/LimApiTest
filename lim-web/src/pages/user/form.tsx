@@ -54,20 +54,6 @@ const Form: React.FC<any> = ({ formData, ...props }) => {
           },
         ]}
       /> */}
-          <ProFormRadio.Group
-            name="is_superuser"
-            label="是否为管理员"
-            options={[
-              {
-                label: '是',
-                value: true,
-              },
-              {
-                label: '否',
-                value: false,
-              },
-            ]}
-          />
         </>
       }
     />

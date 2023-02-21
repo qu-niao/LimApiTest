@@ -461,7 +461,7 @@ class ApiCasesActuator:
             steps = params['steps']
         prefix_label += step['step_name'] + '-'
         res_status, res_data = SUCCESS, []
-        if for_times in ('true', True):
+        if for_times in ('true', True) and str(for_times) != '1':
             while True:
                 # 满足break条件的话则中止循环
                 if self.status == INTERRUPT or break_code and run_params_code(
@@ -474,6 +474,7 @@ class ApiCasesActuator:
                 if run_status == FAILED:
                     res_status = FAILED
         else:
+            print('f', for_times)
             for _ in range(for_times):
                 # 满足break条件的话则中止循环
                 if self.status == INTERRUPT or break_code and run_params_code(
