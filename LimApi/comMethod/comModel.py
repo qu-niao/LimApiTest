@@ -18,7 +18,7 @@ class ComModuleModel(models.Model):
     """
     id = models.CharField(max_length=12, primary_key=True)
     name = models.CharField(max_length=100, verbose_name="模块名称")
-    parent = models.ForeignKey(to='self', verbose_name="父模块", null=True, on_delete=models.DO_NOTHING)
+    parent = models.ForeignKey(to='self', verbose_name="父模块", null=True, on_delete=models.CASCADE)
     module_related = models.JSONField(default=[], verbose_name="所属模块级联关系（父子级）")
 
     class Meta:
