@@ -74,9 +74,7 @@ export const NotiUserParams: React.FC<any> = ({
   projectCand,
   open,
   setOpen,
-}: any) => {
-  console.log('lay', layoutRef);
-  const [caseOpen, setCaseOpen] = useState<boolean>(false);
+}: any) => {  const [caseOpen, setCaseOpen] = useState<boolean>(false);
   const [caseFormData, setCaseFormData] = useState<any>({});
   const [treeCaseModuleData, setTreeCaseModuleData] = useState<any[]>([]);
   const setUserCfgFunc = (params: object) => {

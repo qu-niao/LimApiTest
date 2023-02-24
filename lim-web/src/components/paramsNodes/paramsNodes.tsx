@@ -15,7 +15,16 @@ import { paramsJsonToTable, paramsTableToJson } from './func';
 import JsonEditor from '@/components/JsonEditor';
 import { CodeEditNode } from '@/components/codeEdit';
 import { paramsColumns, paramsFormDataColumns } from './columns';
-import { TABLE_MODE, JSON_MODE, TEXT_MODE, CODE_MODE, FORM_MODE } from '@/utils/constant';
+import {
+  TABLE_MODE,
+  JSON_MODE,
+  TEXT_MODE,
+  CODE_MODE,
+  FORM_MODE,
+  DIY_FUNC_RES_VAR_LABEL,
+  DIY_FUNC_VAR_TIPS,
+  DIY_FUNC_RES_TIPS,
+} from '@/utils/constant';
 export const ParamsNodes = ({
   formRef,
   type,
@@ -143,14 +152,25 @@ export const ParamsNodes = ({
         break;
       case CODE_MODE:
         let tips = '';
+        const res_var_tips = DIY_FUNC_VAR_TIPS + DIY_FUNC_RES_TIPS;
         switch (type) {
           case 'expect':
             tips =
-              '# 说明：response无值时代表失败，否则成功，具体规则点击上方规则说明获取，示例如下：\nif not response:\n\treturn False';
+              '# ' +
+              res_var_tips +
+              "\n# return返回值为False=失败，True=成功；为False时，可携带第二个返回值，值为错误原因，如下所示：\nif  response['code']!=200:\n\treturn False,'响应结果的code不为200！'";
+            break;
+          case 'output':
+            tips =
+              '# ' +
+              res_var_tips +
+              "\n# return返回值必须为一个字典，会将其返回的字典更新到全局变量中，如下方示例会将code加入/覆盖到全局变量中：\nreturn {'code':response['code']}";
             break;
           case 'body':
             tips =
-              "# 说明：会将return返回值作为body参数，示例如下：\nimport json \nreturn json.dumps({'a':1,'b':2})";
+              '# ' +
+              DIY_FUNC_VAR_TIPS +
+              "\n# 会将return返回值作为body参数，如下方示例则会将{'a':1,'b':2}作为body参数传递：\nimport json \nreturn json.dumps({'a':1,'b':2})";
         }
         const paramName = `${type}_source`;
         const codeValue = formRef.current?.getFieldValue(paramName);

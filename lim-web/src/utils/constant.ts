@@ -67,6 +67,8 @@ export const PARAM_TYPE_LABEL = [
     label: 'PATCH',
   },
 ];
+export const DIY_FUNC_RES_TIPS = "response=响应结果，response['code']等于取响应结果中code字段的值；";
+export const DIY_FUNC_VAR_TIPS = "var=全局变量，var['name']等于取变量名为name的值；";
 //---文字文本-----
 export const DELETE_CONFIRM_TIP = '您确定要删除吗？';
 

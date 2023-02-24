@@ -75,7 +75,6 @@ export const LimStandardPage = ({
       {open && (
         <Form
           formRef={formRef}
-          onFinishService={reqService}
           open={open}
           setOpen={setOpen}
           formData={formData}

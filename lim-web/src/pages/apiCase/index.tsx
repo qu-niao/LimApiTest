@@ -21,7 +21,7 @@ import { getSelectRowLabel, tableRowOnSelect, tableRowOnSelectAll } from '@/util
 import { LimStandardPage } from '@/components/limStandardPage';
 import { runEnvirSelPopconfirm } from './components';
 import Input from 'antd/lib/input';
-var LOADING_LABAL = '任务执行中...';
+
 const ApiCase: React.FC = () => {
   const { layoutRef } = useContext(layoutContext);
   const pageRef = useRef<any>();
@@ -39,6 +39,7 @@ const ApiCase: React.FC = () => {
   const [selectedOpen, setSelectedOpen] = useState(false);
   const [mergeCaseName, setMergeCaseName] = useState<string>('');
   const [currentMod, setCurrentMod] = useState<any>({});
+  const [loadingLabel, setLoadingLabel] = useState<string>('执行中...');
   useEffect(() => {
     paramType().then((res) => setParamTypeCand(res.results));
     projectView(GET).then((res) => setProjectCand(res.results));
@@ -50,13 +51,14 @@ const ApiCase: React.FC = () => {
   }));
   const showForm = async (type: string, values: any = {}) => {
     if (type == PATCH) {
-      LOADING_LABAL = '弹窗数据加载中...';
+      setLoadingLabel('弹窗数据加载中...');
       setLoading(true);
       await caseView(GET, values.id).then((res) => {
         values = res.results;
         setLoading(false);
       });
-      LOADING_LABAL = '任务执行中...';
+    } else {
+      values['module_related'] = currentMod.module_related || [];
     }
     values['formType'] = type;
     setFormData({ ...values });
@@ -77,9 +79,9 @@ const ApiCase: React.FC = () => {
       pageRef.current.tableRef.current.onRefresh(formType);
     });
   };
-
-  const runCase = (caseId: any = null) => {
-    //case_id可以是单个用例，也可以是多个用例（数组）
+  //case_id可以是单个用例，也可以是多个用例（数组）
+  const runCase = (caseId: any[] | null | number = null) => {
+    setLoadingLabel('执行中...');
     setLoading(true);
     runApiCases({
       case: caseId ? [caseId] : selectedCases.map((item: any) => item.id),
@@ -127,7 +129,7 @@ const ApiCase: React.FC = () => {
 
   return (
     <Spin
-      tip={<span style={{ fontWeight: 'bold' }}>{LOADING_LABAL}</span>}
+      tip={<span style={{ fontWeight: 'bold' }}>{loadingLabel}</span>}
       indicator={<LoadingOutlined />}
       spinning={loading}
     >
@@ -135,7 +137,6 @@ const ApiCase: React.FC = () => {
         pageRef={pageRef}
         showForm={showForm}
         reqService={caseView}
-        tableVisable={envirCand.length}
         tableProps={{
           size: 'small',
           scroll: { y: `calc(100vh - ${selectedCases.length ? '430' : '360'}px)`, x: '1350px' },
@@ -152,7 +153,7 @@ const ApiCase: React.FC = () => {
             </>
           ),
           manualRequest: true,
-          optionRefresh: [envir, copyLoadings, mergeCaseName],
+          optionRefresh: [envir, copyLoadings, mergeCaseName, currentMod],
           optionRender: (dom: any, record: any) => {
             return [
               runEnvirSelPopconfirm(

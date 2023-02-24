@@ -1,8 +1,8 @@
 import { getIndexStatistics } from '@/services/project';
-import { Spin, Card, Layout, Col, Row, Skeleton, Tooltip } from 'antd';
+import { Spin, Card, Layout, Col, Row, Skeleton, Tooltip, Button, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { PieChart } from './statisticCharts';
+import { RingChart } from './statisticCharts';
 import { InfoCircleOutlined } from '@ant-design/icons';
 const { Footer } = Layout;
 
@@ -73,7 +73,13 @@ const Index: React.FC = () => {
                 {loading ? (
                   <Skeleton paragraph={{ rows: 7 }} />
                 ) : (
-                  <PieChart data={data.api_data || []} content="接口" />
+                  <RingChart
+                    data={data.api_data || []}
+                    content="接口统计"
+                    color={{
+                      color: ['#62DAAB', '#F6C022', '#657798', '#7666F9', '#74CBED', '#6395F9'],
+                    }}
+                  />
                 )}
               </Card>
             </Col>
@@ -82,7 +88,7 @@ const Index: React.FC = () => {
                 {loading ? (
                   <Skeleton paragraph={{ rows: 7 }} />
                 ) : (
-                  <PieChart data={data.case_data || []} content="用例" />
+                  <RingChart data={data.case_data || []} content="用例统计" />
                 )}
               </Card>
             </Col>
@@ -90,17 +96,42 @@ const Index: React.FC = () => {
         </Col>
         <Col span={6}>
           {' '}
-          <Card
-            title={<p style={{ fontWeight: 'bold' }}>Lim测试平台 简介</p>}
-            bordered={false}
-            style={{ height: '100%' }}
-          ></Card>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <p style={{ fontWeight: 'bold' }}>Lim测试平台 简介</p>
+            Lim是Less is
+            More（少即是多）的缩写，如它的名字一样我们希望用户在开展接口测试时所需的操作更少，但建设效率更高、实现的功能更多。
+            因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的
+            传统建设思想，甚至还取消了“登录”！
+            <br />
+            你是否会疑问：这群Diao毛去掉了这些还如何高效的开展接口测试？
+            <br />
+            那还在等什么？赶快进入Lim的世界，体验简单又高效的接口测试吧！
+            <Divider />
+            使用文档：<a>点我访问</a>
+            <br />
+            作者微信：qu-niao
+            <br />
+            作者主页：
+            <a target="_blank" href="https://quniao.blog.csdn.net/">
+              <img
+                style={{ marginBottom: 4 }}
+                src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-CSDN-FC5531"
+                alt="曲鸟-CSDN"
+              />
+            </a>
+            <a target="_blank" href="https://www.zhihu.com/people/qing-ci-64-16">
+              <img
+                style={{ marginBottom: 4, marginLeft: 3 }}
+                src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-%E7%9F%A5%E4%B9%8E-blue"
+                alt="曲鸟-知乎"
+              />
+            </a>
+          </Card>
         </Col>
       </Row>
       <Footer style={{ textAlign: 'center', backgroundColor: '#F5F5F5' }}>
-        Lim接口测试平台 ©2023 作者：
-        
-        <a href="https://quniao.blog.csdn.net/">
+        Lim接口测试平台v1.0 ©2023 作者：曲鸟
+        {/* <a href="https://quniao.blog.csdn.net/">
           <img
             style={{ marginBottom: 4 }}
             src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-CSDN-FC5531"
@@ -113,7 +144,7 @@ const Index: React.FC = () => {
             src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-%E7%9F%A5%E4%B9%8E-blue"
             alt="曲鸟-知乎"
           />
-        </a>
+        </a> */}
       </Footer>
     </>
   );

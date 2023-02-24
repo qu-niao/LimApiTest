@@ -135,8 +135,7 @@ class ApiCasesActuator:
                         out_data[out_name] = res_v
                         self.params_source[VAR_PARAM][out_name] = {
                             'name': out_name, 'value': res_v, 'step_name': prefix_label + step_name,
-                            'type': VAR_PARAM,
-                            'param_type_id': PY_TO_CONF_TYPE.get(str(type(res_v)), STRING),
+                            'type': VAR_PARAM, 'param_type_id': PY_TO_CONF_TYPE.get(str(type(res_v)), STRING),
                             **self.base_params_source}
             else:  # 代码模式
                 res = run_params_code(output, response, self.default_var, i)

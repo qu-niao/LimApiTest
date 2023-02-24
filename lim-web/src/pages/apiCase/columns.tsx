@@ -175,7 +175,7 @@ export const stepColumns = (
           ) : null}
           {(controller_data && record.retried_times && (
             <Tag color="purple" style={{ marginBottom: 6 }}>
-              重试执行{record.retried_times}次
+              重试{record.retried_times}次
             </Tag>
           )) ||
             null}

@@ -63,7 +63,6 @@ const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const onDoubleClickFn = onDoubleClick();
 export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, formData, formRef }: any) => {
-  console.log('form', formData);
   const editorFormRefs = {
     header: useRef(),
     query: useRef(),

@@ -28,7 +28,7 @@
     "@types/jsoneditor": "9.5.1",
     "@types/lodash": "^4.14.191",
     "@uiw/react-codemirror": "^4.15.1",
-    "antd": "4.24.7",
+    "antd": "4.24.8",
     "jsoneditor": "9.9.0",
     "lodash": "^4.17.21",
     "react": "18.x",

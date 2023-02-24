@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Col, Skeleton, Button, Badge, Row } from 'antd';
+import { useState, useEffect } from 'react';
+import { Card, Col, Skeleton, Button, Row } from 'antd';
 import { Overview } from './cardContent';
 import { projectOverView } from '@/services/project';
 import ApiData from '../apiData';
 import './index.css';
 export const ProjectOverview = ({ type }: any) => {
-  const [cardItems, setcardItems] = useState<any>([]);
+  const [cardItems, setcardItems] = useState<any>(null);
   const [curProjData, setCurProjData] = useState<any>(null);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const ProjectOverview = ({ type }: any) => {
         </>
       ) : (
         <Row gutter={[16, 16]} style={{ minHeight: 300 }}>
-          {cardItems.length ? cardItems : <Skeleton paragraph={{ rows: 8 }} />}
+          {cardItems ? cardItems : <Skeleton paragraph={{ rows: 8 }} />}
         </Row>
       )}
     </>

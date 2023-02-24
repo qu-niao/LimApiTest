@@ -6,7 +6,7 @@ import { Link } from 'umi';
 import { envirView, paramType } from '@/services/conf';
 import { GET } from '@/utils/constant';
 import layoutContext from './context';
-import { Button, Tooltip, Popover } from 'antd';
+import { Button, Tooltip, Popover, message } from 'antd';
 import { SolutionOutlined, GithubOutlined } from '@ant-design/icons';
 import RightContent from '@/components/RightContent';
 import './index.css';
@@ -42,7 +42,7 @@ const BasicLayout: React.FC<{}> = (props: any) => {
       pageTitleRender={false}
       headerContentRender={() => (
         <span>
-          使用中遇到疑问？请访问项目仓库提出你的问题：
+          使用中遇到疑问？请访问项目仓库提出来：
           <Tooltip title="Gitee(国内用户推荐)">
             <Button
               icon={
@@ -59,12 +59,15 @@ const BasicLayout: React.FC<{}> = (props: any) => {
                   ></path>
                 </svg>
               }
+              target="_blank"
+              onClick={() => window.open('https://gitee.com/qu-niao/LessIsMore')}
             />
           </Tooltip>
           <Tooltip title="Github">
             <Button
               style={{ marginLeft: 8, position: 'relative', top: 2.6 }}
               icon={<GithubOutlined style={{ fontSize: 20 }} />}
+              onClick={() => message.warning('待维护...')}
             />
           </Tooltip>
         </span>

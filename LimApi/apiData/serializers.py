@@ -1,10 +1,7 @@
-import re
-
 from rest_framework import serializers
 
 from apiData.models import ApiCaseModule, ApiCase, ApiModule, ApiCaseStep, ApiForeachStep
 from apiData.viewDef import set_foreach_tree
-from comMethod.comDef import json_dumps
 from comMethod.comSerializers import ComEditUserNameSerializer
 from comMethod.constant import API_FOREACH, API
 

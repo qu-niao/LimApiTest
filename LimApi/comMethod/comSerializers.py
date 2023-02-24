@@ -5,13 +5,5 @@ class ComEditUserNameSerializer(serializers.ModelSerializer):
     """
     公共创建/修改用户名返回序列化器
     """
-    creater_name = serializers.SerializerMethodField()
-    updater_name = serializers.SerializerMethodField()
-
-    def get_creater_name(self, obj):
-        return obj.creater.last_name + obj.creater.first_name
-
-    def get_updater_name(self, obj):
-        if obj.updater:
-            return obj.updater.last_name + obj.updater.first_name
-        return '-'
+    creater_name = serializers.CharField(source='creater.real_name', read_only=True)
+    updater_name = serializers.CharField(source='updater.real_name', allow_null=True, read_only=True)

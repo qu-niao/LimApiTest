@@ -16,6 +16,8 @@ import {
   API_SQL,
   API_VAR,
   DIY_CFG,
+  DIY_FUNC_RES_VAR_LABEL,
+  DIY_FUNC_VAR_TIPS,
   GET,
   MYSQL,
   POST,
@@ -222,7 +224,12 @@ export const ControllerForm = ({ stepFormState, tableState, ...props }: any) => 
               </h3>
               <ProFormItem name="execute_on">
                 <CodeEditNode
-                  initValue={controller_data?.execute_on || null}
+                  initValue={
+                    controller_data?.execute_on ||
+                    '# ' +
+                      DIY_FUNC_VAR_TIPS +
+                      '\n# return=True时会执行该步骤，False时则跳过，如下方示例则会跳过执行：\nreturn False'
+                  }
                   onChangeFunc={(value: string) => {
                     formRef.current.setFieldsValue({ execute_on: value });
                   }}
