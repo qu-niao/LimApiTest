@@ -31,7 +31,7 @@ export const RingChart = ({ data, content, color = null }: any) => {
       },
     },
   };
-  return <Pie {...config} style={{ height: 'calc(100vh - 420px)' }} />;
+  return <Pie {...config} style={{ height: 'calc(100vh - 430px)' }} />;
 };
 export const ColumnChart = ({ data }: any) => {
   const config: any = {

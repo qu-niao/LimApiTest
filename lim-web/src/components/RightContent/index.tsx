@@ -52,6 +52,7 @@ const GlobalHeaderRight: React.FC = () => {
         localStorage.setItem('token', res.results.token);
         localStorage.setItem('userInfo', JSON.stringify(res.results.user_info));
         setUsername(res.results.user_info.name);
+        message.success('登录成功！');
         Modal.destroyAll();
       });
     },

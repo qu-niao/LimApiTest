@@ -1,11 +1,23 @@
 import { getIndexStatistics } from '@/services/project';
-import { Spin, Card, Layout, Col, Row, Skeleton, Tooltip, Button, Divider } from 'antd';
+import { Empty, Card, Layout, Col, Row, Skeleton, Tooltip, Button, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
+import { UnorderedListOutlined } from '@ant-design/icons';
 import { RingChart } from './statisticCharts';
 import { InfoCircleOutlined } from '@ant-design/icons';
 const { Footer } = Layout;
-
+const EmptyComponents = () => (
+  <div
+    style={{
+      height: 'calc(100vh - 430px)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    {' '}
+    <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+  </div>
+);
 const Index: React.FC = () => {
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(true);
@@ -15,6 +27,7 @@ const Index: React.FC = () => {
       setLoading(false);
     });
   }, []);
+
   const STATIC_MAP = [
     {
       name: '项目总数',
@@ -69,26 +82,50 @@ const Index: React.FC = () => {
           </Row>
           <Row gutter={24} style={{ paddingTop: 16 }}>
             <Col span={12}>
-              <Card title={<p style={{ fontWeight: 'bold' }}>各项目接口数量统计</p>} bordered={false}>
+              <Card
+                title={
+                  <p style={{ fontWeight: 'bold' }}>
+                    各项目接口数量统计{' '}
+                    <UnorderedListOutlined
+                      style={{ position: 'absolute', right: 24, top: 20, fontSize: 24 }}
+                    />
+                  </p>
+                }
+                bordered={false}
+              >
                 {loading ? (
                   <Skeleton paragraph={{ rows: 7 }} />
-                ) : (
+                ) : data.api_data.length ? (
                   <RingChart
-                    data={data.api_data || []}
+                    data={data.api_data}
                     content="接口统计"
                     color={{
                       color: ['#62DAAB', '#F6C022', '#657798', '#7666F9', '#74CBED', '#6395F9'],
                     }}
                   />
+                ) : (
+                  <EmptyComponents />
                 )}
               </Card>
             </Col>
             <Col span={12}>
-              <Card title={<p style={{ fontWeight: 'bold' }}>各用户用例数量统计</p>} bordered={false}>
+              <Card
+                title={
+                  <p style={{ fontWeight: 'bold' }}>
+                    各用户用例数量统计{' '}
+                    <UnorderedListOutlined
+                      style={{ position: 'absolute', right: 24, top: 20, fontSize: 24 }}
+                    />
+                  </p>
+                }
+                bordered={false}
+              >
                 {loading ? (
                   <Skeleton paragraph={{ rows: 7 }} />
+                ) : data.case_data.length ? (
+                  <RingChart data={data.case_data} content="用例统计" />
                 ) : (
-                  <RingChart data={data.case_data || []} content="用例统计" />
+                  <EmptyComponents />
                 )}
               </Card>
             </Col>
@@ -97,19 +134,21 @@ const Index: React.FC = () => {
         <Col span={6}>
           {' '}
           <Card bordered={false} style={{ height: '100%' }}>
-            <p style={{ fontWeight: 'bold' }}>Lim测试平台 简介</p>
+            <h3 style={{ fontWeight: 'bold' }}>Lim测试平台 简介</h3>
             Lim是Less is
             More（少即是多）的缩写，如它的名字一样我们希望用户在开展接口测试时所需的操作更少，但建设效率更高、实现的功能更多。
-            因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的
-            传统建设思想，甚至还取消了“登录”！
+            因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的传统建设思想，甚至还取消了“登录”！
             <br />
             你是否会疑问：这群Diao毛去掉了这些还如何高效的开展接口测试？
             <br />
             那还在等什么？赶快进入Lim的世界，体验简单又高效的接口测试吧！
             <Divider />
-            使用文档：<a>点我访问</a>
+            使用文档：
+            <a style={{ fontWeight: 'bold' }} target="_blank" href="https://gitee.com/qu-niao/LessIsMore">
+              点我访问
+            </a>
             <br />
-            作者微信：qu-niao
+            作者微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
             <br />
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/">
