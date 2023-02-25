@@ -170,20 +170,6 @@ const Index: React.FC = () => {
       </Row>
       <Footer style={{ textAlign: 'center', backgroundColor: '#F5F5F5' }}>
         Lim接口测试平台v1.0 ©2023 作者：曲鸟
-        {/* <a href="https://quniao.blog.csdn.net/">
-          <img
-            style={{ marginBottom: 4 }}
-            src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-CSDN-FC5531"
-            alt="曲鸟-CSDN"
-          />
-        </a>
-        <a href="https://www.zhihu.com/people/qing-ci-64-16">
-          <img
-            style={{ marginBottom: 4, marginLeft: 3 }}
-            src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-%E7%9F%A5%E4%B9%8E-blue"
-            alt="曲鸟-知乎"
-          />
-        </a> */}
       </Footer>
     </>
   );
