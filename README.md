@@ -15,10 +15,10 @@ Lim是Less is More（少即是多）的缩写，如它的名字一样我们希�
 #### 快速上手：
 #### 联系作者：
 ### 部署教程
-#### 1）五大步部署到Linux(确保8001、8003端口未被占用）
+#### 1）部署到Linux(会默认占用8001、8003端口）
 1. 下载项目代码到你的Linux服务器（使用git或直接下载压缩包）;
-2. 安装Python3.9+ 参考教程：[Linux五大步安装Python](Pythonhttps://quniao.blog.csdn.net/article/details/120823163);
-3. 安装Mysql5.7+ 参考教程：[linux安装指定版本mysql教程-简易版](https://quniao.blog.csdn.net/article/details/119541983);
+2. 安装Python3.9+ 参考教程：[（Centos）Linux五大步安装Python](Pythonhttps://quniao.blog.csdn.net/article/details/120823163);
+3. 安装Mysql5.7+ 参考教程：[（Centos）linux安装指定版本mysql教程-简易版](https://quniao.blog.csdn.net/article/details/119541983)（有数据库可修改LimApi/settings.py中的ENVIR项）;
 4. 部署前端：
 进入项目下的dist目录，执行:`nohup python3 -m http.server 80 &` （如果80端口被占用可切换为其他端口，例如：81） 
 执行完成后访问对应服务器地址即可访问前端页面;

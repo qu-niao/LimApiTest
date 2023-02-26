@@ -116,15 +116,10 @@ WSGI_APPLICATION = 'LimApi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# ENVIR = {
-#     'NAME': 'lim-db',
-#     'USER': 'root',
-#     'PASSWORD': '123456',
-#     'HOST': '127.0.0.1',
-#     'PORT': '3306'
-# }
+
 AUTHORIZE_API = ('/user/user-cfg-params',)
 NO_AUTHORIZE_API = ('/user/login',)
+# 数据库配置
 ENVIR = {
     'NAME': 'lim-db',
     'USER': 'root',

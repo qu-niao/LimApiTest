@@ -1,7 +1,6 @@
 import { RequestConfig } from 'umi';
-import { message, Modal, Form, Input, notification } from 'antd';
+import { message, notification } from 'antd';
 import '@/utils/drag'; //拖拽
-import { login } from './services/user';
 import { HOST_SERVER } from '@/utils/constant';
 
 message.config({

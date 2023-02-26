@@ -473,7 +473,6 @@ class ApiCasesActuator:
                 if run_status == FAILED:
                     res_status = FAILED
         else:
-            print('f', for_times)
             for _ in range(for_times):
                 # 满足break条件的话则中止循环
                 if self.status == INTERRUPT or break_code and run_params_code(
