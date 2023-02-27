@@ -16,7 +16,7 @@ def put_file(request):
     my_file = request.FILES.get('file')
     appoint_dir = request.data.get('path', '')  # appoint_dir=/XXXX
     timestamp_str = '' if request.data.get('no_timestamp') else str(round(time.time() * 1000))
-    file_dir_path = 'FileData' + appoint_dir
+    file_dir_path = '../FileData' + appoint_dir
     file_name, file_type = os.path.splitext(my_file.name)
     file_name = file_name + timestamp_str + file_type
     file_path = file_dir_path + '/' + file_name
