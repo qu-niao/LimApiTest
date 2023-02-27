@@ -9,6 +9,7 @@ import pymysql
 import redis
 from django.db.models import Max, Q
 from pymysql import OperationalError
+from pymysql.constants.CLIENT import MULTI_STATEMENTS
 from pymysql.cursors import DictCursor
 
 from sshtunnel import SSHTunnelForwarder
@@ -74,7 +75,7 @@ def db_connect(data):
             db_port, db_host = ssh_server.local_bind_port, '127.0.0.1'
         if (db_type := data['db_type']) == MYSQL:
             connect_data = {'host': db_host, 'user': data['db_user'], 'passwd': data['db_pwd'], 'port': db_port,
-                            'cursorclass': DictCursor, 'charset': 'utf8'}
+                            'cursorclass': DictCursor, 'charset': 'utf8', 'client_flag': MULTI_STATEMENTS}
             if 'db_database' in data:
                 connect_data['database'] = data['db_database']
             db_con = pymysql.connect(**connect_data).cursor()
@@ -93,7 +94,7 @@ def get_proj_envir_db_data(sql_proj_related, user_id=None, envir=None):
     """
     获取项目环境下的数据库参数
     """
-    envir = envir or UserCfg.objects.filter(user_id=user_id).values_list('envir_id', flat=True).first()
+    envir = envir or UserCfg.objects.filter(user_id=user_id).values_list('envir_id', flat=True).first() or 1
     project_id, db_name = sql_proj_related
     envir_data = ProjectEnvirData.objects.filter(
         project_id=project_id, envir_id=envir).values_list('data', flat=True).first() or {}

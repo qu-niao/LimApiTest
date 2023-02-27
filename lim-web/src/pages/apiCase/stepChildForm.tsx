@@ -240,8 +240,13 @@ export const SqlForm = ({ formRef, formData }: any) => {
     }
   }, []);
   const sendSql = () => {
+    const sqlData = formRef.current.getFieldsValue();
+    if (!sqlData.sql || !sqlData.sql_proj_related.length) {
+      message.error('请完善必填项！');
+      return;
+    }
     setSqlLoading(true);
-    runSql(formRef.current.getFieldsValue()).then(
+    runSql(sqlData).then(
       (res) => {
         const resData = res?.results || {};
         setSqlLoading(false);
@@ -300,7 +305,7 @@ export const SqlForm = ({ formRef, formData }: any) => {
           }}
         />
         <ProFormText
-          width={100}
+          width={160}
           name="sql_var"
           allowClear={false}
           fieldProps={
@@ -319,7 +324,7 @@ export const SqlForm = ({ formRef, formData }: any) => {
             { type: 'string' },
           ]}
           label="输出变量名"
-          placeholder="请输入输出变量名"
+          placeholder="请输入"
         />
       </ProFormGroup>
       <ProFormGroup>
@@ -568,10 +573,7 @@ export const ForEachStepForm = ({ childRef, formRef, formData }: any) => {
           width={180}
           allowClear={false}
           name="times"
-          rules={[
-   
-            { required: true, message: '该项必填！' },
-          ]}
+          rules={[{ required: true, message: '该项必填！' }]}
           label="循环次数（可以是数字或变量，如果值为true则等于while循环）"
           placeholder="请输入"
         />
