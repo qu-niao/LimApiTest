@@ -1,4 +1,5 @@
 
+
 # Lim接口测试平台
 
 ### 介绍
@@ -14,39 +15,32 @@ Lim是Less is More（少即是多）的缩写，如它的名字一样我们希�
 3. 支持Python代码
 #### 三分钟快速上手教程：[点我访问](https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf)
 #### 答疑、定制化开发+微信：qu-niao
-### 部署教程
-#### 1）部署到Linux(会默认占用8001、8003端口）
-1. 下载项目代码到你的Linux服务器（使用git或直接下载压缩包）;
-2. 安装Python3.9+ 参考教程：[（Centos）Linux五大步安装Python](Pythonhttps://quniao.blog.csdn.net/article/details/120823163);
-3. 安装Mysql5.7+ 参考教程：[（Centos）linux安装指定版本mysql教程-简易版](https://quniao.blog.csdn.net/article/details/119541983)（有数据库可修改LimApi/settings.py中的ENVIR项）;
-4. 部署前端：
-进入项目下的dist目录，执行:`nohup python3 -m http.server 80 &` （如果80端口被占用可切换为其他端口，例如：81） 
-执行完成后访问对应服务器地址即可访问前端页面;
-5. 部署后端：<br>
-1）进入项目下的LimApi目录;<br>
-2）执行依赖包安装命令：`pip3 install -r requirement.txt -i https://mirrors.aliyun.com/pypi/simple`;<br>
-3）启动服务：`python3 -m gunicorn -w 6 -k gevent -t 180 -D  QNtest.wsgi -b 0.0.0.0:8001`; <br>
-4）进入FileData目录执行命令:`nohup python3 -m http.server 8003 &`;<br>
-
-**至此，不出意外的话，项目已部署成功！**
-
----
-#### 快捷部署（windows）
-待维护
-#### 开发环境教程
-
-前端环境
+### docker镜像
+制作中...
+### 开发环境搭建教程
+#### 前端环境
 1.  安装nodejs
 2.  安装yarn
 3.  进入项目中的lim-web目录执行：`yarn&&yarn start`
 
 ---
-后端环境
-1.  安装python3.9+;
-2.  安装mysql5.7+;
-3.  进入目录执行依赖包安装命令：`pip install -r requirement.txt -i https://mirrors.aliyun.com/pypi/simple`;
-4. 启动服务：`python manage.py runserver 0.0.0.0:8001`;
-5.（可选）如果不涉及文件上传的操作可不执行：进入FileData目录执行命令`python3 -m http.server 8003`;
+#### 后端环境
+1.  python3.9+;
+2.  mysql5.7+;
+3. 执行项目中的`init-db.sql`初始化数据库：
+4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirement.txt -i https://mirrors.aliyun.com/pypi/simple`;
+5. 修改`LimApi/LimApi/settings.py`文件的`DATABASES`数据库配置；
+6. 启动服务：`python manage.py runserver 0.0.0.0:8001`;
+7. （可选）如果不涉及文件上传的操作可不执行：新开cmd窗口进入FileData目录执行命令`python3 -m http.server 8003`;
+
+**注意：因为django默认启动为单线程模式，所以上述的部署方式无法进行并发操作（例：在用例执行的同时进行中断执行的操作）所以可以通过UWSGI来启动项目。对于Linux系统推荐`gunicorn`+`gevent`的方式部署，本项目中的`requirement.txt`已集成了这两个库，所以在linux服务器上将启动命令更换为：`python3 -m gunicorn -w 5 -k gevent -t 120 -D  LimApi.wsgi -b 0.0.0.0:8006` 即可。**
+
+
+
+
+
+
+
 
 
 

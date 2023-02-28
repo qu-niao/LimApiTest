@@ -21,7 +21,6 @@ import {
   TEXT_MODE,
   CODE_MODE,
   FORM_MODE,
-  DIY_FUNC_RES_VAR_LABEL,
   DIY_FUNC_VAR_TIPS,
   DIY_FUNC_RES_TIPS,
 } from '@/utils/constant';
@@ -171,6 +170,13 @@ export const ParamsNodes = ({
               '# ' +
               DIY_FUNC_VAR_TIPS +
               "\n# 会将return返回值作为body参数，如下方示例则会将{'a':1,'b':2}作为body参数传递：\nimport json \nreturn json.dumps({'a':1,'b':2})";
+            break;
+          default:
+            tips =
+              '# ' +
+              DIY_FUNC_VAR_TIPS +
+              "\n# return返回值必须为一个字典，会将其返回的字典更新到全局变量中，如下方示例会将code加入/覆盖到全局变量中：\nreturn {'code':123}";
+            break;
         }
         const paramName = `${type}_source`;
         const codeValue = formRef.current?.getFieldValue(paramName);

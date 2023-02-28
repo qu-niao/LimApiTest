@@ -21,6 +21,10 @@ export default defineConfig({
       component: '@/pages/apiRelationCases',
     },
     {
+      path: '/apiCaseFormPage',
+      component: '@/pages/apiCaseFormPage',
+    },
+    {
       component: '@/limLayout',
       routes: [
         {
@@ -41,10 +45,7 @@ export default defineConfig({
           icon: 'case',
           component: '@/pages/apiCase',
         },
-        // {
-        //   path: '/apiData/data',
-        //   component: '@/pages/apiData',
-        // },
+
         // {
         //   path: '/apiData/apiOverview',
         //   component: '@/pages/projectOverview',

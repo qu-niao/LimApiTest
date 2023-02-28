@@ -117,15 +117,14 @@ WSGI_APPLICATION = 'LimApi.wsgi.application'
 AUTHORIZE_API = ('/user/user-cfg-params',)
 NO_AUTHORIZE_API = ('/user/login',)
 
-FILE_DIR_HOST = 'http://127.0.0.1:8003/'
+FILE_DIR_HOST = 'http://127.0.0.1:8003/'  # 用于获取上传的文件主机地址，部署时需要修改
 # 数据库配置
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lim-db',
         'USER': 'root',  # 需要替换
-        #'PASSWORD': 'Password2!',  # 需要替换
-        'PASSWORD': 'Qwe.159357',  # 需要替换
+        'PASSWORD': 'Password2!',  # 需要替换
         'HOST': '121.43.43.59',  # 需要替换
         'PORT': '3306',  # 需要替换
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB'}
