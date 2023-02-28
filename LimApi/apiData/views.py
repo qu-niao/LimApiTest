@@ -303,11 +303,13 @@ def search_case_by_api(request):
     """
     查询使用了指定接口的用例
     """
-    api_id = int(request.query_params['api_id'])
-    case_ids = list(ApiCaseStep.objects.filter(api_id=api_id).values_list('case_id', flat=True))
-    case_ids += list(ApiForeachStep.objects.filter(api_id=api_id).annotate(case_id=F('step__case_id')).values_list(
-        'case_id', flat=True))
-    serializer = ApiCaseListSerializer(
-        ApiCase.objects.filter(id__in=set(case_ids)), many=True, context={'request': request})
-    ser_data = serializer.data
-    return Response(data={'data': ser_data, 'total': len(ser_data)})
+    if 'api_id ' in request.query_params:
+        api_id = int(request.query_params['api_id'])
+        case_ids = list(ApiCaseStep.objects.filter(api_id=api_id).values_list('case_id', flat=True))
+        case_ids += list(ApiForeachStep.objects.filter(api_id=api_id).annotate(case_id=F('step__case_id')).values_list(
+            'case_id', flat=True))
+        serializer = ApiCaseListSerializer(
+            ApiCase.objects.filter(id__in=set(case_ids)), many=True, context={'request': request})
+        ser_data = serializer.data
+        return Response({'data': ser_data, 'total': len(ser_data)})
+    return Response({'data': {}})

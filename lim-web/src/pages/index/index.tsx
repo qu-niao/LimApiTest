@@ -143,12 +143,12 @@ const Index: React.FC = () => {
             <br />
             那还在等什么？赶快进入Lim的世界，体验简单又高效的接口测试吧！
             <Divider />
-            使用文档（必看！）：
+            三分钟上手文档（必看！）：
             <a style={{ fontWeight: 'bold' }} target="_blank" href="https://gitee.com/qu-niao/LessIsMore">
               点我访问
             </a>
             <br />
-            作者微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
+            答疑、定制化开发+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
             <br />
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/">

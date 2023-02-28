@@ -114,24 +114,19 @@ REST_FRAMEWORK = {
 }
 WSGI_APPLICATION = 'LimApi.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 AUTHORIZE_API = ('/user/user-cfg-params',)
 NO_AUTHORIZE_API = ('/user/login',)
-# 数据库配置
-ENVIR = {
-    'NAME': 'lim-db',
-    'USER': 'root',
-    'PASSWORD': 'Password2!',
-    'HOST': '121.43.43.59',
-    'PORT': '3306'
-}
+
 FILE_DIR_HOST = 'http://127.0.0.1:8003/'
+# 数据库配置
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        **ENVIR,
+        'NAME': 'lim-db',
+        'USER': 'root',
+        'PASSWORD': 'Password2!',
+        'HOST': '121.43.43.59',
+        'PORT': '3306',
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB'}
 
     }

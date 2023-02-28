@@ -20,8 +20,4 @@ class ConfParamType(ConfModel):
         ordering = ('position',)
 
 
-class ConfExpectRule(ConfModel):
-    class Meta:
-        verbose_name = '期望判断规则表'
-        db_table = 'conf_expect_rule'
-        ordering = ('position',)
+

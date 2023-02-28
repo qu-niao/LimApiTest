@@ -9,6 +9,7 @@ from urllib.parse import urlencode
 import requests
 from django.db.models import Max, F
 from django.db.models.functions import JSONObject
+from requests import ReadTimeout
 from rest_framework import status
 from rest_framework.response import Response
 
@@ -311,6 +312,12 @@ class ApiCasesActuator:
                 print('asd', req_log['body'])
             try:
                 r = requests.request(**req_params)
+            except IndexError as e:
+                req_log['results'] = results = self.api_process + str(e)
+            except KeyError as e:
+                req_log['results'] = results = self.api_process + '未找到key：' + str(e)
+            except (requests.exceptions.ConnectionError, ReadTimeout):
+                req_log['response'] = results = '请求超时！'
             except requests.exceptions.InvalidSchema:
                 req_log['results'] = results = '无效的请求地址！'
             except requests.exceptions.MissingSchema:
@@ -339,7 +346,6 @@ class ApiCasesActuator:
                             results = self.api_process + results
                 req_log.update({'url': r.url, 'res_header': dict(r.headers), 'response': response,
                                 'spend_time': spend_time, 'results': results})
-
         except Exception as e:
             print('api_error', str(e), e.__traceback__.tb_lineno)
             req_log['results'] = results = self.api_process + str(e)

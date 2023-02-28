@@ -5,7 +5,7 @@ import { LimModalForm } from '@/components/limModalForm';
 const Form: React.FC<any> = ({ formData, ...props }) => {
   return (
     <LimModalForm
-      title={formData.formType === POST ? '创建用户' : '修改用户'}
+      title={formData.formType === POST ? '创建用户（新用户初始密码为123456）' : '修改用户'}
       initialValues={{
         username: formData.username || null,
         real_name: formData.real_name || null,

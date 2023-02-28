@@ -28,12 +28,12 @@ def login(request):
         token = Token.objects.create(user=user)  # 创建新的token
         user_info = {'username': user.username, 'name': user.real_name}
         return Response(data={'msg': '登录成功！', 'token': token.key, 'user_info': user_info})  # 返回登录信息及token
-    return Response(data={'msg': '用户名或密码错误！'}, status=status.HTTP_403_FORBIDDEN)
+    return Response(data={'msg': '密码错误或该账号被禁用！'}, status=status.HTTP_403_FORBIDDEN)
 
 
 class UserView(LimView):
     serializer_class = UserSerializer
-    queryset = LimUser.objects.all().order_by('-date_joined')
+    queryset = LimUser.objects.all().order_by('date_joined')
     filterset_fields = ('is_active',)
 
     def post(self, request, *args, **kwargs):
@@ -41,6 +41,15 @@ class UserView(LimView):
         pwd = request.data.get('password', '123456')
         request.data['password'] = make_password(pwd)  # 调用内置生成密码方法进行加密
         return self.create(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        admin_user = LimUser.objects.get(username='admin')
+        if request.data['id'] == admin_user.id:
+            if request.data.get('username') and request.data['username'] != 'admin':
+                return Response({'msg': '不允许修改admin账号用户名！'}, status=status.HTTP_400_BAD_REQUEST)
+            elif 'is_active' in request.data and not request.data['is_active']:
+                return Response({'msg': '不能禁用admin账号！'}, status=status.HTTP_400_BAD_REQUEST)
+        return self.partial_update(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         return Response(data={'msg': "禁止删除用户！"}, status=status.HTTP_400_BAD_REQUEST)

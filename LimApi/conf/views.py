@@ -1,13 +1,14 @@
 from functools import lru_cache
 
 from django.db.models import Max
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from comMethod.paramsDef import get_params_type_func
 from comMethod.views import LimView
-from conf.models import ConfEnvir, ConfExpectRule
-from conf.serializers import EnvirSerializer, ExpectRuleSerializer
+from conf.models import ConfEnvir
+from conf.serializers import EnvirSerializer
 
 
 class EnvirView(LimView):
@@ -18,6 +19,12 @@ class EnvirView(LimView):
         max_id = (ConfEnvir.objects.aggregate(Max('position')).get('position__max') or 0)
         request.data['position'] = max_id + 1
         return self.create(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        envir_count = ConfEnvir.objects.count()
+        if envir_count == 1:
+            return Response({'msg': '必须保留至少一个环境！'}, status=status.HTTP_400_BAD_REQUEST)
+        return self.destroy(request, *args, **kwargs)
 
 
 @api_view(['POST'])
@@ -41,17 +48,6 @@ def change_envir_position(request):
 @api_view(['GET'])
 def get_param_type(request):
     """
-    登录接口
+    获取参数类型字典
     """
     return Response(data=get_params_type_func())
-
-
-class ExpectRuleView(LimView):
-    serializer_class = ExpectRuleSerializer
-    queryset = ConfExpectRule.objects.all()
-
-    @lru_cache
-    def get(self, request, *args, **kwargs):
-        if request.query_params.get('id'):
-            return self.retrieve(request, *args, **kwargs)
-        return self.list(request, *args, **kwargs)

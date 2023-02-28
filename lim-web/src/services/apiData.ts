@@ -67,6 +67,6 @@ export function testApiData(params: object) {
 export function searchCaseByApi(_: string, params: object) {
   return request<any>(PREFIX + 'search-case-by-api', { params });
 }
-export function ExpectRuleView(type: string, params: number | object = {}) {
-  return limRequest(PREFIX + 'expect-rule-view', params, type);
-}
+// export function ExpectRuleView(type: string, params: number | object = {}) {
+//   return limRequest(PREFIX + 'expect-rule-view', params, type);
+// }

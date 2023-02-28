@@ -117,3 +117,11 @@ export function onDoubleClick() {
     }, 300);
   };
 }
+//增加视窗变化的监听函数
+export const addVisChangeListener = (func: any) => {
+  window.addEventListener('visibilitychange', func);
+};
+//移除视窗变化的监听函数
+export const removeVisChangeListener = (func: any) => {
+  window.removeEventListener('visibilitychange', func);
+};

@@ -155,5 +155,5 @@ export const EXPECT_RULE_LABEL = [
   { id: NOT_EQUAL, name: '不等于' },
   { id: CONTAIN, name: '包含' },
   { id: NOT_CONTAIN, name: '不包含' },
-  { id: HAVE_KEY, name: '字段存在' },
+  { id: HAVE_KEY, name: '字段存在即可' },
 ];

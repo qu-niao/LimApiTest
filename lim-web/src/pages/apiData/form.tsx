@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle, useContext } from 'react';
+import React, { useState, useRef, useImperativeHandle, useContext, useCallback, useEffect } from 'react';
 import { unstable_batchedUpdates } from 'react-dom'; //批量更新状态时使用
 import {
   Modal,
@@ -56,13 +56,14 @@ import { apiDataView, searchApi, testApiData } from '@/services/apiData';
 import { DiyFormText } from '@/components/diyAntdPomponent';
 import { ParamsNodes } from '@/components/paramsNodes/paramsNodes';
 import JsonView from '@/components/jsonView';
-import { onDoubleClick } from '@/utils/utils';
+import { addVisChangeListener, onDoubleClick, removeVisChangeListener } from '@/utils/utils';
 import { parseCascaderJson } from '@/components/paramsNodes/func';
 import ApiRelationCases from '../apiRelationCases';
+import { projectView } from '@/services/project';
 const { TabPane } = Tabs;
 const { Panel } = Collapse;
 const onDoubleClickFn = onDoubleClick();
-export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, formData, formRef }: any) => {
+export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
   const editorFormRefs = {
     header: useRef(),
     query: useRef(),
@@ -79,6 +80,7 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
   const [reqLog, setReqLog] = useState<any>(formData?.results?.request_log || {});
   const [currentTabs, setCurrentTabs] = useState<string>('header');
   const [relationOpen, setrelationOpen] = useState<boolean>(false);
+  const [curProjCand, setCurProjCand] = useState<any[]>(projectCand || []);
   const [paramEditableKeys, setParamEditableKeys] = useState<object>(() => {
     let _json = {};
     ['header', 'query', 'body', 'expect', 'output'].forEach((type) => {
@@ -96,6 +98,20 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
     output_mode: params['output_mode'] || TABLE_MODE,
   });
   const [parmsType, setParmsType] = useState<any>({}); //antdpro官方有BUG，不得不这样做2023年1月27日 00:28:12
+  const reqProjData = useCallback(() => {
+    if (!window.document.hidden) {
+      //页面显示的时候执行
+      projectView(GET).then((res: any) => {
+        setCurProjCand(res.results);
+      });
+    }
+  }, []);
+  useEffect(() => {
+    addVisChangeListener(reqProjData);
+    return () => {
+      removeVisChangeListener(reqProjData);
+    };
+  }, []);
   const renderNetWorkPanes = (type: string) => {
     let returnNodes: any = '';
     let srcItem = reqLog[type];
@@ -226,7 +242,6 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
   };
   const sendReq = async () => {
     let values = formRef.current.getFieldsValue();
-    console.log('sendReq', values);
     if (values) {
       if (!values.path) {
         message.error('接口地址不能为空！');
@@ -309,7 +324,14 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
         <ProFormSelect
           name="project_id"
           width={350}
-          label="选择接口所属项目"
+          label={
+            <>
+              选择接口所属项目
+              <a style={{ marginLeft: 8 }} onClick={() => window.open(`/project`)}>
+                维护项目
+              </a>
+            </>
+          }
           rules={[
             {
               required: true,
@@ -319,7 +341,7 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
           fieldProps={{
             showSearch: true,
             allowClear: false,
-            options: projectCand || [],
+            options: curProjCand,
             fieldNames: {
               label: 'name',
               value: 'id',
@@ -345,7 +367,7 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
         <a
           key="report"
           style={{ top: 35, position: 'relative', fontWeight: 'bold' }}
-          onClick={() => setrelationOpen(true)}
+          onClick={() => (curApiId ? setrelationOpen(true) : message.error('请先选择接口！'))}
           target="_blank"
         >
           查看使用了该接口的用例
@@ -439,11 +461,11 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
             name="path"
           >
             <AutoComplete
-              style={{ width: 500 }}
+              style={{ width: 475 }}
               placeholder="请输入接口地址或接口名称"
               onSelect={(...data: any) => {
                 Modal.confirm({
-                  width:300,
+                  width: 300,
                   title: '是否回填上次填写的参数？',
                   icon: <ExclamationCircleOutlined />,
                   onOk: () => loadApiData(data[1].api_id),
@@ -462,14 +484,6 @@ export const ApiContentForm = ({ childRef, defaultParams, setDefaultParams, form
         <Button type="primary" style={{ top: 30.5 }} onClick={() => sendReq()} loading={sendButLoading}>
           发送请求
         </Button>
-        <a
-          style={{ fontWeight: 'bold', top: 35, position: 'relative' }}
-          target="_blank"
-          href="https://shanshu-tech.yuque.com/gl3u7s/lqgrg9/uzykgi#ZEQS2"
-        >
-          变量使用说明文档
-          <QuestionCircleOutlined style={{ marginLeft: 3 }} />
-        </a>
       </ProFormGroup>
       <Tabs
         tabBarGutter={0}
