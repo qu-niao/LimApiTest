@@ -16,8 +16,8 @@ build/
 develop-eggs/
 dist/
 
-FileData
-!FileData/
+/FileData/*
+
 downloads/
 eggs/
 .eggs/
