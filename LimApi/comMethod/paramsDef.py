@@ -151,7 +151,6 @@ def set_user_temp_params(params, user_id):
             if parm_id := parm.get('id'):
                 no_change_param_ids.append(parm_id)
             else:
-                print('ad',parm)
                 change_params_objs.append(UserTempParams(**parm))
     UserTempParams.objects.filter(Q(user_id=user_id), ~Q(id__in=no_change_param_ids)).delete()
     UserTempParams.objects.bulk_create(change_params_objs)

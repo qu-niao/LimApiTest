@@ -8,6 +8,12 @@
 .user-cfg-but{
     position: fixed;
     right: 30px;
-    bottom: 40px;
+    bottom: 50px;
     z-index: 999;
+}
+.ellipsis{
+    text-overflow: ellipsis;
+    display: block;
+    white-space:nowrap;
+    overflow: hidden;
 }

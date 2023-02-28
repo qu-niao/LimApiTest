@@ -19,17 +19,19 @@ import {
 import JsonViewer from '@/components/jsonView';
 import { CaseForm } from '@/pages/apiCase/form';
 import { caseView, stopCasing, treeCaseModule } from '@/services/apiData';
-
+import styles from '@/limLayout/index.css';
 const columns = (showForm: Function) => [
   {
     title: '变量名',
     dataIndex: 'name',
     width: '20%',
+    ellipsis: true,
   },
   {
     title: '值',
     dataIndex: 'value',
-    width: '30%',
+    width: '25%',
+    ellipsis: true,
     render: (v: any, record: any) => {
       switch (record.param_type_id) {
         case STRING:
@@ -46,23 +48,26 @@ const columns = (showForm: Function) => [
   {
     title: '类型',
     dataIndex: 'param_type_name',
-    width: '10%',
+    width: '25%',
     ellipsis: true,
   },
   {
     title: '来源（用例-步骤）',
     dataIndex: 'case_name',
-    width: '40%',
+    width: '30%',
+    ellipsis: true,
     render: (case_name: string, record: any) => {
       if (record.case_id) {
         return (
-          <>
-            <a onClick={() => showForm({ id: record.case_id })}>{case_name}-- </a>
-            {record.step_name}
-          </>
+          <Tooltip title={`${case_name}--${record.step_name}`} placement="leftTop">
+            <span>
+              <a onClick={() => showForm({ id: record.case_id })}>{case_name}-- </a>
+              {record.step_name}
+            </span>
+          </Tooltip>
         );
       }
-      return '【调试产生】-- ' + record.step_name;
+      return <span>{'【调试产生】-- ' + record.step_name}</span>;
     },
   },
 ];
@@ -74,7 +79,8 @@ export const NotiUserParams: React.FC<any> = ({
   projectCand,
   open,
   setOpen,
-}: any) => {  const [caseOpen, setCaseOpen] = useState<boolean>(false);
+}: any) => {
+  const [caseOpen, setCaseOpen] = useState<boolean>(false);
   const [caseFormData, setCaseFormData] = useState<any>({});
   const [treeCaseModuleData, setTreeCaseModuleData] = useState<any[]>([]);
   const setUserCfgFunc = (params: object) => {
@@ -118,8 +124,9 @@ export const NotiUserParams: React.FC<any> = ({
             <>
               <p style={{ fontWeight: 'bold' }}>用户配置(Shift+Z 关闭/打开)</p>
               <Button
-                style={{ marginTop: 10 }}
+                shape="round"
                 type="primary"
+                style={{ marginTop: 10 }}
                 onClick={async () => {
                   await clearUserTempParams().then((res) => {
                     message.success('清除成功！');
@@ -131,6 +138,7 @@ export const NotiUserParams: React.FC<any> = ({
                 清空参数
               </Button>
               <Button
+                shape="round"
                 type="primary"
                 style={{ marginLeft: 10 }}
                 onClick={async () => {
@@ -191,7 +199,7 @@ export const NotiUserParams: React.FC<any> = ({
           ),
           description: '',
           style: {
-            width: 760,
+            width: 600,
             height: 600,
             resize: 'both', //改变大小
           },
