@@ -67,7 +67,7 @@ const BasicLayout: React.FC<{}> = (props: any) => {
             <Button
               style={{ marginLeft: 8, position: 'relative', top: 2.6 }}
               icon={<GithubOutlined style={{ fontSize: 20 }} />}
-              onClick={() => message.warning('待维护...')}
+              onClick={() => window.open('https://github.com/qu-niao/LessIsMore')}
             />
           </Tooltip>
         </span>
