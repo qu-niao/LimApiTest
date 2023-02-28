@@ -15,7 +15,9 @@ limv-web/node_modules/
 build/
 develop-eggs/
 dist/
-FileData/
+
+FileData
+!FileData/
 downloads/
 eggs/
 .eggs/
