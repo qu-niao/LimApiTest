@@ -1,5 +1,5 @@
 import { message, Dropdown, Modal, Input, Form, Menu, Avatar, Button } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { PwdForm } from './form';
 import { changePassword, login } from '@/services/user';
 var user = '';

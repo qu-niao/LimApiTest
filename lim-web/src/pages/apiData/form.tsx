@@ -1,39 +1,17 @@
 import React, { useState, useRef, useImperativeHandle, useContext, useCallback, useEffect } from 'react';
 import { unstable_batchedUpdates } from 'react-dom'; //批量更新状态时使用
-import {
-  Modal,
-  Button,
-  message,
-  Drawer,
-  Tooltip,
-  AutoComplete,
-  Tabs,
-  Tag,
-  Input,
-  Collapse,
-  Popover,
-} from 'antd';
+import { Modal, Button, message, Drawer, Tooltip, AutoComplete, Tabs, Tag, Input, Collapse } from 'antd';
 import {
   ProFormText,
-  ProFormTextArea,
-  ProFormCascader,
   ProFormItem,
   ProFormDigit,
   ProFormRadio,
   ProFormGroup,
   ProFormSelect,
-  EditableProTable,
 } from '@ant-design/pro-components';
 import {
-  API,
-  API_CASE,
   API_PARAM_TEXT,
-  API_FOREACH,
-  API_FUNC,
-  API_HEADER,
   API_HOST,
-  API_SQL,
-  API_VAR,
   DIY_CFG,
   POST,
   PRO_CFG,
@@ -44,11 +22,7 @@ import {
   REQ_METHOD_LABEL,
 } from '@/utils/constant';
 import apiDataContext from './context';
-import {
-  ExclamationCircleTwoTone,
-  ExclamationCircleOutlined,
-  QuestionCircleOutlined,
-} from '@ant-design/icons';
+import { ExclamationCircleTwoTone, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from 'lodash';
 import './index.css';
 import { LimDrawerForm } from '@/components/limDrawerForm';

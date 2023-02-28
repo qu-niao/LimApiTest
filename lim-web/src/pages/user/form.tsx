@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ProFormText, ProFormRadio, ProFormGroup } from '@ant-design/pro-components';
 import { POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
@@ -11,6 +11,7 @@ const Form: React.FC<any> = ({ formData, ...props }) => {
         real_name: formData.real_name || null,
         email: formData.email || null,
         is_superuser: formData.is_superuser || false,
+        is_active: formData.is_active || false,
       }}
       {...props}
       formItems={
@@ -40,20 +41,20 @@ const Form: React.FC<any> = ({ formData, ...props }) => {
             />
           </ProFormGroup>
           <ProFormText width="xl" name="email" label="邮箱号" placeholder="请输入邮箱号" />
-          {/* <ProFormRadio.Group
-        name="is_active"
-        label="用户状态"
-        options={[
-          {
-            label: '启用',
-            value: true,
-          },
-          {
-            label: '禁用',
-            value: false,
-          },
-        ]}
-      /> */}
+          <ProFormRadio.Group
+            name="is_active"
+            label="用户状态"
+            options={[
+              {
+                label: '启用',
+                value: true,
+              },
+              {
+                label: '禁用',
+                value: false,
+              },
+            ]}
+          />
         </>
       }
     />

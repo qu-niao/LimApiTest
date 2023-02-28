@@ -6,7 +6,7 @@ import { Link } from 'umi';
 import { envirView, paramType } from '@/services/conf';
 import { GET } from '@/utils/constant';
 import layoutContext from './context';
-import { Button, Tooltip, Popover, message } from 'antd';
+import { Button, Tooltip } from 'antd';
 import { SolutionOutlined, GithubOutlined } from '@ant-design/icons';
 import RightContent from '@/components/RightContent';
 import './index.css';

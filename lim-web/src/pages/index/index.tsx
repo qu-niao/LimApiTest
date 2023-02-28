@@ -1,5 +1,5 @@
 import { getIndexStatistics } from '@/services/project';
-import { Empty, Card, Layout, Col, Row, Skeleton, Tooltip, Button, Divider } from 'antd';
+import { Empty, Card, Layout, Col, Row, Skeleton, Tooltip, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { RingChart } from './statisticCharts';
@@ -144,7 +144,11 @@ const Index: React.FC = () => {
             那还在等什么？赶快进入Lim的世界，体验简单又高效的接口测试吧！
             <Divider />
             三分钟上手文档（必看！）：
-            <a style={{ fontWeight: 'bold' }} target="_blank" href="https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf">
+            <a
+              style={{ fontWeight: 'bold' }}
+              target="_blank"
+              href="https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf"
+            >
               点我访问
             </a>
             <br />

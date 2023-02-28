@@ -1,11 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { projectEnvirData, projectView, testDbConnect } from '@/services/project';
-import Form from './form';
+import { useState } from 'react';
+import { testDbConnect } from '@/services/project';
 import { message } from 'antd';
-import { columns } from './columns';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { Tabs, Divider, Tooltip, Button } from 'antd';
-import { POST } from '@/utils/constant';
+
 import {
   ProFormText,
   ProFormList,
