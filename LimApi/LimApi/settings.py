@@ -123,10 +123,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'lim-db',
-        'USER': 'root',
-        'PASSWORD': 'Password2!',
-        'HOST': '121.43.43.59',
-        'PORT': '3306',
+        'USER': 'root',  # 需要替换
+        'PASSWORD': 'Password2!',  # 需要替换
+        'HOST': '121.43.43.59',  # 需要替换
+        'PORT': '3306',  # 需要替换
         'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB'}
 
     }
