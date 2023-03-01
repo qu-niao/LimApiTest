@@ -4,9 +4,11 @@ export default defineConfig({
   // "theme": {
   //   "primary-color": "#1DA57A",
   // },
+  favicon: '/icon.ico',
   nodeModulesTransform: {
     type: 'none',
   },
+
   routes: [
     {
       path: '/',
@@ -22,6 +24,7 @@ export default defineConfig({
     },
     {
       path: '/apiCaseFormPage',
+      title: 'Lim-接口用例',
       component: '@/pages/apiCaseFormPage',
     },
     {
@@ -29,40 +32,40 @@ export default defineConfig({
       routes: [
         {
           name: '主页',
+          title: 'Lim-主页',
           path: '/home',
           icon: 'home',
           component: '@/pages/index',
         },
         {
           name: '项目管理',
+          title: 'Lim-项目管理',
           path: '/project',
           icon: 'project',
           component: '@/pages/project',
         },
         {
           name: '接口测试',
+          title: 'Lim-接口测试',
           path: '/apiCase',
           icon: 'case',
           component: '@/pages/apiCase',
         },
-
-        // {
-        //   path: '/apiData/apiOverview',
-        //   component: '@/pages/projectOverview',
-        // },
-
         {
           name: '系统设置',
+          title: 'Lim-系统设置',
           path: '/config',
           icon: 'config',
           routes: [
             {
               name: '用户管理',
+              title: 'Lim-用户管理',
               path: '/config/user',
               component: '@/pages/user',
             },
             {
               name: '环境管理',
+              title: 'Lim-环境管理',
               path: '/config/envir',
               component: '@/pages/envir',
             },
