@@ -100,7 +100,7 @@ const Index: React.FC = () => {
                     data={data.api_data}
                     content="接口统计"
                     color={{
-                      color: ['#657798', '#F6C022', '#62DAAB', '#7666F9', '#74CBED', '#6395F9'],
+                      color: ['#62DAAB', '#F6C022', '#62DAAB', '#7666F9', '#74CBED', '#6395F9'],
                     }}
                   />
                 ) : (
@@ -143,17 +143,19 @@ const Index: React.FC = () => {
             <br />
             那还在等什么？赶快进入Lim的世界，体验简单又高效的接口测试吧！
             <Divider />
-            三分钟上手文档（必看！）：
-            <a
-              style={{ fontWeight: 'bold' }}
-              target="_blank"
-              href="https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf"
-            >
-              点我访问
-            </a>
-            <br />
-            答疑、定制化开发+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
-            <br />
+            <p style={{ fontWeight: 'bold', marginTop: 8 }}>
+              三分钟上手文档（必看！）：
+              <a
+                style={{ fontWeight: 'bold' }}
+                target="_blank"
+                href="https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf"
+              >
+                点我访问
+              </a>
+            </p>
+            <p>
+              答疑、定制化开发+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
+            </p>
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/">
               <img

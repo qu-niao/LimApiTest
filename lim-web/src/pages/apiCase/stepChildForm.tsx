@@ -39,6 +39,7 @@ import {
   GET,
   FAILED_STATUS,
   FAILED_COLOR,
+  DIY_FUNC_VAR_TIPS,
 } from '@/utils/constant';
 import apiDataContext from '@/pages/apiData/context';
 import { paramsColumns } from '@/components/paramsNodes/columns';
@@ -581,7 +582,9 @@ export const ForEachStepForm = ({ childRef, formRef, formData }: any) => {
             <>
               <ProFormItem name="break_code">
                 <CodeEditNode
-                  initValue={formData.params?.break_code || null}
+                  initValue={
+                    formData.params?.break_code || '# '+DIY_FUNC_VAR_TIPS + "\n# 当return返回值为True的时候会执行该步骤，否则跳过执行：\nif var['name']=='项目':\n\treturn True"
+                  }
                   onChangeFunc={(value: string) => {
                     formRef.current.setFieldsValue({ break_code: value });
                   }}
