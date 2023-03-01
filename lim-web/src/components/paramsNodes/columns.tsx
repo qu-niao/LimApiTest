@@ -11,7 +11,7 @@ export const ParamValue = ({ onChange, value, editorFormRef, reqParamType, index
     setInputValue(v);
     onChange(v);
     const data = editorFormRef.current?.getRowData(index);
-    if (!['header', 'query'].includes(reqParamType) && data.type.auto) {
+    if (!['header', 'query', 'output'].includes(reqParamType) && data.type.auto) {
       editorFormRef.current?.setRowData?.(index, { type: { type: getValueType(v), auto: true } });
       setParmTypeFunc(reqParamType, index, { type: getValueType(v), auto: true });
     }
@@ -247,7 +247,7 @@ export const ParmFormDataValue: React.FC<any> = ({ value, onChange }) => {
           value={inputValue}
         />
       ) : (
-        <div  style={{ width: '75%' }}>
+        <div style={{ width: '75%' }}>
           <Upload
             beforeUpload={(file: any) => {
               if (file.size / 1024000 > 3) {

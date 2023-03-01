@@ -82,7 +82,6 @@ export const onStepFormOK = async (values: any, tableState: any, stepFormState: 
       break;
     case API_VAR:
       saveData['params'] = { ...values };
-
       break;
     case API_HOST:
       saveData['params'] = { host_type: values.host_type, value: values.value };
@@ -92,6 +91,7 @@ export const onStepFormOK = async (values: any, tableState: any, stepFormState: 
       //删除多余的字段
       ['project_id', 'path', 'method', 'step_name', 'timeout'].forEach((key) => delete saveValues[key]);
       saveData['params'] = saveValues;
+      saveData['step_name'] = values.step_name || saveValues['name'];
       values.is_case = true;
       await apiDataView(POST, values).then((res) => {
         message.success('操作成功！');
