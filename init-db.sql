@@ -1,18 +1,3 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 12
- Source Server Type    : MySQL
- Source Server Version : 80031
- Source Host           : 121.43.43.59:3306
- Source Schema         : lim-db
-
- Target Server Type    : MySQL
- Target Server Version : 80031
- File Encoding         : 65001
-
- Date: 28/02/2023 10:45:42
-*/
 CREATE DATABASE `lim-db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
 use `lim-db`;
 SET NAMES utf8mb4;
