@@ -56,6 +56,7 @@ const { Panel } = Collapse;
 export const HostForm = ({ formRef, formData }: any) => {
   const [hostType, setHostType] = useState<any>(formData.params?.host_type || DIY_CFG);
   const STEP_LABEL = STEP_TYPE_LABEL[API_HOST];
+  console.log('asd', formData);
   return (
     <>
       <ProFormRadio.Group
@@ -106,10 +107,7 @@ export const HostForm = ({ formRef, formData }: any) => {
               </Tooltip>
             }
             fieldProps={{
-              fieldNames: {
-                label: 'name',
-                value: 'project_id',
-              },
+              fieldNames: { label: 'name', value: 'id' },
             }}
             rules={[{ required: true, message: '请求地址必填' }]}
             allowClear={false}

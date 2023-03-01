@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useContext, useState } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import { message, Table, Select, Button, Divider, Tooltip, notification, Checkbox } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
@@ -19,8 +19,8 @@ import {
 import JsonViewer from '@/components/jsonView';
 import { CaseForm } from '@/pages/apiCase/form';
 import { caseView, stopCasing, treeCaseModule } from '@/services/apiData';
-import styles from '@/limLayout/index.css';
-const columns = (showForm: Function) => [
+
+const columns = [
   {
     title: '变量名',
     dataIndex: 'name',
@@ -97,13 +97,21 @@ export const NotiUserParams: React.FC<any> = ({
               rowKey="id"
               dataSource={params[key]}
               size="small"
-              columns={columns(showForm)}
+              columns={columns}
               pagination={false}
               bordered
             />
           ) : key === HOST_PARAM && params[key].length ? (
             <p>
-              {params[key][0].value}【来源：{params[key][0].source_name}】
+              {params[key][0].value}【来源：
+              {params[key][0].case_id ? (
+                <a onClick={() => window.open(`/apiCaseFormPage/?caseId=${params[key][0].case_id}`)}>
+                  {params[key][0].case_name}--
+                </a>
+              ) : (
+                '调试产生-- '
+              )}
+              {params[key][0].step_name}】
             </p>
           ) : (
             <p>（无参数）</p>
@@ -227,16 +235,7 @@ export const NotiUserParams: React.FC<any> = ({
     },
     [envirCand, open],
   );
-  const showForm = async (values: any = {}) => {
-    await treeCaseModule().then((res) => setTreeCaseModuleData(res.results));
-    await caseView(GET, { id: values.id }).then((res) => {
-      values = res.results;
-    });
 
-    values['formType'] = PATCH;
-    setCaseFormData({ ...values });
-    setCaseOpen(true);
-  };
   const onFormOk = async (values: any, closeForm: boolean = true) => {
     values.id = caseFormData.id;
     values.module_id = values.module_related.slice(-1)[0];
