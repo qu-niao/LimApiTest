@@ -14,7 +14,7 @@ from pymysql.cursors import DictCursor
 
 from sshtunnel import SSHTunnelForwarder
 
-from comMethod.constant import MYSQL, FAILED, SUCCESS, HEADER_PARAM, VAR_PARAM, HOST_PARAM
+from comMethod.constant import MYSQL, FAILED, SUCCESS, HEADER_PARAM, VAR_PARAM, HOST_PARAM, STRING
 from comMethod.diyException import DiyBaseException
 from conf.models import ConfParamType
 from project.models import ProjectEnvirData
@@ -162,6 +162,13 @@ def json_loads(data):
         return json.loads(data)
     except Exception:
         return data
+
+
+def format_parm_type_v(value, parm_type=STRING):
+    """
+    参数值类型转换
+    """
+    return str(value) if parm_type == STRING else json_loads(value)
 
 
 class MyThread(threading.Thread):

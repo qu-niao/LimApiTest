@@ -52,7 +52,7 @@ class ProjectView(LimView):
                 ApiModule.objects.create(name=DEFAULT_MODULE_NAME, project_id=proj.id)
         except Exception as e:
             return Response(data={'msg': f"执行出错:{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(data={'msg': '创建成功！'})
+        return Response(data={'msg': '创建成功！', 'id': proj.id})
 
     def patch(self, request, *args, **kwargs):
         envir_data = self.get_envir_data(request, request.data['id'])

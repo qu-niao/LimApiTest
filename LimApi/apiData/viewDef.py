@@ -3,22 +3,21 @@ import datetime
 import json
 import os
 import time
-from openpyxl import load_workbook
 from urllib.parse import urlencode
 
 import requests
 from django.db.models import Max, F
 from django.db.models.functions import JSONObject
+from openpyxl import load_workbook
 from requests import ReadTimeout
-from rest_framework import status
 from rest_framework.response import Response
 
 from apiData.models import ApiData, ApiCaseStep, ApiCase, ApiForeachStep
 from comMethod.comDef import get_proj_envir_db_data, db_connect, execute_sql_func, \
-    close_db_con, json_dumps, JSONEncoder, MyThread, json_loads
+    close_db_con, json_dumps, JSONEncoder, MyThread, json_loads, format_parm_type_v
 from comMethod.constant import USER_API, VAR_PARAM, HEADER_PARAM, HOST_PARAM, RUNNING, SUCCESS, FAILED, DISABLED, \
     INTERRUPT, SKIP, API_CASE, API_FOREACH, TABLE_MODE, STRING, DIY_CFG, JSON_MODE, PY_TO_CONF_TYPE, CODE_MODE, \
-    OBJECT, FAILED_STOP, WAITING, PRO_CFG, FORM_MODE, EQUAL, HAVE_KEY, API_HEADER, API_VAR, API_HOST, NOT_EQUAL, \
+    OBJECT, FAILED_STOP, WAITING, PRO_CFG, FORM_MODE, EQUAL, API_VAR, NOT_EQUAL, \
     CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE
 from comMethod.diyException import DiyBaseException, NotFoundFileError
 from comMethod.paramsDef import parse_param_value, run_params_code, parse_temp_params, get_parm_v_by_temp
@@ -129,7 +128,7 @@ class ApiCasesActuator:
                             res = False
                     if not res:
                         if is_assert:
-                            return {'status': FAILED, 'results': out_name + ':' + '未在响应结果中找到！'}
+                            return {'status': FAILED, 'results': out_v + ':' + '未在响应结果中找到！'}
                     else:
                         res_v = res['value']
                         self.default_var[out_name] = res_v
@@ -164,13 +163,15 @@ class ApiCasesActuator:
                 for ext in expect:
                     ext_name, ext_v = ext['name'], parse_param_value(ext['value'], old_default_var, i)
                     ext_v_type = ext.get('type', {}).get('type') or STRING
+                    ext_v = format_parm_type_v(ext_v, ext_v_type)
                     rule = ext.get('rule', EQUAL)
                     # 使用str(parse_param_value(var, var_dict))是确保键为数字时能够转换为字符串数字进行匹配
                     ext_name_list = [str(parse_param_value(name, old_default_var, i)) for name in ext_name.split('.')]
                     res = get_parm_v_by_temp(ext_name_list, response)
                     if res:
-                        res_v = str(res['value']) if ext_v_type == STRING else json_loads(res['value'])
-                        print('ex', res_v, rule, ext_v)
+                        res_v = res['value']
+                        # res_v = str(res['value']) if ext_v_type == STRING else json_loads(res['value'])
+                        print('ex', res_v, rule, type(ext_v))
                         if rule == EQUAL and res_v != ext_v:
                             return {'status': FAILED, 'results': ext_name + '的期望值:' + str(
                                 ext_v) + ' 与响应结果不相等！响应结果值为:' + str(res_v) + ';\n'}
@@ -309,7 +310,6 @@ class ApiCasesActuator:
                 header.pop('content-type', None)
                 req_log['header']['content-type'] = 'multipart/form-data'
                 req_params['files'], req_log['body'] = body
-                print('asd', req_log['body'])
             try:
                 r = requests.request(**req_params)
             except IndexError as e:
@@ -328,22 +328,23 @@ class ApiCasesActuator:
                 spend_time = float('%.2f' % r.elapsed.total_seconds())
                 try:
                     response = r.json()
-                except Exception as e:
+                except IndexError as e:
                     response = r.text
                     if r.status_code == 404:
                         results = '请求地址不存在！'
                 else:
-                    out_res = self.parse_api_step_output(params, prefix_label, step['step_name'], response, i)
+                    out_res = self.parse_api_step_output(
+                        params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
                     res_status, results = out_res['status'], out_res.get('results')
                     if res_status == FAILED:
                         results = self.api_process + results
-                    else:
-                        if out_data := out_res.get('out_data'):
-                            req_log['output'] = out_data
-                        ext_res = self.parse_api_step_expect(params, response, i)
-                        res_status, results = ext_res['status'], ext_res.get('results')
-                        if res_status == FAILED:
-                            results = self.api_process + results
+                    elif out_data := out_res.get('out_data'):
+                        req_log['output'] = out_data
+                    ext_res = self.parse_api_step_expect(params, response, i)
+                    if res_status != FAILED:
+                        res_status = ext_res['status']
+                    if ext_res['status'] == FAILED:
+                        results = self.api_process + ext_res.get('results', '')
                 req_log.update({'url': r.url, 'res_header': dict(r.headers), 'response': response,
                                 'spend_time': spend_time, 'results': results})
         except Exception as e:
@@ -466,7 +467,7 @@ class ApiCasesActuator:
             steps = params['steps']
         prefix_label += step['step_name'] + '-'
         res_status, res_data = SUCCESS, []
-        if for_times in ('true', True) and str(for_times) != '1':
+        if type(for_times) != int and for_times in ('true', True):
             while True:
                 # 满足break条件的话则中止循环
                 if self.status == INTERRUPT or break_code and run_params_code(
@@ -507,7 +508,7 @@ class ApiCasesActuator:
                 parm_type = param.get('type', {}).get('type') or STRING
                 p_name = parse_param_value(p_name, self.default_var, i)
                 p_v = parse_param_value(p_v, self.default_var, i)
-                res[p_name] = str(p_v) if parm_type == STRING else json_loads(p_v)
+                res[p_name] = format_parm_type_v(p_v, parm_type)
                 if params_type == API_VAR:
                     self.default_var[p_name] = res[p_name]
         elif mode == JSON_MODE:
@@ -525,7 +526,7 @@ class ApiCasesActuator:
         elif mode == CODE_MODE:
             res = run_params_code(data, copy.deepcopy(self.default_var), i)
             if isinstance(res, dict):
-                if params_type == API_VAR:
+                if params_type == API_VAR:  # 步骤类型为全局变量的话，则将其加入到全局变量中
                     self.default_var.update(res)
             else:
                 raise DiyBaseException('返回格式不正确！需要返回一个字典')
