@@ -14,6 +14,7 @@ Lim是Less is More（少即是多）的缩写，如它的名字一样我们希�
 1. 弹窗拖拽
 2. 多环境管理
 3. 支持Python代码
+4.免登录设计
 #### 三分钟快速上手教程：[点我访问](https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf)
 #### 答疑、定制化开发+微信：qu-niao
 ### docker镜像
