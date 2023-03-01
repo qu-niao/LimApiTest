@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apiData.models import ApiCaseModule, ApiCase, ApiModule, ApiCaseStep, ApiForeachStep
+from apiData.models import ApiCaseModule, ApiCase, ApiModule, ApiCaseStep, ApiForeachStep, ApiData
 from apiData.viewDef import set_foreach_tree
 from comMethod.comSerializers import ComEditUserNameSerializer
 from comMethod.constant import API_FOREACH, API
@@ -15,6 +15,13 @@ class CaseModuleSerializer(serializers.ModelSerializer):
 class ApiModuleSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApiModule
+        fields = '__all__'
+
+
+class ApiDataListSerializer(ComEditUserNameSerializer, serializers.ModelSerializer):
+
+    class Meta:
+        model = ApiData
         fields = '__all__'
 
 

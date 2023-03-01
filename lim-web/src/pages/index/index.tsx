@@ -100,7 +100,7 @@ const Index: React.FC = () => {
                     data={data.api_data}
                     content="接口统计"
                     color={{
-                      color: ['#62DAAB', '#F6C022', '#657798', '#7666F9', '#74CBED', '#6395F9'],
+                      color: ['#657798', '#F6C022', '#62DAAB', '#7666F9', '#74CBED', '#6395F9'],
                     }}
                   />
                 ) : (

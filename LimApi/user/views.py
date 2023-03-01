@@ -24,8 +24,9 @@ def login(request):
     # 验证用户账号密码的内置方法
     user = authenticate(username=request.data['username'], password=request.data['password'])
     if user:
-        Token.objects.filter(user_id=user.id).delete()  # 删除原来的token
-        token = Token.objects.create(user=user)  # 创建新的token
+        token = Token.objects.filter(user_id=user.id).first()
+        if not token:
+            token = Token.objects.create(user=user)  # 创建新的token
         user_info = {'username': user.username, 'name': user.real_name}
         return Response(data={'msg': '登录成功！', 'token': token.key, 'user_info': user_info})  # 返回登录信息及token
     return Response(data={'msg': '密码错误或该账号被禁用！'}, status=status.HTTP_403_FORBIDDEN)

@@ -6,7 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from apiData.models import ApiCaseModule, ApiCase, ApiModule, ApiData, ApiCaseStep, ApiForeachStep
-from apiData.serializers import CaseModuleSerializer, ApiCaseListSerializer, ApiModuleSerializer, ApiCaseSerializer
+from apiData.serializers import CaseModuleSerializer, ApiCaseListSerializer, ApiModuleSerializer, ApiCaseSerializer, \
+    ApiDataListSerializer
 from apiData.viewDef import save_api, parse_api_case_steps, run_api_case_func, ApiCasesActuator, \
     parse_create_foreach_steps, go_step, monitor_interrupt, copy_cases_func
 from comMethod.comDef import get_next_id, MyThread, get_module_related
@@ -53,7 +54,7 @@ def tree_case_module(request):
 @api_view(['GET'])
 def tree_cascader_module_case(request):
     """
-    测试模块带测试计划的树
+    测试模块带用例的树
     """
     return create_cascader_tree(request, ApiCaseModule, ApiCase, extra_filter={'is_deleted': 0})
 
@@ -130,7 +131,7 @@ class ApiCaseViews(LimView):
         except Exception as e:
             print('err', e.__traceback__.tb_lineno)
             if '1062' in str(e):
-                return Response(data={'msg': '该计划名已存在！'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response(data={'msg': '该用例名已存在！'}, status=status.HTTP_400_BAD_REQUEST)
             return Response(data={'msg': '保存出错：' + str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return Response(data={'msg': '保存成功！', 'case_id': case_id})
 
@@ -138,8 +139,8 @@ class ApiCaseViews(LimView):
 class ApiViews(LimView):
     queryset = ApiData.objects.order_by(
         '-updated').select_related('creater', 'updater')
-    serializer_class = ApiCaseListSerializer
-    filterset_fields = ('module_id', 'name', 'status')
+    serializer_class = ApiDataListSerializer
+    filterset_fields = ('module_id', 'name', 'status', 'method')
     ordering_fields = ('created', 'name', 'updated')
 
     def get(self, request, *args, **kwargs):
@@ -262,7 +263,7 @@ def copy_cases(request):
 @api_view(['POST'])
 def merge_cases(request):
     """
-    合并计划
+    合并用例
     """
     req_data = request.data
     try:
@@ -303,7 +304,7 @@ def search_case_by_api(request):
     """
     查询使用了指定接口的用例
     """
-    if 'api_id ' in request.query_params:
+    if 'api_id' in request.query_params:
         api_id = int(request.query_params['api_id'])
         case_ids = list(ApiCaseStep.objects.filter(api_id=api_id).values_list('case_id', flat=True))
         case_ids += list(ApiForeachStep.objects.filter(api_id=api_id).annotate(case_id=F('step__case_id')).values_list(

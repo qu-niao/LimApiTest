@@ -1,5 +1,5 @@
-export const HOST_SERVER = 'http://127.0.0.1:8006';
-//export const HOST_SERVER = 'http://121.43.43.59:8006';
+//export const HOST_SERVER = 'http://127.0.0.1:8006';
+export const HOST_SERVER = 'http://121.43.43.59:8006';
 export const GET = 'get'; //代表请求列表
 export const DELETE = 'delete'; //代表删除数据
 export const POST = 'post'; //代表创建数据
@@ -105,7 +105,7 @@ export const REQ_METHOD_LABEL = {
   POST: { text: 'POST', status: PINK_COLOR },
   PUT: { text: 'PUT', status: SUCCESS_COLOR },
   DELETE: { text: 'DELETE', status: FAILED_COLOR },
-  PATCH: { text: 'PATCH', status: STATUS_2_COLOR },
+  PATCH: { text: 'PATCH', status: '#657798' },
   NONE: { text: 'NONE', status: '' },
 };
 //----status

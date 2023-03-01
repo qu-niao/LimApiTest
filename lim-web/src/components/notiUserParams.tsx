@@ -61,7 +61,7 @@ const columns = (showForm: Function) => [
         return (
           <Tooltip title={`${case_name}--${record.step_name}`} placement="leftTop">
             <span>
-              <a onClick={() => showForm({ id: record.case_id })}>{case_name}-- </a>
+              <a onClick={() => window.open(`/apiCaseFormPage/?caseId=${record.case_id}`)}>{case_name}-- </a>
               {record.step_name}
             </span>
           </Tooltip>

@@ -104,12 +104,18 @@ const ApiCase: React.FC = () => {
     let json = {};
     json[caseId] = true;
     setCopyLoadings(json);
-    await copyCases({ case_id: caseId }).then((res) => {
-      message.success(res.msg);
-      json[caseId] = false;
-      setCopyLoadings({ ...json });
-      pageRef.current?.tableRef?.current?.onRefresh();
-    });
+    await copyCases({ case_id: caseId }).then(
+      (res) => {
+        message.success(res.msg);
+        json[caseId] = false;
+        setCopyLoadings({ ...json });
+        pageRef.current?.tableRef?.current?.onRefresh();
+      },
+      () => {
+        json[caseId] = false;
+        setCopyLoadings({ ...json });
+      },
+    );
   };
   const mergeCasesFunc = () => {
     if (!mergeCaseName) {
@@ -249,7 +255,7 @@ const ApiCase: React.FC = () => {
           open: open,
           Items: (
             <apiDataContext.Provider
-              value={{ paramTypeCand, projectCand, treeCascaderCase, reqCascaderCaseTree, pageRef }}
+              value={{ paramTypeCand, projectCand, treeCascaderCase, reqCascaderCaseTree, pageRef }} //pageRef在DragTable中会用到
             >
               <CaseForm
                 open={open}

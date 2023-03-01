@@ -69,6 +69,7 @@ const ComfirmChangeForm = ({ open, setOpen, setCaseOpen, formRef, formOk, dataSo
     </Modal>
   );
 };
+
 export const CaseForm: React.FC<any> = ({ treeCaseModuleData, formOk, formData, ...props }) => {
   const formRef = useRef<any>();
   const [confirmOpen, setConfirmOpen] = useState<boolean>(false);

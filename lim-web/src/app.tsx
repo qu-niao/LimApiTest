@@ -10,7 +10,7 @@ message.config({
 });
 
 export const request: RequestConfig = {
-  prefix: HOST_SERVER,
+  prefix: HOST_SERVER, //服务器请求地址
   credentials: 'include',
 
   // 自定义错误规范

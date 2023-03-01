@@ -65,7 +65,7 @@ const SortTable: React.FC<any> = ({
         params: { case_related: [...module_related, res.results.case_id] },
       });
       tableState.setDataSource(dataSouce);
-      pageRef.current?.tableRef?.current?.onRefresh();
+      pageRef?.current?.tableRef?.current?.onRefresh();
     });
   };
   return (
