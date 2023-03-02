@@ -1,0 +1,7 @@
+.back{
+    margin-bottom: 6px;
+    color: #8C8C8C;
+}
+.back:hover{
+    cursor: pointer;
+}
