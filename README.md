@@ -25,11 +25,11 @@ Lim是Less is More（少即是多）的缩写，如它的名字一样我们希�
 ![envir](https://qu-niao.gitee.io/qu-niao-page/img/envir.jpg)
 
 #### 支持Python代码
-用例参数、变量生成、期望判断等操作完全兼容python代码：
+用例变量生成、期望判断、执行条件设置等操作完全兼容python代码：
 
 ![code](https://qu-niao.gitee.io/qu-niao-page/img/code.jpg)
 #### 更灵活的循环控制
-循环控制支持多层嵌套，次数支持变量以及支持代码形式break操作：
+循环控制支持多层嵌套，循环次数支持变量以及支持代码形式break操作：
 
 ![foreach](https://qu-niao.gitee.io/qu-niao-page/img/foreach.jpg)
 #### 强大的步骤控制器
