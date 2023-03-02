@@ -19,7 +19,7 @@ Lim是Less is More（少即是多）的缩写，如它的名字一样我们希�
 用例输出的变量统一管理，来源可追溯；用例执行状态可控制:
 ![var](https://qu-niao.gitee.io/qu-niao-page/img/global_var.jpg)
 #### 多环境管理
-能够配置多套环境的参数，让一套用例能够更顺滑的在多环境下执行:
+能够配置多套环境参数，让一套用例能够在多套服务环境下执行:
 
 ![m_envir](https://qu-niao.gitee.io/qu-niao-page/img/more_envir.png)
 ![envir](https://qu-niao.gitee.io/qu-niao-page/img/envir.jpg)
