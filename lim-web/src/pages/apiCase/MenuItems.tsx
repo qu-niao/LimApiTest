@@ -31,7 +31,7 @@ export const menuItems = (stepFormState: any, rowIndex: number = -1) => [
   {
     key: '2',
     label: '配置元件',
-    children: [API_HEADER, API_VAR, API_HOST].map((item) => {
+    children: [API_VAR, API_HEADER, API_HOST].map((item) => {
       return {
         key: item,
         label: (
