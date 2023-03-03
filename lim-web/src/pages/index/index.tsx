@@ -175,7 +175,7 @@ const Index: React.FC = () => {
         </Col>
       </Row>
       <Footer style={{ textAlign: 'center', backgroundColor: '#F5F5F5' }}>
-        Lim接口测试平台v1.0 ©2023 作者：曲鸟
+        Lim接口测试平台1.0 ©2023 曲鸟团队出品
       </Footer>
     </>
   );

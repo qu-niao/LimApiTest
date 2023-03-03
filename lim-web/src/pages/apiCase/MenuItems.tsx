@@ -17,9 +17,10 @@ export const menuItems = (stepFormState: any, rowIndex: number = -1) => [
   {
     key: '1',
     label: '执行步骤',
-    children: [API, API_SQL, API_FOREACH, API_CASE].map((item) => {
+    children: [API, API_SQL, API_FOREACH, API_CASE, API_FUNC].map((item) => {
       return {
         key: item,
+        disabled: Boolean(item == API_FUNC),
         label: (
           <a onClick={() => showStepForm(stepFormState, { formType: POST, type: item, rowIndex: rowIndex })}>
             {STEP_TYPE_LABEL[item]}
