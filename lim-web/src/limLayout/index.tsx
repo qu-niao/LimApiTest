@@ -6,7 +6,7 @@ import { Link } from 'umi';
 import { envirView, paramType } from '@/services/conf';
 import { GET } from '@/utils/constant';
 import layoutContext from './context';
-import { Button, Tooltip } from 'antd';
+import { Button, Popover, Tooltip } from 'antd';
 import { SolutionOutlined, GithubOutlined } from '@ant-design/icons';
 import RightContent from '@/components/RightContent';
 import './index.css';
@@ -86,8 +86,7 @@ const BasicLayout: React.FC<{}> = (props: any) => {
         open={cfgOpen}
         setOpen={setCfgOpen}
       />
-
-      <Tooltip title="查看用户配置/参数" placement="topLeft">
+      <Popover content="点我查看配置和变量池" placement="topLeft">
         <Button
           className="user-cfg-but"
           type="primary"
@@ -95,7 +94,7 @@ const BasicLayout: React.FC<{}> = (props: any) => {
           icon={<SolutionOutlined />}
           onClick={() => setCfgOpen(!cfgOpen)}
         />
-      </Tooltip>
+      </Popover>
       <layoutContext.Provider value={{ layoutRef: ref }}> {props.children}</layoutContext.Provider>
     </ProLayout>
   );

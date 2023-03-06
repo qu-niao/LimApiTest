@@ -114,7 +114,7 @@ export const NotiUserParams: React.FC<any> = ({
               {params[key][0].step_name}】
             </p>
           ) : (
-            <p>（无参数）</p>
+            <p>（无）</p>
           )}
         </div>,
       );
@@ -130,7 +130,7 @@ export const NotiUserParams: React.FC<any> = ({
           onClose: () => setOpen(false),
           message: (
             <>
-              <p style={{ fontWeight: 'bold' }}>用户配置(Shift+Z 关闭/打开)</p>
+              <p style={{ fontWeight: 'bold' }}>用户配置和变量池(Shift+Z 关闭/打开)</p>
               <Button
                 shape="round"
                 type="primary"
@@ -143,7 +143,7 @@ export const NotiUserParams: React.FC<any> = ({
                   });
                 }}
               >
-                清空参数
+                清空变量
               </Button>
               <Button
                 shape="round"
