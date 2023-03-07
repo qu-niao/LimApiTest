@@ -136,8 +136,7 @@ const Index: React.FC = () => {
           <Card bordered={false} style={{ height: '100%' }}>
             <div style={{ maxHeight: 'calc(100vh - 370px)', overflowY: 'auto' }}>
               <h3 style={{ fontWeight: 'bold' }}>Lim测试平台 简介</h3>
-              Lim是Less is
-              More(少即是多)的缩写，正如它的名字，我们希望在开展接口测试时能有“四两拨千斤”的感觉，让用户操作更少但开展建设的效率更高。
+              Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开展接口测试时能够“四两拨千斤”！让用户操作更少但开展建设的效率更高。
               因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的传统建设思想，甚至还取消了“登录”！
               <br />
               你是否会疑问：这群Diao毛去掉了这些还如何高效的开展接口测试？
