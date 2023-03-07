@@ -25,13 +25,13 @@ export const RingChart = ({ data, content, color = null }: any) => {
           whiteSpace: 'pre-wrap',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
-          fontSize:24
+          fontSize: 24,
         },
         content: content,
       },
     },
   };
-  return <Pie {...config} style={{ height: 'calc(100vh - 430px)' }} />;
+  return <Pie {...config} style={{ height: 'calc(100vh - 410px)' }} />;
 };
 export const ColumnChart = ({ data }: any) => {
   const config: any = {
