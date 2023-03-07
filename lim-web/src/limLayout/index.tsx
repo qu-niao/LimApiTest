@@ -86,7 +86,7 @@ const BasicLayout: React.FC<{}> = (props: any) => {
         open={cfgOpen}
         setOpen={setCfgOpen}
       />
-      <Popover content="点我查看配置和变量池" placement="topLeft">
+      <Popover content="点我查看配置和参数池" placement="topLeft">
         <Button
           className="user-cfg-but"
           type="primary"
