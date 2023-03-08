@@ -91,8 +91,8 @@ export const STATUS_2_COLOR = '#FF8C00';
 export const DISABLED_COLOR = '#BEBEBE';
 export const PINK_COLOR = '#DA70D6';
 export const STEP_TYPE_LABEL = {
-  header: '公共请求头',
-  host: '公共请求地址',
+  header: '全局请求头',
+  host: '全局请求地址',
   var: '全局变量',
   foreach: '循环控制器',
   api: '接口',
@@ -133,9 +133,9 @@ export const VAR_PARAM = '3';
 export const HEADER_PARAM = '2';
 export const HOST_PARAM = '1';
 export const TEMP_PARAMS_LABEL = {
-  1: '默认请求地址',
-  2: '默认请求头',
-  3: '默认变量',
+  1: '全局请求地址',
+  2: '全局请求头',
+  3: '全局变量',
 };
 export const STRING = 'string';
 export const OBJECT = 'object';

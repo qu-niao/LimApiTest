@@ -152,7 +152,7 @@ const ApiCase: React.FC = () => {
           },
           headerTitle: (
             <>
-              接口用例列表(shift+Z或点右下角图标查看配置和变量池)
+              接口用例列表(shift+Z或点右下角图标查看配置和参数池)
               <a style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
               </a>
