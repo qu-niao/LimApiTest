@@ -15,6 +15,7 @@ from comMethod.constant import DEFAULT_MODULE_NAME, USER_API, API, FAILED, API_C
     WAITING, VAR_PARAM, INTERRUPT
 from comMethod.diyException import CaseCascaderLevelError
 from comMethod.paramsDef import set_user_temp_params
+from comMethod.report import get_api_case_step_count
 from comMethod.treeDef import create_tree, create_cascader_tree
 from comMethod.views import LimView
 from user.models import UserCfg, UserTempParams, LimUser
@@ -200,14 +201,14 @@ def run_api_cases(request):
     """
     执行Api测试用例
     """
-    user_id = request.user.id
+    user_id, envir = request.user.id, request.data['envir']
     case_data = parse_api_case_steps(request.data['case'])
-    UserCfg.objects.update_or_create(user_id=user_id, defaults={'exec_status': RUNNING})
+    UserCfg.objects.update_or_create(user_id=user_id, defaults={'exec_status': RUNNING, 'envir_id': envir})
     try:
         res = run_api_case_func(case_data, user_id, cfg_data={'envir_id': request.data['envir']})
         UserCfg.objects.filter(user_id=user_id).update(exec_status=WAITING)
         set_user_temp_params(res['params_source'], user_id)
-    except IndexError as e:
+    except Exception as e:
         return Response(data={'msg': f"执行异常：{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
     return Response(data={'msg': "执行完成！"})
 
@@ -314,3 +315,33 @@ def search_case_by_api(request):
         ser_data = serializer.data
         return Response({'data': ser_data, 'total': len(ser_data)})
     return Response({'data': {}})
+
+
+@api_view(['GET'])
+def get_api_report(request):
+    """
+    获取api报告
+    """
+    case_data = ApiCase.objects.filter(
+        id=request.query_params['case_id']).values('name', 'report_data').first() or {}
+    print('case_data', case_data)
+    report_data = case_data.get('report_data')
+    print('report_data', report_data)
+    # if report_data:
+    #     report_data.update({
+    #         'case_count': 0, 'name': case_data['name'], 'fail_count': 0, 'success_count': 0,
+    #         'disabled_count': 0, 'skip_count': 0, 'plan': {}})
+    #     get_api_case_step_count(report_data['steps'], report_data)
+    #     report_plan = report_data['plan']
+    #     plan_ids = list(report_plan.keys())
+    #     _data = ApiCase.objects.filter(id__in=plan_ids).values('id', 'name')
+    #     plan_name_dict = {p['id']: p['name'] for p in _data}
+    #     report_data['plan_count'] = len(plan_ids)
+    #     try:
+    #         report_plan_count(plan_ids, report_plan, plan_name_dict, report_data)
+    #     except ReportCountError as e:
+    #         return Response(data={'msg': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    #     report_data['total_count'] = report_data['fail_count'] + report_data['success_count'] + report_data[
+    #         'disabled_count'] + report_data['skip_count']
+    #     return Response(data=report_data)
+    return Response(data={'msg': "无该计划测试报告！"}, status=status.HTTP_400_BAD_REQUEST)

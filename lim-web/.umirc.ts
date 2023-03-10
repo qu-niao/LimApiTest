@@ -28,6 +28,10 @@ export default defineConfig({
       component: '@/pages/apiCaseFormPage',
     },
     {
+      path: '/apiReport',
+      component: '@/pages/apiReport',
+    },
+    {
       component: '@/limLayout',
       routes: [
         {

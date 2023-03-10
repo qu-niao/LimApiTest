@@ -405,12 +405,13 @@ class ApiCasesActuator:
         """
 
         params = step['params']
-        mode, data = params[self.envir + '_mode'], params[self.envir + '_source']
-        var = self.parse_source_params(data, mode, i, params_type=API_VAR)
-        for name in var.keys():
-            self.params_source[VAR_PARAM][name] = {
-                'name': name, 'value': var[name], 'step_name': prefix_label + step['step_name'], 'type': VAR_PARAM,
-                'param_type_id': PY_TO_CONF_TYPE.get(str(type(var[name])), STRING), **self.base_params_source}
+        if self.envir + '_mode' in params and self.envir + '_source' in params:
+            mode, data = params[self.envir + '_mode'], params[self.envir + '_source']
+            var = self.parse_source_params(data, mode, i, params_type=API_VAR)
+            for name in var.keys():
+                self.params_source[VAR_PARAM][name] = {
+                    'name': name, 'value': var[name], 'step_name': prefix_label + step['step_name'], 'type': VAR_PARAM,
+                    'param_type_id': PY_TO_CONF_TYPE.get(str(type(var[name])), STRING), **self.base_params_source}
 
     def sql(self, step, prefix_label='', i=0):
         """
@@ -624,7 +625,7 @@ def go_step(actuator_obj, s_type, step, i=0, prefix_label='', **extra_params):
         print(step.get('step_name', '') + '，执行次数：' + str(j))
         try:
             res = getattr(actuator_obj, s_type)(**params) or {'status': SUCCESS}
-        except Exception as e:
+        except Exception as e:  # 捕获步骤执行过程的异常
             res = {'status': FAILED, 'results': str(e)}
         if res['status'] == FAILED:
             if j < retry_times:
