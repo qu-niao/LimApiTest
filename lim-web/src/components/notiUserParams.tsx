@@ -248,6 +248,7 @@ export const NotiUserParams: React.FC<any> = ({
   };
   useEffect(() => {
     window.addEventListener('keydown', openLogFunc);
+
     if (!open) {
       notification.close('runLog');
     } else {

@@ -84,7 +84,7 @@ class ApiCasesActuator:
         user_cfg = UserCfg.objects.filter(user_id=user_id).values().first() or {
             'envir_id': 1, 'failed_stop': True, 'only_failed_log': False}
         cfg_data = {**user_cfg, **cfg_data} if cfg_data else user_cfg
-        self.envir = str(cfg_data['envir_id'])
+        self.envir = cfg_data['envir_id']
         self.failed_stop = cfg_data['failed_stop']
         self.only_failed_log = cfg_data['only_failed_log']
         self.status = SUCCESS
@@ -403,10 +403,9 @@ class ApiCasesActuator:
         """
           执行类型为全局变量的步骤
         """
-
         params = step['params']
-        if self.envir + '_mode' in params and self.envir + '_source' in params:
-            mode, data = params[self.envir + '_mode'], params[self.envir + '_source']
+        if f'{self.envir}_mode' in params and f'{self.envir}_source' in params:
+            mode, data = params[f'{self.envir}_mode'], params[f'{self.envir}_source']
             var = self.parse_source_params(data, mode, i, params_type=API_VAR)
             for name in var.keys():
                 self.params_source[VAR_PARAM][name] = {

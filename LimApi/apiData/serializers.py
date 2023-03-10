@@ -19,7 +19,6 @@ class ApiModuleSerializer(serializers.ModelSerializer):
 
 
 class ApiDataListSerializer(ComEditUserNameSerializer, serializers.ModelSerializer):
-
     class Meta:
         model = ApiData
         fields = '__all__'
@@ -36,7 +35,7 @@ class ApiCaseStepSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ApiCaseStep
-        exclude = ('case', 'api')
+        exclude = ('case', 'api', 'quote_case')
 
 
 class ApiCaseRelationApiStepSerializer(serializers.ModelSerializer):
