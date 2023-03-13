@@ -17,12 +17,20 @@ export const ProjectOverview = ({ type }: any) => {
               <Card
                 key={index}
                 title={
-                  <div>
-                    <h3 style={{ fontWeight: 'bold', display: 'inline' }}>{item.name}</h3>
-                    <Button style={{ float: 'right' }} onClick={() => setCurProjData(item)}>
-                      查看接口库
-                    </Button>
-                  </div>
+                  <Row gutter={8}>
+                    <Col span={17}>
+                      {' '}
+                      <h3 style={{ fontWeight: 'bold' }} className="ellipsis">
+                        {item.name}
+                      </h3>
+                    </Col>
+                    <Col span={7}>
+                      {' '}
+                      <Button style={{ position: 'relative', right: 6 }} onClick={() => setCurProjData(item)}>
+                        查看接口库
+                      </Button>
+                    </Col>
+                  </Row>
                 }
                 bordered={false}
               >
