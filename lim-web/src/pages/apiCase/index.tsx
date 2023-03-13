@@ -86,14 +86,12 @@ const ApiCase: React.FC = () => {
     runApiCases({
       case: caseId ? [caseId] : selectedCases.map((item: any) => item.id),
       envir: envir,
-    }).then(
-      (res) => {
+    })
+      .then((res) => {
         message.success(res.msg);
-        setLoading(false);
         pageRef.current?.tableRef?.current?.onRefresh();
-      },
-      () => setLoading(false),
-    );
+      })
+      .finally(() => setLoading(false));
   };
   const reqCascaderCaseTree = () => {
     treeCascaderModuleCase().then((res: any) => {
@@ -104,19 +102,16 @@ const ApiCase: React.FC = () => {
     let json = {};
     json[caseId] = true;
     setCopyLoadings(json);
-    await copyCases({ case_id: caseId }).then(
-      (res) => {
+    await copyCases({ case_id: caseId })
+      .then((res) => {
         message.success(res.msg);
-        json[caseId] = false;
-        setCopyLoadings({ ...json });
         pageRef.current?.tableRef?.current?.onRefresh();
         reqCascaderCaseTree();
-      },
-      () => {
+      })
+      .finally(() => {
         json[caseId] = false;
         setCopyLoadings({ ...json });
-      },
-    );
+      });
   };
   const mergeCasesFunc = () => {
     if (!mergeCaseName) {

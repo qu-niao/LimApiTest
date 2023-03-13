@@ -225,13 +225,11 @@ export const SqlForm = ({ formRef, formData }: any) => {
   const [data, setData] = useState<any>([]); //传递给弹窗显示的数据
   const reqProjDbDatabase = (params: object) => {
     setDatabaseLoading(true);
-    getProjDbDatabase(params).then(
-      (res) => {
+    getProjDbDatabase(params)
+      .then((res) => {
         setDatabaseCand(res.results);
-        setDatabaseLoading(false);
-      },
-      () => setDatabaseLoading(false),
-    );
+      })
+      .finally(() => setDatabaseLoading(false));
   };
   useEffect(() => {
     if (formData.params?.sql_proj_related?.length) {
@@ -245,33 +243,33 @@ export const SqlForm = ({ formRef, formData }: any) => {
       return;
     }
     setSqlLoading(true);
-    runSql(sqlData).then(
-      (res) => {
-        const resData = res?.results || {};
-        setSqlLoading(false);
-        setExecuteSql(resData.sql);
-        if (dbType === MYSQL) {
-          const column =
-            resData.columns?.map((item: any) => {
-              item['render'] = (v: any, _: any) => {
-                return <Paragraph ellipsis={{ expandable: true }}>{v}</Paragraph>;
-              };
-              return item;
-            }) || [];
-          setColumns(column);
-          setData(resData.sql_data || []);
-        }
-      },
-      (res) => {
-        const resData = res.results;
-        setSqlLoading(false);
-        if (resData) {
+    runSql(sqlData)
+      .then(
+        (res) => {
+          const resData = res?.results || {};
           setExecuteSql(resData.sql);
-          setColumns([]);
-          setData([]);
-        }
-      },
-    );
+          if (dbType === MYSQL) {
+            const column =
+              resData.columns?.map((item: any) => {
+                item['render'] = (v: any, _: any) => {
+                  return <Paragraph ellipsis={{ expandable: true }}>{v}</Paragraph>;
+                };
+                return item;
+              }) || [];
+            setColumns(column);
+            setData(resData.sql_data || []);
+          }
+        },
+        (res) => {
+          const resData = res.results;
+          if (resData) {
+            setExecuteSql(resData.sql);
+            setColumns([]);
+            setData([]);
+          }
+        },
+      )
+      .finally(() => setSqlLoading(false));
   };
   return (
     <>
@@ -583,7 +581,10 @@ export const ForEachStepForm = ({ childRef, formRef, formData }: any) => {
               <ProFormItem name="break_code">
                 <CodeEditNode
                   initValue={
-                    formData.params?.break_code || '# '+DIY_FUNC_VAR_TIPS + "\n# 当return返回值为True的时候会执行该步骤，否则跳过执行：\nif var['name']=='项目':\n\treturn True"
+                    formData.params?.break_code ||
+                    '# ' +
+                      DIY_FUNC_VAR_TIPS +
+                      "\n# 当return返回值为True的时候会执行该步骤，否则跳过执行：\nif var['name']=='项目':\n\treturn True"
                   }
                   onChangeFunc={(value: string) => {
                     formRef.current.setFieldsValue({ break_code: value });
