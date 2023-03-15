@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, message, Skeleton, Tooltip, Row, Spin, Col, Card, Button } from 'antd';
+import { Table, message, Skeleton, Tooltip, Row, Spin, Col, Card, Statistic, Divider } from 'antd';
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { envirView } from '@/services/conf';
 import { GET } from '@/utils/constant';
@@ -11,22 +11,31 @@ const Report = (props: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const STATIC_MAP = [
     {
-      name: '项目总数',
-      countKey: 'project_count',
-      newCountKey: 'project_new_count',
-      tip: '平台中创建的项目数量汇总',
+      name: '开始时间',
+      valueKey: 'start_time',
+      suffix: '',
     },
     {
-      name: '接口总数',
-      countKey: 'api_count',
-      newCountKey: 'api_new_count',
-      tip: '所有项目接口库中的接口数量汇总',
+      name: '执行环境',
+      valueKey: 'envir_name',
+      suffix: '',
+    },
+
+    {
+      name: '总耗时',
+      valueKey: 'spend_time',
+      suffix: 'S',
     },
     {
       name: '用例总数',
-      countKey: 'case_count',
-      newCountKey: 'case_new_count',
-      tip: '平台中所有的接口用例数量汇总',
+      valueKey: 'case_count',
+      suffix: '个',
+    },
+    {
+      name: '步骤总数',
+      valueKey: 'case_count',
+
+      suffix: '个',
     },
   ];
   useEffect(() => {
@@ -37,46 +46,29 @@ const Report = (props: any) => {
   }, []);
   return (
     <Row justify="center">
-      <Col>
+      <Col span={24}>
         {' '}
         <h1 style={{ textAlign: 'center', fontWeight: 'bold' }}>
           {reportData.name ? reportData.name + '测试报告' : '未找到对应报告'}
         </h1>
-        <p>{`开始时间：${reportData.startTime || '0000-00-00'}`}</p>
       </Col>
       <Row
+        justify="center"
         style={{
-          backgroundColor: '#F1F1F1',
+     
           paddingTop: 15,
           width: '100%',
         }}
-        gutter={[20, 20]}
       >
-        {' '}
-        {/* {STATIC_MAP.map((item) => (
-          <Col span={8}>
-            <Card style={{ backgroundColor: 'white', paddingBottom: 10 }}>
-              {loading ? (
-                <Skeleton paragraph={{ rows: 1 }} />
-              ) : (
-                <>
-                  <div>
-                    <span style={{ color: '#8C8C8C' }}>{item.name}</span>{' '}
-                    <Tooltip title={item.tip}>
-                      <InfoCircleOutlined
-                        style={{ position: 'absolute', right: 16, fontSize: 16, color: '#8C8C8C' }}
-                      />
-                    </Tooltip>
-                  </div>
-                  <p style={{ fontSize: 36, marginBottom: 0, fontWeight: 'bold' }}>{data[item.countKey]}</p>
-                  <span style={{ position: 'absolute', right: 16, fontSize: 10 }}>
-                    较昨日新增：{data[item.newCountKey]}
-                  </span>
-                </>
-              )}
-            </Card>
+        {STATIC_MAP.map((item) => (
+          <Col span={4}>
+            {loading ? (
+              <Skeleton paragraph={{ rows: 1 }} />
+            ) : (
+              <Statistic title={item.name} value={`${reportData[item.valueKey]}${item.suffix}`} />
+            )}
           </Col>
-        ))} */}
+        ))}
       </Row>
     </Row>
   );
