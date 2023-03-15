@@ -121,7 +121,7 @@ class ApiCasesActuator:
                     value_location_list = [parse_param_value(var, self.default_var, i) for var in out_v.split('.')]
                     try:
                         res = get_parm_v_by_temp(value_location_list, response)
-                    except IndexError as e:
+                    except Exception as e:
                         if is_assert:
                             return {'status': FAILED, 'results': str(e)}
                         else:
@@ -312,8 +312,6 @@ class ApiCasesActuator:
                 req_params['files'], req_log['body'] = body
             try:
                 r = requests.request(**req_params)
-            except IndexError as e:
-                req_log['results'] = results = self.api_process + str(e)
             except KeyError as e:
                 req_log['results'] = results = self.api_process + '未找到key：' + str(e)
             except (requests.exceptions.ConnectionError, ReadTimeout):
@@ -322,16 +320,14 @@ class ApiCasesActuator:
                 req_log['results'] = results = '无效的请求地址！'
             except requests.exceptions.MissingSchema:
                 req_log['results'] = results = '请求地址不能为空！'
-            except Exception as e:
-                req_log['results'] = results = str(e)
             else:
                 spend_time = float('%.2f' % r.elapsed.total_seconds())
                 try:
                     response = r.json()
-                except IndexError as e:
+                except Exception as e:
                     response = r.text
                     if r.status_code == 404:
-                        results = '请求地址不存在！'
+                        results = '请求路径不存在！'
                 else:
                     out_res = self.parse_api_step_output(
                         params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
@@ -504,13 +500,14 @@ class ApiCasesActuator:
         res = {}
         if mode == TABLE_MODE:
             for param in data:
-                p_name, p_v = param['name'], param.get('value')
-                parm_type = param.get('type', {}).get('type') or STRING
-                p_name = parse_param_value(p_name, self.default_var, i)
-                p_v = parse_param_value(p_v, self.default_var, i)
-                res[p_name] = format_parm_type_v(p_v, parm_type)
-                if params_type == API_VAR:
-                    self.default_var[p_name] = res[p_name]
+                if p_name := param.get('name'):
+                    p_v = param.get('value')
+                    parm_type = param.get('type', {}).get('type') or STRING
+                    p_name = parse_param_value(p_name, self.default_var, i)
+                    p_v = parse_param_value(p_v, self.default_var, i)
+                    res[p_name] = format_parm_type_v(p_v, parm_type)
+                    if params_type == API_VAR:
+                        self.default_var[p_name] = res[p_name]
         elif mode == JSON_MODE:
             if isinstance(data, dict):
                 for p_name in data.keys():
