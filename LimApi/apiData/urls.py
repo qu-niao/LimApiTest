@@ -20,5 +20,6 @@ urlpatterns = [
     path('merge-cases', views.merge_cases),
     path('test-api-data', views.test_api_data),
     path('search-case-by-api', views.search_case_by_api),
+    path('api-report', views.get_api_report),
 
 ]

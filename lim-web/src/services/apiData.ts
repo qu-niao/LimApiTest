@@ -65,7 +65,11 @@ export function testApiData(params: object) {
   });
 }
 export function searchCaseByApi(_: string, params: object) {
+  //必须两个参数，要适配组件
   return request<any>(PREFIX + 'search-case-by-api', { params });
+}
+export function getApiReport(params: object) {
+  return request<any>(PREFIX + 'api-report', { params });
 }
 // export function ExpectRuleView(type: string, params: number | object = {}) {
 //   return limRequest(PREFIX + 'expect-rule-view', params, type);

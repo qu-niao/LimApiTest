@@ -17,6 +17,16 @@ API = 'api'
 API_CASE = 'case'
 API_SQL = 'sql'
 API_FUNC = 'api_func'
+API_TYPE_LABEL = {
+    API_HEADER: '全局请求头',
+    API_HOST: '全局请求地址',
+    API_VAR: '全局变量',
+    API_FOREACH: '循环控制器',
+    API: '接口',
+    API_CASE: '引用测试用例',
+    API_SQL: 'SQL语句',
+    API_FUNC: '自定义函数',
+}
 # --DB--
 DB = 'db'
 DIY_CFG = 1  # 自定义配置

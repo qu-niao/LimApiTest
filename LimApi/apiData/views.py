@@ -15,6 +15,7 @@ from comMethod.constant import DEFAULT_MODULE_NAME, USER_API, API, FAILED, API_C
     WAITING, VAR_PARAM, INTERRUPT
 from comMethod.diyException import CaseCascaderLevelError
 from comMethod.paramsDef import set_user_temp_params
+from comMethod.report import get_api_case_step_count, report_case_count, init_step_count
 from comMethod.treeDef import create_tree, create_cascader_tree
 from comMethod.views import LimView
 from user.models import UserCfg, UserTempParams, LimUser
@@ -84,7 +85,6 @@ class ApiCaseViews(LimView):
         if case_id:  # 有case_id代表请求详情
             instance = ApiCase.objects.defer('report_data').get(id=case_id)
             serializer = ApiCaseSerializer(instance, context={'api_id': api_id, 'user_id': request.user.id})
-
             return Response(data=serializer.data)
         return self.list(request, *args, **kwargs)
 
@@ -200,14 +200,14 @@ def run_api_cases(request):
     """
     执行Api测试用例
     """
-    user_id = request.user.id
+    user_id, envir = request.user.id, request.data['envir']
     case_data = parse_api_case_steps(request.data['case'])
-    UserCfg.objects.update_or_create(user_id=user_id, defaults={'exec_status': RUNNING})
+    UserCfg.objects.update_or_create(user_id=user_id, defaults={'exec_status': RUNNING, 'envir_id': envir})
     try:
         res = run_api_case_func(case_data, user_id, cfg_data={'envir_id': request.data['envir']})
         UserCfg.objects.filter(user_id=user_id).update(exec_status=WAITING)
         set_user_temp_params(res['params_source'], user_id)
-    except IndexError as e:
+    except Exception as e:
         return Response(data={'msg': f"执行异常：{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
     return Response(data={'msg': "执行完成！"})
 
@@ -314,3 +314,28 @@ def search_case_by_api(request):
         ser_data = serializer.data
         return Response({'data': ser_data, 'total': len(ser_data)})
     return Response({'data': {}})
+
+
+@api_view(['GET'])
+def get_api_report(request):
+    """
+    获取api报告
+    """
+    case_data = ApiCase.objects.filter(
+        id=request.query_params['case_id']).values('name', 'report_data').first() or {}
+    report_data = case_data.get('report_data')
+    if report_data:
+        report_data.update({'case_count': 0, 'name': case_data['name'], 'step_count': init_step_count(), 'cases': {}})
+        get_api_case_step_count(report_data['steps'], report_data)
+        if report_cases := report_data['cases']:
+            case_ids = list(report_cases.keys())
+            _data = ApiCase.objects.filter(id__in=case_ids).values('id', 'name')
+            case_name_dict = {v['id']: v['name'] for v in _data}
+            report_data['case_count'] = len(case_ids)
+            try:
+                report_case_count(case_ids, report_cases, case_name_dict, report_data)
+            except IndexError as e:
+                return Response(data={'msg': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data=report_data)
+        return Response(data={'msg': "该用例没有步骤！"}, status=status.HTTP_400_BAD_REQUEST)
+    return Response(data={'msg': "无该用例的测试报告！"}, status=status.HTTP_400_BAD_REQUEST)

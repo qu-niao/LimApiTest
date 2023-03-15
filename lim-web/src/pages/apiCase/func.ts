@@ -74,7 +74,6 @@ export const onStepFormOK = async (values: any, tableState: any, stepFormState: 
     status: WAITING_STATUS,
     controller_data: formData.controller_data,
   };
-  console.log('ok', values);
   saveData['step_name'] = values.step_name || STEP_TYPE_LABEL[formData.type];
   switch (formData.type) {
     case API_HEADER:

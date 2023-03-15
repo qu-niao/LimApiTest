@@ -130,7 +130,7 @@ export const NotiUserParams: React.FC<any> = ({
           onClose: () => setOpen(false),
           message: (
             <>
-              <p style={{ fontWeight: 'bold' }}>用户配置和变量池(Shift+Z 关闭/打开)</p>
+              <p style={{ fontWeight: 'bold' }}>用户配置和参数池(Shift+Z 关闭/打开)</p>
               <Button
                 shape="round"
                 type="primary"
@@ -143,7 +143,7 @@ export const NotiUserParams: React.FC<any> = ({
                   });
                 }}
               >
-                清空变量
+                清空参数
               </Button>
               <Button
                 shape="round"
@@ -248,6 +248,7 @@ export const NotiUserParams: React.FC<any> = ({
   };
   useEffect(() => {
     window.addEventListener('keydown', openLogFunc);
+
     if (!open) {
       notification.close('runLog');
     } else {

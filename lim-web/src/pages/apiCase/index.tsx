@@ -110,6 +110,7 @@ const ApiCase: React.FC = () => {
         json[caseId] = false;
         setCopyLoadings({ ...json });
         pageRef.current?.tableRef?.current?.onRefresh();
+        reqCascaderCaseTree();
       },
       () => {
         json[caseId] = false;
@@ -129,6 +130,7 @@ const ApiCase: React.FC = () => {
       }).then((res) => {
         message.success(res.msg);
         pageRef.current?.tableRef?.current?.onRefresh();
+        reqCascaderCaseTree();
       });
     }
   };
@@ -152,7 +154,7 @@ const ApiCase: React.FC = () => {
           },
           headerTitle: (
             <>
-              接口用例列表(shift+Z或点右下角图标查看配置和变量池)
+              接口用例列表(shift+Z或点右下角图标查看配置和参数池)
               <a style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
               </a>
@@ -182,7 +184,8 @@ const ApiCase: React.FC = () => {
               >
                 复制
               </Button>,
-              <a onClick={() => message.warning('实现中... ')}>查看报告</a>,
+              <a onClick={() => message.warning('实现中，将在3月20号左右上线！')}>查看报告</a>,
+              //<a onClick={() => window.open(`/apiReport?case=${record.id}`)}>查看报告</a>,
               <Popconfirm
                 key="delete"
                 title={DELETE_CONFIRM_TIP}

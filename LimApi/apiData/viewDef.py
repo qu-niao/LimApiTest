@@ -84,7 +84,7 @@ class ApiCasesActuator:
         user_cfg = UserCfg.objects.filter(user_id=user_id).values().first() or {
             'envir_id': 1, 'failed_stop': True, 'only_failed_log': False}
         cfg_data = {**user_cfg, **cfg_data} if cfg_data else user_cfg
-        self.envir = str(cfg_data['envir_id'])
+        self.envir = cfg_data['envir_id']
         self.failed_stop = cfg_data['failed_stop']
         self.only_failed_log = cfg_data['only_failed_log']
         self.status = SUCCESS
@@ -399,14 +399,14 @@ class ApiCasesActuator:
         """
           执行类型为全局变量的步骤
         """
-
         params = step['params']
-        mode, data = params[self.envir + '_mode'], params[self.envir + '_source']
-        var = self.parse_source_params(data, mode, i, params_type=API_VAR)
-        for name in var.keys():
-            self.params_source[VAR_PARAM][name] = {
-                'name': name, 'value': var[name], 'step_name': prefix_label + step['step_name'], 'type': VAR_PARAM,
-                'param_type_id': PY_TO_CONF_TYPE.get(str(type(var[name])), STRING), **self.base_params_source}
+        if f'{self.envir}_mode' in params and f'{self.envir}_source' in params:
+            mode, data = params[f'{self.envir}_mode'], params[f'{self.envir}_source']
+            var = self.parse_source_params(data, mode, i, params_type=API_VAR)
+            for name in var.keys():
+                self.params_source[VAR_PARAM][name] = {
+                    'name': name, 'value': var[name], 'step_name': prefix_label + step['step_name'], 'type': VAR_PARAM,
+                    'param_type_id': PY_TO_CONF_TYPE.get(str(type(var[name])), STRING), **self.base_params_source}
 
     def sql(self, step, prefix_label='', i=0):
         """
@@ -621,7 +621,7 @@ def go_step(actuator_obj, s_type, step, i=0, prefix_label='', **extra_params):
         print(step.get('step_name', '') + '，执行次数：' + str(j))
         try:
             res = getattr(actuator_obj, s_type)(**params) or {'status': SUCCESS}
-        except Exception as e:
+        except Exception as e:  # 捕获步骤执行过程的异常
             res = {'status': FAILED, 'results': str(e)}
         if res['status'] == FAILED:
             if j < retry_times:

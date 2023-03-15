@@ -1,10 +1,9 @@
 import { getIndexStatistics } from '@/services/project';
-import { Empty, Card, Layout, Col, Row, Skeleton, Tooltip, Divider } from 'antd';
+import { Empty, Card, Col, Row, Skeleton, Tooltip, Divider } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { RingChart } from './statisticCharts';
 import { InfoCircleOutlined } from '@ant-design/icons';
-const { Footer } = Layout;
 const EmptyComponents = () => (
   <div
     style={{
@@ -134,17 +133,17 @@ const Index: React.FC = () => {
         <Col span={6}>
           {' '}
           <Card bordered={false} style={{ height: '100%' }}>
-            <div style={{ maxHeight: 'calc(100vh - 400px)', overflowY: 'auto' }}>
+            <div style={{ maxHeight: 'calc(100vh - 370px)', overflowY: 'auto' }}>
               <h3 style={{ fontWeight: 'bold' }}>Lim测试平台 简介</h3>
               Lim是Less is
-              More（少即是多）的缩写，如它的名字一样我们希望用户在开展接口测试时所需的操作更少，但建设效率更高、实现的功能更多。
+              More(少即是多)的缩写，正如它的名字我们希望在开展接口测试时能够“四两拨千斤”！让用户操作更少但开展建设的效率更高。
               因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的传统建设思想，甚至还取消了“登录”！
               <br />
               你是否会疑问：这群Diao毛去掉了这些还如何高效的开展接口测试？
-              那还在等什么？赶快进入Lim的世界，体验简单又高效的接口测试吧！
+              那还在等什么？赶快进入Lim的世界，看看Lim是怎么通过另一种方式让接口测试变得简单且高效的吧！
             </div>
             <Divider />
-            <p style={{ fontWeight: 'bold', marginTop: 8 }}>
+            <p style={{ fontWeight: 'bold', marginBottom: 3 }}>
               三分钟上手（必看！）：
               <a
                 style={{ fontWeight: 'bold' }}
@@ -154,7 +153,7 @@ const Index: React.FC = () => {
                 点我访问
               </a>
             </p>
-            <p>
+            <p style={{ marginBottom: 3 }}>
               答疑、定制化开发+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
             </p>
             作者主页：
@@ -175,9 +174,9 @@ const Index: React.FC = () => {
           </Card>
         </Col>
       </Row>
-      <Footer style={{ textAlign: 'center', backgroundColor: '#F5F5F5' }}>
+      <p style={{ textAlign: 'center', backgroundColor: '#F5F5F5', marginTop: 10 }}>
         Lim接口测试平台1.0 ©2023 曲鸟团队出品
-      </Footer>
+      </p>
     </>
   );
 };

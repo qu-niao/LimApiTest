@@ -1,4 +1,4 @@
-CREATE DATABASE `lim-db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
+CREATE DATABASE `lim-db` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_bin';
 use `lim-db`;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -11,14 +11,14 @@ CREATE TABLE `api_case`  (
   `created` datetime(6) NOT NULL,
   `updated` datetime(6) NULL DEFAULT NULL,
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `status` int(0) NOT NULL,
-  `remark` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `remark` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL,
   `report_data` json NULL,
   `is_deleted` tinyint(1) NOT NULL,
   `latest_run_time` datetime(6) NULL DEFAULT NULL,
   `creater_id` bigint(0) NOT NULL,
-  `module_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `module_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `updater_id` bigint(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `api_case_name_module_id_13060238_uniq`(`name`, `module_id`) USING BTREE,
@@ -28,7 +28,7 @@ CREATE TABLE `api_case`  (
   CONSTRAINT `api_case_creater_id_a6d3af6d_fk_auth_user_id` FOREIGN KEY (`creater_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_case_module_id_3d0f4073_fk_api_case_module_id` FOREIGN KEY (`module_id`) REFERENCES `api_case_module` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_case_updater_id_a62fb5d0_fk_auth_user_id` FOREIGN KEY (`updater_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of api_case
@@ -41,14 +41,14 @@ DROP TABLE IF EXISTS `api_case_module`;
 CREATE TABLE `api_case_module`  (
   `created` datetime(6) NOT NULL,
   `updated` datetime(6) NULL DEFAULT NULL,
-  `id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `module_related` json NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `parent_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `parent_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `api_case_module_parent_id_cdd5cd0e_fk_api_case_module_id`(`parent_id`) USING BTREE,
   CONSTRAINT `api_case_module_parent_id_cdd5cd0e_fk_api_case_module_id` FOREIGN KEY (`parent_id`) REFERENCES `api_case_module` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of api_case_module
@@ -59,8 +59,8 @@ CREATE TABLE `api_case_module`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `api_case_step`;
 CREATE TABLE `api_case_step`  (
-  `step_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `step_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `status` int(0) NOT NULL,
   `params` json NULL,
   `enabled` tinyint(1) NOT NULL,
@@ -78,7 +78,7 @@ CREATE TABLE `api_case_step`  (
   CONSTRAINT `api_case_step_api_id_2ec3529e_fk_api_data_id` FOREIGN KEY (`api_id`) REFERENCES `api_data` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_case_step_case_id_d7437793_fk_api_case_id` FOREIGN KEY (`case_id`) REFERENCES `api_case` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_case_step_quote_case_id_b94ec3d7_fk_api_case_id` FOREIGN KEY (`quote_case_id`) REFERENCES `api_case` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of api_case_step
@@ -92,15 +92,15 @@ CREATE TABLE `api_data`  (
   `created` datetime(6) NOT NULL,
   `updated` datetime(6) NULL DEFAULT NULL,
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `method` varchar(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `status` int(0) NOT NULL,
   `default_params` json NULL,
   `timeout` smallint(0) NULL DEFAULT NULL,
   `source` smallint(0) NOT NULL,
   `creater_id` bigint(0) NOT NULL,
-  `module_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `module_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `project_id` smallint(0) NOT NULL,
   `updater_id` bigint(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
@@ -112,7 +112,7 @@ CREATE TABLE `api_data`  (
   CONSTRAINT `api_data_module_id_e102881f_fk_api_module_id` FOREIGN KEY (`module_id`) REFERENCES `api_module` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_data_project_id_b935f310_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_data_updater_id_2b8c1332_fk_auth_user_id` FOREIGN KEY (`updater_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of api_data
@@ -124,8 +124,8 @@ CREATE TABLE `api_data`  (
 DROP TABLE IF EXISTS `api_foreach_step`;
 CREATE TABLE `api_foreach_step`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `step_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `step_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `status` int(0) NOT NULL,
   `params` json NULL,
   `enabled` tinyint(1) NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE `api_foreach_step`  (
   CONSTRAINT `api_foreach_step_parent_id_bb5bc602_fk_api_foreach_step_id` FOREIGN KEY (`parent_id`) REFERENCES `api_foreach_step` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_foreach_step_quote_case_id_4fef398d_fk_api_case_id` FOREIGN KEY (`quote_case_id`) REFERENCES `api_case` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_foreach_step_step_id_268f4920_fk_api_case_step_id` FOREIGN KEY (`step_id`) REFERENCES `api_case_step` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of api_foreach_step
@@ -157,17 +157,17 @@ DROP TABLE IF EXISTS `api_module`;
 CREATE TABLE `api_module`  (
   `created` datetime(6) NOT NULL,
   `updated` datetime(6) NULL DEFAULT NULL,
-  `id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `module_related` json NOT NULL,
-  `parent_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `parent_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
   `project_id` smallint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `api_module_parent_id_df46aaf7_fk_api_module_id`(`parent_id`) USING BTREE,
   INDEX `api_module_project_id_528bc9a0_fk_project_id`(`project_id`) USING BTREE,
   CONSTRAINT `api_module_parent_id_df46aaf7_fk_api_module_id` FOREIGN KEY (`parent_id`) REFERENCES `api_module` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `api_module_project_id_528bc9a0_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of api_module
@@ -180,10 +180,10 @@ INSERT INTO `api_module` VALUES ('2023-02-28 02:28:09.087477', '2023-02-28 02:28
 DROP TABLE IF EXISTS `auth_group`;
 CREATE TABLE `auth_group`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_group
@@ -202,7 +202,7 @@ CREATE TABLE `auth_group_permissions`  (
   INDEX `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm`(`permission_id`) USING BTREE,
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_group_permissions
@@ -214,13 +214,13 @@ CREATE TABLE `auth_group_permissions`  (
 DROP TABLE IF EXISTS `auth_permission`;
 CREATE TABLE `auth_permission`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `content_type_id` int(0) NOT NULL,
-  `codename` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `codename` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE,
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -312,20 +312,20 @@ INSERT INTO `auth_permission` VALUES (80, 'Can view token', 20, 'view_tokenproxy
 DROP TABLE IF EXISTS `auth_user`;
 CREATE TABLE `auth_user`  (
   `id` bigint(0) NOT NULL AUTO_INCREMENT,
-  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `last_login` datetime(6) NULL DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
-  `username` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `first_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `last_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `email` varchar(254) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `first_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `last_name` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `email` varchar(254) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL,
-  `real_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `real_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `username`(`username`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_user
@@ -346,7 +346,7 @@ CREATE TABLE `auth_user_groups`  (
   INDEX `auth_user_groups_group_id_97559544_fk_auth_group_id`(`group_id`) USING BTREE,
   CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_user_groups_limuser_id_0977be3a_fk_auth_user_id` FOREIGN KEY (`limuser_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_user_groups
@@ -365,7 +365,7 @@ CREATE TABLE `auth_user_user_permissions`  (
   INDEX `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm`(`permission_id`) USING BTREE,
   CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `auth_user_user_permissions_limuser_id_7a85b01b_fk_auth_user_id` FOREIGN KEY (`limuser_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_user_user_permissions
@@ -376,13 +376,13 @@ CREATE TABLE `auth_user_user_permissions`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `authtoken_token`;
 CREATE TABLE `authtoken_token`  (
-  `key` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `key` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `created` datetime(6) NOT NULL,
   `user_id` bigint(0) NOT NULL,
   PRIMARY KEY (`key`) USING BTREE,
   UNIQUE INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `authtoken_token_user_id_35299eff_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of authtoken_token
@@ -396,10 +396,10 @@ DROP TABLE IF EXISTS `conf_envir`;
 CREATE TABLE `conf_envir`  (
   `id` smallint(0) NOT NULL AUTO_INCREMENT,
   `position` smallint(0) NOT NULL,
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of conf_envir
@@ -411,11 +411,11 @@ INSERT INTO `conf_envir` VALUES (1, 1, '默认环境');
 -- ----------------------------
 DROP TABLE IF EXISTS `conf_param_type`;
 CREATE TABLE `conf_param_type`  (
-  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `position` smallint(0) NOT NULL,
-  `id` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `id` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of conf_param_type
@@ -432,10 +432,10 @@ DROP TABLE IF EXISTS `django_admin_log`;
 CREATE TABLE `django_admin_log`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `action_time` datetime(6) NOT NULL,
-  `object_id` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
-  `object_repr` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `object_id` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL,
+  `object_repr` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `action_flag` smallint(0) UNSIGNED NOT NULL,
-  `change_message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `change_message` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `content_type_id` int(0) NULL DEFAULT NULL,
   `user_id` bigint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
@@ -443,7 +443,7 @@ CREATE TABLE `django_admin_log`  (
   INDEX `django_admin_log_user_id_c564eba6_fk_auth_user_id`(`user_id`) USING BTREE,
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_admin_log
@@ -455,11 +455,11 @@ CREATE TABLE `django_admin_log`  (
 DROP TABLE IF EXISTS `django_content_type`;
 CREATE TABLE `django_content_type`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `app_label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `app_label` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -491,11 +491,11 @@ INSERT INTO `django_content_type` VALUES (2, 'user', 'usertempparams');
 DROP TABLE IF EXISTS `django_migrations`;
 CREATE TABLE `django_migrations`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
-  `app` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `app` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_migrations
@@ -536,12 +536,12 @@ INSERT INTO `django_migrations` VALUES (30, 'sessions', '0001_initial', '2023-02
 -- ----------------------------
 DROP TABLE IF EXISTS `django_session`;
 CREATE TABLE `django_session`  (
-  `session_key` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `session_data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `session_key` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `session_data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`) USING BTREE,
   INDEX `django_session_expire_date_a5c62663`(`expire_date`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_session
@@ -555,11 +555,11 @@ CREATE TABLE `project`  (
   `created` datetime(6) NOT NULL,
   `updated` datetime(6) NULL DEFAULT NULL,
   `id` smallint(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `remark` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `remark` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of project
@@ -580,7 +580,7 @@ CREATE TABLE `project_envir_data`  (
   INDEX `project_envir_data_project_id_0ae43cb2_fk_project_id`(`project_id`) USING BTREE,
   CONSTRAINT `project_envir_data_envir_id_5710b654_fk_conf_envir_id` FOREIGN KEY (`envir_id`) REFERENCES `conf_envir` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `project_envir_data_project_id_0ae43cb2_fk_project_id` FOREIGN KEY (`project_id`) REFERENCES `project` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of project_envir_data
@@ -600,7 +600,7 @@ CREATE TABLE `user_cfg`  (
   INDEX `user_cfg_envir_id_478f5f1f_fk_conf_envir_id`(`envir_id`) USING BTREE,
   CONSTRAINT `user_cfg_envir_id_478f5f1f_fk_conf_envir_id` FOREIGN KEY (`envir_id`) REFERENCES `conf_envir` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_cfg_user_id_2b708387_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_cfg
@@ -612,12 +612,12 @@ CREATE TABLE `user_cfg`  (
 DROP TABLE IF EXISTS `user_temp_params`;
 CREATE TABLE `user_temp_params`  (
   `id` bigint(0) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `value` json NULL,
-  `step_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `step_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `type` smallint(0) NOT NULL,
   `case_id` int(0) NULL DEFAULT NULL,
-  `param_type_id` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `param_type_id` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `user_id` bigint(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_temp_params_case_id_3ef70ce8_fk_api_case_id`(`case_id`) USING BTREE,
@@ -626,7 +626,7 @@ CREATE TABLE `user_temp_params`  (
   CONSTRAINT `user_temp_params_case_id_3ef70ce8_fk_api_case_id` FOREIGN KEY (`case_id`) REFERENCES `api_case` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_temp_params_param_type_id_56215077_fk_conf_param_type_id` FOREIGN KEY (`param_type_id`) REFERENCES `conf_param_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `user_temp_params_user_id_2647a778_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_temp_params
