@@ -127,7 +127,7 @@ const Report = (props: any) => {
             ),
           )}
         </div>
-        <Divider />
+   
         <Row style={{ backgroundColor: '#f1f1f1', paddingTop: 10 }} gutter={[10, 10]}>
           <Col span={12}>
             {' '}

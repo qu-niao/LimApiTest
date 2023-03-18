@@ -449,6 +449,7 @@ export const CaseStepForm = ({ childRef, formRef, formData }: any) => {
       }
     });
   };
+  console.log('as', formData.results);
   useEffect(() => {
     if (formData.params?.case_related?.length) {
       reqCaseDetailData(formData.params?.case_related.slice(-1)[0], formData.results);

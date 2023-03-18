@@ -34,7 +34,6 @@ export const StepForm: React.FC<any> = ({ stepFormState, tableState, ...props })
   const stepType = formData.type;
   const formRef = useRef();
   const childRef = useRef<any>();
-  const apiRef = useRef<any>();
   let resultText = '';
   if (typeof formData.results === 'object') {
     resultText = formData.results?.msg || '';

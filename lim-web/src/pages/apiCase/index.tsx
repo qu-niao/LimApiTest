@@ -179,8 +179,9 @@ const ApiCase: React.FC = () => {
               >
                 复制
               </Button>,
-              //<a onClick={() => message.warning('实现中，将在3月20号左右上线！')}>查看报告</a>,
-              <a onClick={() => window.open(`/apiReport?case=${record.id}`)}>查看报告</a>,
+              <a key="report" onClick={() => window.open(`/apiReport?case=${record.id}`)}>
+                查看报告
+              </a>,
               <Popconfirm
                 key="delete"
                 title={DELETE_CONFIRM_TIP}

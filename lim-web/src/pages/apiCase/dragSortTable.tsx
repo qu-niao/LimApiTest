@@ -124,7 +124,7 @@ const SortTable: React.FC<any> = ({
               title={
                 <>
                   <Radio.Group defaultValue={mergeType} onChange={(e) => setMergeType(e.target.value)}>
-                    <Radio value={API_CASE}>合并为用例</Radio>
+                    <Radio value={API_CASE}>合并为新用例</Radio>
                     <Radio value={API_FOREACH}>合并为循环器</Radio>
                   </Radio.Group>
                 </>
@@ -159,6 +159,7 @@ const SortTable: React.FC<any> = ({
         width={900}
         formOk={onFormOk}
         open={mergeCaseOpen}
+        setOpen={steMergeCaseOpen}
         formItems={
           <>
             <DiyFormText
