@@ -157,3 +157,9 @@ export const EXPECT_RULE_LABEL = [
   { id: NOT_CONTAIN, name: '不包含' },
   { id: HAVE_KEY, name: '字段存在即可' },
 ];
+export const REPORT_STEP_STATUS_COLOR = {
+  '成功': SUCCESS_COLOR,
+  '失败': FAILED_COLOR,
+  '跳过': SKIP_COLOR, 
+  '禁用': DISABLED_COLOR,
+};

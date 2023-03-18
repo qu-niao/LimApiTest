@@ -90,6 +90,7 @@ export const stepColumns = (
   {
     title: '排序',
     dataIndex: 'sort',
+    className: 'mouse',
     width: '5%',
     render: (_: any, rowData: any, index: number) => {
       return <span style={{ marginLeft: 6 }}>{index + 1}</span>;

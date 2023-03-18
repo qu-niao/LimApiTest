@@ -1,0 +1,7 @@
+.statistics{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 20px 30px;
+    width: '90%';
+  }

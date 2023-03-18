@@ -7,7 +7,9 @@ SUCCESS = 4  # 执行成功
 SKIP = 5  # 跳过执行
 INTERRUPT = 6  # 中断执行
 DISABLED = 7  # 被禁用
-FAILED_STOP = 8  # 失败停止
+FAILED_STOP = 8  # 失败中断
+STATUS_LABEL = {WAITING: '等待执行', FAILED: '失败', RUNNING: '执行中', FINISH: '执行完成', SUCCESS: '成功', SKIP: '跳过',
+                INTERRUPT: '中断', DISABLED: '禁用', FAILED_STOP: '失败中断'}
 # --执行状态 end--
 API_HEADER = 'header'
 API_HOST = 'host'

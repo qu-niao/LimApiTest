@@ -1,4 +1,4 @@
-from comMethod.constant import SUCCESS, SKIP, DISABLED, INTERRUPT, API_CASE, API_TYPE_LABEL
+from comMethod.constant import SUCCESS, SKIP, DISABLED, FAILED, INTERRUPT, API_CASE, API_TYPE_LABEL, STATUS_LABEL
 
 
 def calculate_step_status_and_type(data, status, run_type):
@@ -7,13 +7,13 @@ def calculate_step_status_and_type(data, status, run_type):
     """
     status_count, type_count = data['sp_status_count'], data['sp_type_count']
     if status == SUCCESS:
-        status_count['success'] += 1
+        status_count[SUCCESS] += 1
     elif status == DISABLED:
-        status_count['disabled'] += 1
+        status_count[DISABLED] += 1
     elif status in (SKIP, INTERRUPT):
-        status_count['skip'] += 1
+        status_count[SKIP] += 1
     else:
-        status_count['fail'] += 1
+        status_count[FAILED] += 1
     type_count.setdefault(run_type, 0)
     type_count[run_type] += 1
 
@@ -22,7 +22,7 @@ def init_step_count():
     """
     初始化步骤数据
     """
-    return {'total_count': 0, 'sp_status_count': {key: 0 for key in ('success', 'fail', 'skip', 'disabled')},
+    return {'total_count': 0, 'sp_status_count': {key: 0 for key in (SUCCESS, FAILED, SKIP, DISABLED)},
             'sp_type_count': {}}
 
 
@@ -52,13 +52,16 @@ def report_case_count(case_ids, report_cases, case_name_dict, report_data):
     for c_id in case_ids:
         case_name = case_name_dict.get(c_id, '未知用例（可能已被删除）')
         case_status_count, case_type_count = report_cases[c_id]['sp_status_count'], report_cases[c_id]['sp_type_count']
-        for status, label in {'fail': '失败', 'success': '成功', 'disabled': '禁用', 'skip': '跳过'}.items():
+        for status, label in {FAILED: '失败', SUCCESS: '成功', DISABLED: '禁用', SKIP: '跳过'}.items():
             _list.append({'value': case_status_count[status], 'type': label, 'name': case_name})
             report_data['step_count']['sp_status_count'][status] += case_status_count[status]
             report_data['step_count']['total_count'] += case_status_count[status]
-
         for _type in API_TYPE_LABEL.keys():
             if case_type_count.get(_type):
                 report_data['step_count']['sp_type_count'].setdefault(_type, 0)
                 report_data['step_count']['sp_type_count'][_type] += case_type_count[_type]
+    report_data['step_count']['sp_status'] = [
+        {'type': STATUS_LABEL[k], 'value': v} for k, v in report_data['step_count']['sp_status_count'].items()]
+    report_data['step_count']['sp_type'] = [
+        {'type': API_TYPE_LABEL[k], 'value': v} for k, v in report_data['step_count']['sp_type_count'].items()]
     report_data['cases'] = _list
