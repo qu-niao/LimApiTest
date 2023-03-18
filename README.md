@@ -42,9 +42,10 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 #### 步骤编辑功能
 步骤支持合并、复制、拖拽改变排序，批量禁用等功能。一页俱全：
 ![step](https://qu-niao.gitee.io/qu-niao-page/img/step.jpg)
-
+#### 测试报告
+简洁直观的测试报告，概览统计执行情况，详情查看各步骤结果：
+![report](https://qu-niao.gitee.io/qu-niao-page/img/report.png)
 #### “免登录”设计
-
 安全的操作无需登录，让非用例建设人员查看数据报表、报告情况更加快捷方便，减少多余的账号管理和登录操作：
 ![login](https://qu-niao.gitee.io/qu-niao-page/img/login.jpg)
 #### 弹窗拖拽
