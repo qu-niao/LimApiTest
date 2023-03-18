@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { UnorderedListOutlined } from '@ant-design/icons';
 import { RingChart } from './statisticCharts';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import { VERSION } from '@/utils/constant';
 const EmptyComponents = () => (
   <div
     style={{
@@ -175,7 +176,7 @@ const Index: React.FC = () => {
         </Col>
       </Row>
       <p style={{ textAlign: 'center', backgroundColor: '#F5F5F5', marginTop: 10 }}>
-        Lim接口测试平台1.0 ©2023 曲鸟团队出品
+        Lim接口测试平台{VERSION} ©2023 曲鸟团队出品
       </p>
     </>
   );
