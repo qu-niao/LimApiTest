@@ -19,7 +19,6 @@ import { envirView } from '@/services/conf';
 import { projectHaveEnvir } from '@/services/project';
 
 export const showStepForm = async (stepFormState: any, values: any = {}) => {
-  console.log('val', values);
   let newValues = { ...values };
   switch (newValues.type) {
     case API:
@@ -112,7 +111,7 @@ export const onStepFormOK = async (values: any, tableState: any, stepFormState: 
       saveData['params'] = { times: values.times, break_code: values.break_code, steps: values.dataSource };
       break;
   }
-  console.log('saveData', saveData);
+
   if (formData.formType === POST) {
     saveData['id'] = Date.now();
     const rowIndex = formData.rowIndex;

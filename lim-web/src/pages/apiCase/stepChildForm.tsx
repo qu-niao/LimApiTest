@@ -57,7 +57,6 @@ const { Panel } = Collapse;
 export const HostForm = ({ formRef, formData }: any) => {
   const [hostType, setHostType] = useState<any>(formData.params?.host_type || DIY_CFG);
   const STEP_LABEL = STEP_TYPE_LABEL[API_HOST];
-  console.log('asd', formData);
   return (
     <>
       <ProFormRadio.Group
@@ -449,7 +448,6 @@ export const CaseStepForm = ({ childRef, formRef, formData }: any) => {
       }
     });
   };
-  console.log('as', formData.results);
   useEffect(() => {
     if (formData.params?.case_related?.length) {
       reqCaseDetailData(formData.params?.case_related.slice(-1)[0], formData.results);

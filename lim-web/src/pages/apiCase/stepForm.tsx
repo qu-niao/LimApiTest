@@ -225,7 +225,7 @@ export const ControllerForm = ({ stepFormState, tableState, ...props }: any) => 
                     controller_data?.execute_on ||
                     '# ' +
                       DIY_FUNC_VAR_TIPS +
-                      '\n# return=True时会执行该步骤，False时则跳过，如下方示例则会跳过执行：\nreturn False'
+                      '\n# return=True时会执行该步骤，False时则跳过，如下方示例则会执行该步骤：\nreturn True'
                   }
                   onChangeFunc={(value: string) => {
                     formRef.current.setFieldsValue({ execute_on: value });

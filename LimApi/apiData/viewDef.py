@@ -607,9 +607,11 @@ def go_step(actuator_obj, s_type, step, i=0, prefix_label='', **extra_params):
     retry_interval, execute_on = controller_data.get('re_interval', 0), controller_data.get('execute_on', '')
     sleep_time = controller_data.get('sleep')
     res = {'status': SUCCESS, 'results': ''}
+    print('ee',execute_on,controller_data)
     if execute_on:
         try:
             res = run_params_code(execute_on, copy.deepcopy(actuator_obj.default_var), i)
+            print('res', res)
             if not res:
                 return {'status': SKIP, 'results': '【控制器】执行条件不满足！'}
         except Exception as e:
