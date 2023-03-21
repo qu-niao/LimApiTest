@@ -65,7 +65,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 1.  python3.9+;
 2.  mysql5.7+;
 3. 执行项目中的`init-db.sql`初始化数据库：
-4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirement.txt -i https://mirrors.aliyun.com/pypi/simple`;
+4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple`;
 5. 修改`LimApi/LimApi/settings.py`文件的`DATABASES`数据库配置；
 6. 启动服务：`python manage.py runserver 0.0.0.0:8001`;
 7. （可选）如果不涉及文件上传的操作可不执行：新开cmd窗口进入FileData目录执行命令`python3 -m http.server 8003`;
