@@ -1,6 +1,6 @@
 //export const HOST_SERVER = 'http://127.0.0.1:8006';
-export const HOST_SERVER = 'http://121.43.43.59:8006';
-export const VERSION='1.1'
+export const HOST_SERVER = 'http://121.43.43.59:8006'; //接口服务地址
+export const VERSION = '1.1';
 export const GET = 'get'; //代表请求列表
 export const DELETE = 'delete'; //代表删除数据
 export const POST = 'post'; //代表创建数据
@@ -159,8 +159,8 @@ export const EXPECT_RULE_LABEL = [
   { id: HAVE_KEY, name: '字段存在即可' },
 ];
 export const REPORT_STEP_STATUS_COLOR = {
-  '成功': SUCCESS_COLOR,
-  '失败': FAILED_COLOR,
-  '跳过': SKIP_COLOR, 
-  '禁用': DISABLED_COLOR,
+  成功: SUCCESS_COLOR,
+  失败: FAILED_COLOR,
+  跳过: SKIP_COLOR,
+  禁用: DISABLED_COLOR,
 };
