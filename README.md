@@ -59,7 +59,8 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 1.  安装nodejs
 2.  安装yarn
 3.  进入项目中的lim-web目录执行：`yarn&&yarn start`
-执行启动后就可直接使用无需再部署后端服务，因为请求的接口地址配置的是演示地址http://121.43.43.59:8006，如要映射为自己的请修改文件`src/utils/constant.ts`中的`HOST_SERVER`：
+执行启动后就可直接使用无需再部署后端服务，因为请求的接口地址配置的是演示地址http://121.43.43.59:8006
+如要映射为自己的请修改文件：src/utils/constant.ts中的HOST_SERVER：
 ![host_server](https://qu-niao.gitee.io/qu-niao-page/img/host_server.jpg)
 ---
 #### 后端环境
