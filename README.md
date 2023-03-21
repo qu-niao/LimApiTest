@@ -70,7 +70,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 6. 启动服务：`python manage.py runserver 0.0.0.0:8001`;
 7. （可选）如果不涉及文件上传的操作可不执行：新开cmd窗口进入FileData目录执行命令`python3 -m http.server 8003`;
 
-**注意：因为django默认启动为单线程模式，所以上述的部署方式无法进行并发操作（例：在用例执行的同时进行中断执行的操作）所以可以通过UWSGI来启动项目。对于Linux系统推荐`gunicorn`+`gevent`的方式部署，本项目中的`requirement.txt`已集成了这两个库，所以在linux服务器上将启动命令更换为：`python3 -m gunicorn -w 5 -k gevent -t 120 -D  LimApi.wsgi -b 0.0.0.0:8006` 即可。**
+**注意：因为django默认启动为单线程模式，所以上述的部署方式无法进行并发操作（例：在用例执行的同时进行中断执行的操作）所以可以通过UWSGI来启动项目。对于Linux系统推荐`gunicorn`+`gevent`的方式部署，本项目中的`requirements.txt`已集成了这两个库，所以在linux服务器上将启动命令更换为：`python3 -m gunicorn -w 5 -k gevent -t 120 -D  LimApi.wsgi -b 0.0.0.0:8006` 即可。**
 
 ---
 
