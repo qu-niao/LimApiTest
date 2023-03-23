@@ -148,12 +148,12 @@ const ApiCase: React.FC = () => {
             labelWidth: 'auto',
           },
           headerTitle: (
-            <>
+            <div style={{width:600}}>
               接口用例列表(shift+Z或点右下角图标查看配置和参数池)
               <a style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
               </a>
-            </>
+            </div>
           ),
           manualRequest: true,
           optionRefresh: [envir, copyLoadings, mergeCaseName, currentMod],
