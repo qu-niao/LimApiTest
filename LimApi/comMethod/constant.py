@@ -63,3 +63,5 @@ NOT_EQUAL = 2  # 不相等
 CONTAIN = 3  # 包含
 NOT_CONTAIN = 4  # 不包含
 HAVE_KEY = 5  # 字段存在即可
+# ---
+PROTECT_CODE = '1451'
