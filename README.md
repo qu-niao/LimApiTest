@@ -56,7 +56,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 制作中...
 ### 开发环境搭建教程
 #### 前端环境
-1.  安装nodejs
+1.  安装nodejs(建议16版本，18版本可能报错: **[报错解决方案](https://blog.csdn.net/momoda118/article/details/129826478)**)
 2.  安装yarn
 3.  进入项目中的lim-web目录执行：`yarn&&yarn start`<br/>
 **注：执行启动后就可直接使用无需再部署后端服务，因为请求的接口地址配置的是演示地址，如要修改请修改文件：`src/utils/constant.ts`中的`HOST_SERVER`**：

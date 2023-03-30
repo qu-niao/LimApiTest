@@ -7,6 +7,7 @@ from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.response import Response
 
 from comMethod.comDef import get_module_related
+from comMethod.constant import PROTECT_CODE
 
 
 class LimView(mixins.ListModelMixin,
@@ -75,7 +76,7 @@ class LimView(mixins.ListModelMixin,
             mod_id = request.parser_context['kwargs']['pk']
             plan_data = model.objects.filter(module_id=mod_id, is_deleted=False).first()
             if plan_data:
-                raise IntegrityError
+                raise IntegrityError(PROTECT_CODE)
             model.objects.filter(module_id=mod_id).delete()
             return self.destroy(request, *args, **kwargs)
 
