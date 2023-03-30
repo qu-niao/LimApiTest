@@ -108,7 +108,10 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
                       }
                     });
                     fieldName += '.' + value['name'];
-                    fieldName = fieldName.slice(1);
+                    //响应结果不为纯数组则需要去除
+                    if (!fieldName.startsWith('[')) {
+                      fieldName = fieldName.slice(1);
+                    }
                     const sourceName = `${currentTabs}_source`;
                     let data = formRef.current.getFieldValue(sourceName) || [];
                     const rowId = Date.now();
