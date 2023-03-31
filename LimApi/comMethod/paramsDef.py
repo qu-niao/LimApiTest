@@ -1,8 +1,10 @@
 import re
+import sys
 from functools import lru_cache
 
 from django.db.models import Q
 
+from comMethod.comDef import SavePrintContent
 from comMethod.constant import HEADER_PARAM, VAR_PARAM, HOST_PARAM
 from comMethod.diyException import DiyBaseException
 from conf.models import ConfParamType
@@ -135,8 +137,14 @@ def run_params_code(data, params, i, response=None):
     try:
         exec(parse_data)
     except Exception as e:
-        raise DiyBaseException('代码执行出错：' + str(e))
+        raise DiyBaseException('代码编译报错：' + str(e))
+    stdout = sys.stdout
+    sys.stdout = SavePrintContent()
     res = locals()['temp_func'](params, response, i) if response else locals()['temp_func'](params, i)
+    text_area, sys.stdout = sys.stdout, stdout
+    print_content = ''
+    for content in text_area.buffer:
+        print_content += content[0]
     return res
 
 

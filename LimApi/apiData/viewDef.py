@@ -171,7 +171,6 @@ class ApiCasesActuator:
                     if res:
                         res_v = res['value']
                         # res_v = str(res['value']) if ext_v_type == STRING else json_loads(res['value'])
-                        print('ex', res_v, rule, type(ext_v))
                         if rule == EQUAL and res_v != ext_v:
                             return {'status': FAILED, 'results': ext_name + '的期望值:' + str(
                                 ext_v) + ' 与响应结果不相等！响应结果值为:' + str(res_v) + ';\n'}
