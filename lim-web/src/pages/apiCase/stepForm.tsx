@@ -16,7 +16,7 @@ import {
   API_SQL,
   API_VAR,
   DIY_CFG,
-  DIY_FUNC_VAR_TIPS,
+  CODE_VAR_EXP,
   MYSQL,
   POST,
   STEP_TYPE_LABEL,
@@ -224,7 +224,7 @@ export const ControllerForm = ({ stepFormState, tableState, ...props }: any) => 
                   initValue={
                     controller_data?.execute_on ||
                     '# ' +
-                      DIY_FUNC_VAR_TIPS +
+                      CODE_VAR_EXP +
                       '\n# return=True时会执行该步骤，False时则跳过，如下方示例则会执行该步骤：\nreturn True'
                   }
                   onChangeFunc={(value: string) => {

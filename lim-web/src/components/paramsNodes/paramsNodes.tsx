@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from 'react';
+import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import {
   ProFormText,
   ProFormTextArea,
@@ -21,8 +21,10 @@ import {
   TEXT_MODE,
   CODE_MODE,
   FORM_MODE,
-  DIY_FUNC_VAR_TIPS,
-  DIY_FUNC_RES_TIPS,
+  CODE_VAR_EXP,
+  CODE_RES_EXP,
+  CODE_RES_TIPS,
+  CODE_VAR_TIPS,
 } from '@/utils/constant';
 export const ParamsNodes = ({
   formRef,
@@ -151,7 +153,7 @@ export const ParamsNodes = ({
         break;
       case CODE_MODE:
         let tips = '';
-        const res_var_tips = DIY_FUNC_VAR_TIPS + DIY_FUNC_RES_TIPS;
+        const res_var_tips = CODE_VAR_EXP + CODE_RES_EXP;
         switch (type) {
           case 'expect':
             tips =
@@ -168,13 +170,13 @@ export const ParamsNodes = ({
           case 'body':
             tips =
               '# ' +
-              DIY_FUNC_VAR_TIPS +
+              CODE_VAR_EXP +
               "\n# 会将return返回值作为body参数，如下方示例则会将{'a':1,'b':2}作为body参数传递：\nimport json \nreturn json.dumps({'a':1,'b':2})";
             break;
           default:
             tips =
               '# ' +
-              DIY_FUNC_VAR_TIPS +
+              CODE_VAR_EXP +
               "\n# return返回值必须为一个字典，会将其返回的字典更新到全局变量中，如下方示例会将code加入/覆盖到全局变量中：\nreturn {'code':123}";
             break;
         }
@@ -251,7 +253,12 @@ export const ParamsNodes = ({
       ];
       if (['expect', 'output'].includes(type)) {
         modeOptions[1] = {
-          label: '代码模式',
+          label: (
+            <Tooltip placement="top" title={CODE_RES_TIPS} overlayStyle={{ maxWidth: 600 }}>
+              <span style={{ fontSize: 14 }}>代码模式</span>
+              <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3 }} />
+            </Tooltip>
+          ),
           value: CODE_MODE,
         };
       } else if (type === 'body') {
@@ -259,7 +266,12 @@ export const ParamsNodes = ({
           ...modeOptions,
           ...[
             {
-              label: '代码模式',
+              label: (
+                <Tooltip placement="top" title={CODE_VAR_TIPS} overlayStyle={{ maxWidth: 600 }}>
+                  <span style={{ fontSize: 14 }}>代码模式</span>
+                  <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3 }} />
+                </Tooltip>
+              ),
               value: CODE_MODE,
             },
             {

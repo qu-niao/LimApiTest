@@ -69,8 +69,11 @@ export const PARAM_TYPE_LABEL = [
     label: 'PATCH',
   },
 ];
-export const DIY_FUNC_RES_TIPS = "response=响应结果，response['code']等于取响应结果中code字段的值；";
-export const DIY_FUNC_VAR_TIPS = "var=全局变量，var['name']等于取变量名为name的值；";
+export const CODE_RES_EXP = "response=响应结果(类型：dict)，response['code']等于取响应结果中code字段的值；";
+export const CODE_RES_TIPS =
+  '固定变量：i=0或循环的下标值，var=全局参数(类型：dict)，response=响应结果(类型：dict)';
+export const CODE_VAR_EXP = "var=全局变量(类型：dict)，var['name']等于取变量名为name的值；";
+export const CODE_VAR_TIPS = '固定变量：i=0或循环的下标值，var=全局参数(类型：dict)';
 //---文字文本-----
 export const DELETE_CONFIRM_TIP = '您确定要删除吗？';
 

@@ -39,7 +39,8 @@ import {
   GET,
   FAILED_STATUS,
   FAILED_COLOR,
-  DIY_FUNC_VAR_TIPS,
+  CODE_VAR_EXP,
+  CODE_VAR_TIPS,
 } from '@/utils/constant';
 import apiDataContext from '@/pages/apiData/context';
 import { paramsColumns } from '@/components/paramsNodes/columns';
@@ -197,7 +198,12 @@ export const VarForm = ({ formData, formRef, childRef }: any) => {
               value: JSON_MODE,
             },
             {
-              label: '代码模式',
+              label: (
+                <Tooltip placement="top" title={CODE_VAR_TIPS} overlayStyle={{ maxWidth: 600 }}>
+                  <span style={{ fontSize: 14 }}>代码模式</span>
+                  <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3 }} />
+                </Tooltip>
+              ),
               value: CODE_MODE,
             },
           ]}
@@ -582,7 +588,7 @@ export const ForEachStepForm = ({ childRef, formRef, formData }: any) => {
                   initValue={
                     formData.params?.break_code ||
                     '# ' +
-                      DIY_FUNC_VAR_TIPS +
+                      CODE_VAR_EXP +
                       "\n# 当return返回值为True的时候会执行该步骤，否则跳过执行：\nif var['name']=='项目':\n\treturn True"
                   }
                   onChangeFunc={(value: string) => {
