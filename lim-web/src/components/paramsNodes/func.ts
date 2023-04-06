@@ -4,11 +4,14 @@ export const paramsTableToJson = (data: any) => {
   let value = {};
   if (Array.isArray(data)) {
     for (let i = 0; i < data.length; i++) {
-      const type = data[i].type.type;
-      if (type !== 'string') {
-        value[data[i].name] = JSONPrase(data[i].value);
-      } else {
-        value[data[i].name] = data[i].value.toString();
+      const item = data[i];
+      if (item.name) {
+        const type = item.type.type;
+        if (type !== 'string') {
+          value[item.name] = JSONPrase(item.value);
+        } else {
+          value[item.name] = item.value?.toString() || null;
+        }
       }
     }
   }
