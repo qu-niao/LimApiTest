@@ -4,6 +4,7 @@ export default defineConfig({
   // "theme": {
   //   "primary-color": "#1DA57A",
   // },
+  history: { type: 'hash' },
   favicon: '/icon.ico',
   nodeModulesTransform: {
     type: 'none',
