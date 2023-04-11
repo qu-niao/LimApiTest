@@ -171,7 +171,7 @@ export const ParamsNodes = ({
             tips =
               '# ' +
               CODE_VAR_EXP +
-              "\n# 会将return返回值作为body参数，如下方示例则会将{'a':1,'b':2}作为body参数传递：\nimport json \nreturn json.dumps({'a':1,'b':2})";
+              "\n# 会将return返回值作为body参数，如下方示例则会将{'a':1,'b':2}作为body参数传递：\nimport json \nreturn {'a':1,'b':2}";
             break;
           default:
             tips =
