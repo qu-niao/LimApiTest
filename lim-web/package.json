@@ -28,7 +28,6 @@
     "@types/lodash": "^4.14.191",
     "@uiw/react-codemirror": "^4.15.1",
     "antd": "4.24.8",
-    "gh-pages": "^5.0.0",
     "jsoneditor": "9.10.0",
     "lodash": "^4.17.21",
     "react": "18.x",

@@ -240,26 +240,24 @@ export const stepColumns = (
       </a>,
       onlyShow ? null : (
         <Popover
-          trigger="click"
+          trigger="hover"
+          placement="top"
           key="copy"
           content={
-            <>
-              <Button onClick={() => copyStep(record, tableState)}>复制到当前用例</Button>
-              <Cascader
-                options={treeCascaderCase}
-                fieldNames={{ label: 'name', value: 'id' }}
-                onChange={(v) =>
-                  copyStepToOtherCase({ ...record, ...{ to_case: v.slice(-1)[0] } }).then((res) =>
-                    message.success(res.msg),
-                  )
-                }
-              >
-                <Button style={{ marginLeft: 10 }}>复制到其它用例</Button>
-              </Cascader>
-            </>
+            <Cascader
+              options={treeCascaderCase}
+              fieldNames={{ label: 'name', value: 'id' }}
+              onChange={(v) =>
+                copyStepToOtherCase({ ...record, ...{ to_case: v.slice(-1)[0] } }).then((res) =>
+                  message.success(res.msg),
+                )
+              }
+            >
+              <Button type="primary">复制到其它用例</Button>
+            </Cascader>
           }
         >
-          <a style={{ marginLeft: 8 }}>复制</a>
+          <a onClick={() => copyStep(record, tableState)}>复制</a>
         </Popover>
       ),
       onlyShow ? null : (
