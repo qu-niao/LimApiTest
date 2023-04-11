@@ -18,6 +18,7 @@ urlpatterns = [
     path('stop-casing', views.stop_casing),
     path('copy-cases', views.copy_cases),
     path('merge-cases', views.merge_cases),
+    path('copy-step-to-other-case', views.copy_step_to_other_case),
     path('test-api-data', views.test_api_data),
     path('search-case-by-api', views.search_case_by_api),
     path('api-report', views.get_api_report),

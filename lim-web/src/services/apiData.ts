@@ -58,6 +58,12 @@ export function mergeCases(params: object) {
     data: params,
   });
 }
+export function copyStepToOtherCase(params: object) {
+  return request<any>(PREFIX + 'copy-step-to-other-case', {
+    method: 'POST',
+    data: params,
+  });
+}
 export function testApiData(params: object) {
   return request<any>(PREFIX + 'test-api-data', {
     method: 'POST',

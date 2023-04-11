@@ -34,7 +34,7 @@ const SortTable: React.FC<any> = ({
     });
     tableState.setDataSource(dataSource);
   };
-  const { reqCascaderCaseTree, pageRef } = useContext(apiDataContext);
+  const { reqCascaderCaseTree,treeCascaderCase, pageRef } = useContext(apiDataContext);
   const mergeSteps = () => {
     if (mergeType === API_FOREACH) {
       showStepForm(stepFormState, {
@@ -131,7 +131,7 @@ const SortTable: React.FC<any> = ({
               }
               onConfirm={() => mergeSteps()}
             >
-              <Button> 将选中合并为新步骤</Button>
+              <Button> 合并选中项</Button>
             </Popconfirm>
 
             <Button onClick={() => changeSelectedStepEnabled(false)}> 禁用选中项</Button>
@@ -146,6 +146,7 @@ const SortTable: React.FC<any> = ({
           setRunLoading,
           hoverIndex,
           setHoverIndex,
+          treeCascaderCase
         )}
         rowKey="id"
         {...props}

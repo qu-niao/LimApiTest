@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import IntegrityError, transaction
 from django.db.models import Value, F, Q, Max
 from django.db.models.functions import Concat
@@ -284,6 +286,20 @@ def merge_cases(request):
         print(str(e))
         return Response(data={'msg': '该测试用例已存在！'}, status=status.HTTP_400_BAD_REQUEST)
     return Response(data={'msg': "合并成功！"})
+
+
+@api_view(['POST'])
+def copy_step_to_other_case(request):
+    """
+    复制测试用例中的某个步骤到其他测试用例下
+    """
+    params = request.data
+    ApiCaseStep.objects.create(
+        step_name=params['step_name'], type=params['type'],
+        case_id=params['to_case'], status=WAITING, api_id=params.get('params', {}).get('api_id'),
+        enabled=True, controller_data=params.get('controller_data', {}), params=params['params'])
+    ApiCase.objects.filter(id=params['to_case']).update(updater_id=request.user.id, updated=datetime.datetime.now())
+    return Response({'msg': '复制成功！'})
 
 
 @api_view(['POST'])

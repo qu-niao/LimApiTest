@@ -8,11 +8,11 @@ import {
   STEP_TYPE_LABEL,
   SUCCESS_STATUS,
 } from '@/utils/constant';
-import { Tag, Dropdown, Switch, message, notification } from 'antd';
+import { Tag, Dropdown, Switch, message, notification, Popover, Button, Cascader } from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { showControllerForm, showStepForm } from './func';
 import { changeStepData, changeStepEnabled, copyStep, deleteStep } from '@/utils/utils';
-import { runApiStep } from '@/services/apiData';
+import { copyStepToOtherCase, runApiStep } from '@/services/apiData';
 import { menuItems } from './MenuItems';
 import './index.css';
 export const columns = [
@@ -85,6 +85,7 @@ export const stepColumns = (
   setLoading: Function,
   hoverIndex: number,
   setHoverIndex: Function,
+  treeCascaderCase: any[],
   onlyShow: boolean = false,
 ): any => [
   {
@@ -238,9 +239,28 @@ export const stepColumns = (
         配置控制器
       </a>,
       onlyShow ? null : (
-        <a key="copy" onClick={() => copyStep(record, tableState)}>
-          复制
-        </a>
+        <Popover
+          trigger="click"
+          key="copy"
+          content={
+            <>
+              <Button onClick={() => copyStep(record, tableState)}>复制到当前用例</Button>
+              <Cascader
+                options={treeCascaderCase}
+                fieldNames={{ label: 'name', value: 'id' }}
+                onChange={(v) =>
+                  copyStepToOtherCase({ ...record, ...{ to_case: v.slice(-1)[0] } }).then((res) =>
+                    message.success(res.msg),
+                  )
+                }
+              >
+                <Button style={{ marginLeft: 10 }}>复制到其它用例</Button>
+              </Cascader>
+            </>
+          }
+        >
+          <a style={{ marginLeft: 8 }}>复制</a>
+        </Popover>
       ),
       onlyShow ? null : (
         <a key="3" onClick={() => deleteStep(record.id, tableState)}>
