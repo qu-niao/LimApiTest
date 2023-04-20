@@ -155,7 +155,7 @@ const Index: React.FC = () => {
               </a>
             </p>
             <p style={{ marginBottom: 3 }}>
-              答疑、定制化开发+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
+              答疑、从0教学+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
             </p>
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/">
