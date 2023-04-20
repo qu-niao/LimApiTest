@@ -1,6 +1,7 @@
-import { API_HEADER, API_HOST, API_VAR, STATUS_LABEL, STEP_TYPE_LABEL } from '@/utils/constant';
+import { API_HEADER, API_HOST, API_VAR, PATCH, STATUS_LABEL, STEP_TYPE_LABEL } from '@/utils/constant';
 import { Tag } from 'antd';
-export const stepColumns = (showModal:any=null) => {
+import { showStepForm } from '../apiCase/func';
+export const stepColumns = (stepFormState: any) => {
   return [
     {
       title: '类型',
@@ -56,7 +57,7 @@ export const stepColumns = (showModal:any=null) => {
       title: '操作',
       key: 'operation',
       render: (record: any) => (
-        <a key="update" onClick={() => showModal(record)}>
+        <a key="update" onClick={() => showStepForm(stepFormState, { ...{ formType: PATCH }, ...record })}>
           查看详情
         </a>
       ),

@@ -19,6 +19,7 @@ import { envirView } from '@/services/conf';
 import { projectHaveEnvir } from '@/services/project';
 
 export const showStepForm = async (stepFormState: any, values: any = {}) => {
+  console.log('vv', values);
   let newValues = { ...values };
   switch (newValues.type) {
     case API:

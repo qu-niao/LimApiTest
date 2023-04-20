@@ -193,9 +193,9 @@ export const ControllerForm = ({ stepFormState, tableState, ...props }: any) => 
                 fieldProps={{ addonAfter: '秒' }}
               />
               <h3 className="title" style={{ marginTop: 32, marginBottom: 16 }}>
-                重试规则
+                重试规则（步骤为引用用例或循环器时不生效）
               </h3>
-              失败后，间隔{' '}
+              执行失败后，间隔{' '}
               <InputNumber
                 style={{ width: 90 }}
                 max={99}
@@ -205,7 +205,7 @@ export const ControllerForm = ({ stepFormState, tableState, ...props }: any) => 
                 addonAfter="秒"
                 size="small"
               />{' '}
-              重试一次，最多重试{' '}
+              重试，最多重试{' '}
               <InputNumber
                 addonAfter="次（为0时不重试）"
                 size="small"
@@ -215,7 +215,6 @@ export const ControllerForm = ({ stepFormState, tableState, ...props }: any) => 
                 style={{ width: 190 }}
                 value={reTimes}
               />
-              （步骤为引用用例或循环器时不生效）
               <h3 className="title" style={{ marginTop: 32, marginBottom: 16 }}>
                 执行该步骤的条件
               </h3>

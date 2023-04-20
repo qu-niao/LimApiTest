@@ -152,7 +152,7 @@ export const stepColumns = (
               <Tag
                 color="magenta"
                 className="mouse"
-                style={{ float: 'right', position: 'relative', top: 12 }}
+                style={{ float: 'right', position: 'relative', top: 10 }}
               >
                 插入新步骤
               </Tag>

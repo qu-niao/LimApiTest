@@ -90,7 +90,7 @@ const Report = (props: any) => {
     const data = record.results;
     return (
       <Table
-        columns={stepColumns(showStepModal)}
+        columns={stepColumns(stepFormState)}
         rowKey="id"
         bordered
         dataSource={data}
@@ -156,7 +156,7 @@ const Report = (props: any) => {
                 bordered
                 pagination={false}
                 title={() => <h2 style={{ fontWeight: 'bold' }}>步骤详情</h2>}
-                columns={stepColumns(showStepModal)}
+                columns={stepColumns(stepFormState)}
                 rowKey="id"
                 expandable={{
                   expandedRowRender,
