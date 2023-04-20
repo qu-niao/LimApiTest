@@ -34,7 +34,14 @@ const SortTable: React.FC<any> = ({
     });
     tableState.setDataSource(dataSource);
   };
-  const { reqCascaderCaseTree,treeCascaderCase, pageRef } = useContext(apiDataContext);
+  const deleteSelectedSteps = () => {
+    let dataSource = [...tableState.dataSource];
+    const selectedKeys = selectedSteps.map((item: any) => item.id);
+    dataSource = dataSource.filter((item) => !selectedKeys.includes(item.id));
+    setSelectedSteps([]);
+    tableState.setDataSource(dataSource);
+  };
+  const { reqCascaderCaseTree, treeCascaderCase, pageRef } = useContext(apiDataContext);
   const mergeSteps = () => {
     if (mergeType === API_FOREACH) {
       showStepForm(stepFormState, {
@@ -136,6 +143,10 @@ const SortTable: React.FC<any> = ({
 
             <Button onClick={() => changeSelectedStepEnabled(false)}> 禁用选中项</Button>
             <Button onClick={() => changeSelectedStepEnabled(true)}> 启用选中项</Button>
+            <Button danger onClick={() => deleteSelectedSteps()}>
+              {' '}
+              删除选中项
+            </Button>
           </Space>
         )}
         tableAlertOptionRender={false}
@@ -146,7 +157,7 @@ const SortTable: React.FC<any> = ({
           setRunLoading,
           hoverIndex,
           setHoverIndex,
-          treeCascaderCase
+          treeCascaderCase,
         )}
         rowKey="id"
         {...props}
