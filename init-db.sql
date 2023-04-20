@@ -420,10 +420,10 @@ CREATE TABLE `conf_param_type`  (
 -- ----------------------------
 -- Records of conf_param_type
 -- ----------------------------
-INSERT INTO `conf_param_type` VALUES ('字符串(string)', 1, '1');
-INSERT INTO `conf_param_type` VALUES ('对象(object)', 2, '2');
-INSERT INTO `conf_param_type` VALUES ('数字(int/float)', 3, '3');
-INSERT INTO `conf_param_type` VALUES ('布尔(boolean)', 4, '4');
+INSERT INTO `conf_param_type` VALUES ('布尔(boolean)', 4, 'boolean');
+INSERT INTO `conf_param_type` VALUES ('数字(int/float)', 3, 'number');
+INSERT INTO `conf_param_type` VALUES ('对象(object)', 2, 'object');
+INSERT INTO `conf_param_type` VALUES ('字符串(string)', 1, 'string');
 
 -- ----------------------------
 -- Table structure for django_admin_log

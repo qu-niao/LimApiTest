@@ -61,7 +61,7 @@ export const LimTreeData = ({
           }}
         >
           <Tooltip title={`增加${actionLabel}`}>
-            <PlusCircleOutlined style={{ marginLeft: 10 }} onClick={(e) => showForm(POST, item)} />
+            <PlusCircleOutlined style={{ marginLeft: 10 }} onClick={(e) => showForm(POST)} />
           </Tooltip>
           <Tooltip title={`编辑${actionLabel}`}>
             <EditOutlined onClick={(e) => showForm(PATCH, item)} style={{ marginLeft: 10 }} />
