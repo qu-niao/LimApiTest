@@ -64,8 +64,8 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 ![host_server](https://qu-niao.gitee.io/qu-niao-page/img/host_server.jpg)
 ---
 #### 后端环境
-1.  python3.9+;
-2.  mysql5.7+;
+1.  python 3.9+（不要使用类似3.12这种还未发布的测试版本）;
+2.  mysql 5.7+;
 3. 执行项目中的`init-db.sql`初始化数据库：
 4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple`;
 5. 修改`LimApi/LimApi/settings.py`文件的`DATABASES`数据库配置；
