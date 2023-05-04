@@ -30,7 +30,7 @@ const columns = [
   {
     title: '值',
     dataIndex: 'value',
-    width: '25%',
+    width: '30%',
     ellipsis: true,
     render: (v: any, record: any) => {
       switch (record.param_type_id) {
@@ -39,7 +39,12 @@ const columns = [
         case BOOL:
           return `${v}`;
         case OBJECT:
-          return <JsonViewer src={v} collapsed={0} />;
+          return (
+            <>
+              <JsonViewer src={v} collapsed={0} />
+              {/* <a>展开</a> */}
+            </>
+          );
         default:
           return v;
       }
@@ -48,7 +53,7 @@ const columns = [
   {
     title: '类型',
     dataIndex: 'param_type_name',
-    width: '25%',
+    width: '20%',
     ellipsis: true,
   },
   {

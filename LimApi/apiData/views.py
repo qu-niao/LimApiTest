@@ -99,6 +99,7 @@ class ApiCaseViews(LimView):
         try:
             with transaction.atomic():
                 if case_id:  # 代表修改用例
+                    save_case_data.update({'updater_id': request.user.id, 'updated': datetime.datetime.now()})
                     ApiCase.objects.filter(id=case_id).update(**save_case_data)
                 else:
                     case = ApiCase.objects.create(**save_case_data)
