@@ -64,7 +64,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 ![host_server](https://qu-niao.gitee.io/qu-niao-page/img/host_server.jpg)
 ---
 #### 后端环境
-1.  python 3.9+（不要使用类似3.12这种还未发布的测试版本）;
+1.  python 3.9+（勿使用还未正式发布的python版本）;
 2.  mysql 5.7+;
 3. 执行项目中的`init-db.sql`初始化数据库：
 4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple`;
@@ -78,5 +78,5 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 
 在未来的版本还会加入测试报告、Swagger导入、自定义函数以及执行实时监控等功能。大家提出的问题和BUG也会尽量解决。让我们一起成长吧！
 
-**开源不易，全靠用爱发电，如果对你有帮助请给我们点个Star**
+**开源不易，全靠用爱发电，如果对你有帮助请给我们点个Star！**
 
