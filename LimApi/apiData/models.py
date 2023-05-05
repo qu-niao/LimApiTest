@@ -42,6 +42,7 @@ class ApiData(ComTimeModel, UserEditModel):
 
 class ApiCaseModule(ComTimeModel, ComModuleModel):
     name = models.CharField(max_length=100, verbose_name="模块名称")
+    position = models.IntegerField(default=0, verbose_name='排序优先级')
 
     class Meta:
         verbose_name = '用例模块'
@@ -57,6 +58,7 @@ class ApiCase(ComTimeModel, UserEditModel):
     report_data = models.JSONField(null=True, verbose_name="测试报告数据")
     is_deleted = models.BooleanField(default=0, verbose_name="是否删除")
     latest_run_time = models.DateTimeField(null=True, verbose_name='最后一次执行时间')
+    position = models.IntegerField(default=0, verbose_name='排序优先级')
 
     class Meta:
         verbose_name = '接口用例'
