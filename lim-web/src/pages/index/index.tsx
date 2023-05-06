@@ -145,11 +145,11 @@ const Index: React.FC = () => {
             </div>
             <Divider />
             <p style={{ fontWeight: 'bold', marginBottom: 3 }}>
-              三分钟上手（必看！）：
+              使用文档（必看！）：
               <a
                 style={{ fontWeight: 'bold' }}
                 target="_blank"
-                href="https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf"
+                href="http://qu-niao.gitee.io/lim-doc/"
               >
                 点我访问
               </a>
