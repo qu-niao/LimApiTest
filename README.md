@@ -48,7 +48,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 所有弹窗皆可拖拽，展示内容更加自由可控：
 ![drag](https://qu-niao.gitee.io/qu-niao-page/img/drag.jpg)
 <!-- ### 三分钟快速上手教程：[点我访问](https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf) -->
-### 答疑、从0到1教学+微信：qu-niao：
+### 答疑交流、从0教学 + 作者微信：qu-niao：
 ![vx](https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg)
 #### 技术栈
 **前端：react+ant-design**

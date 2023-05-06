@@ -148,11 +148,14 @@ const ApiCase: React.FC = () => {
             labelWidth: 'auto',
           },
           headerTitle: (
-            <div style={{width:600}}>
+            <div style={{ width: 700 }}>
               接口用例列表(shift+Z或点右下角图标查看配置和参数池)
-              <a style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
+              <Button style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
-              </a>
+              </Button>
+              <Button style={{ marginLeft: 10 }} type="primary" onClick={() => message.warning('实现中...')}>
+                更改排序
+              </Button>
             </div>
           ),
           manualRequest: true,
