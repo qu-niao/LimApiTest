@@ -12,7 +12,7 @@ from apiData.serializers import CaseModuleSerializer, ApiCaseListSerializer, Api
     ApiDataListSerializer
 from apiData.viewDef import save_api, parse_api_case_steps, run_api_case_func, ApiCasesActuator, \
     parse_create_foreach_steps, go_step, monitor_interrupt, copy_cases_func
-from comMethod.comDef import get_next_id, MyThread, get_module_related
+from comMethod.comDef import get_next_id, MyThread, get_module_related, get_case_sort_list
 from comMethod.constant import DEFAULT_MODULE_NAME, USER_API, API, FAILED, API_CASE, API_FOREACH, SUCCESS, RUNNING, \
     WAITING, VAR_PARAM, INTERRUPT
 from comMethod.diyException import CaseCascaderLevelError
@@ -360,3 +360,23 @@ def get_api_report(request):
             return Response(data=report_data)
         return Response(data={'msg': "该用例没有步骤！"}, status=status.HTTP_400_BAD_REQUEST)
     return Response(data={'msg': "无该用例的测试报告！"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def case_sort_list(request):
+    """
+    用例排序（简易）列表
+    """
+    return Response(get_case_sort_list(ApiCase, ApiModule, request))
+
+
+@api_view(['POST'])
+def set_case_position(request):
+    """
+    用例排序列表
+    """
+    case_objs = []
+    for i, case in enumerate(request.data['cases']):
+        case_objs.append(ApiCase(position=i, id=case['id']))
+    ApiCase.objects.bulk_update(case_objs, fields=('position',))
+    return Response({'msg': '修改成功'})

@@ -22,5 +22,6 @@ urlpatterns = [
     path('test-api-data', views.test_api_data),
     path('search-case-by-api', views.search_case_by_api),
     path('api-report', views.get_api_report),
-
+    path('case-sort-list', views.case_sort_list),
+    path('set-case-position', views.set_case_position),
 ]

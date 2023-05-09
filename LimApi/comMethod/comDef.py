@@ -201,3 +201,23 @@ class SavePrintContent:
 
     def write(self, *args, **kwargs):
         self.buffer.append(args)
+
+
+def get_module_children(module_ids: list, module: djangoModel) -> list:
+    """
+    返回模块及其下所有子模块id
+    """
+    children_module_ids = list(
+        module.objects.filter(parent_id__in=module_ids).values_list('id', flat=True))
+    if children_module_ids:
+        module_ids.extend(get_module_children(children_module_ids, module))
+    return module_ids
+
+
+def get_case_sort_list(case_model, mod_model, request):
+    """
+    获取功能用例排序后的列表数据
+    """
+    module_ids = get_module_children([request.query_params['module_id']], mod_model)
+    return case_model.objects.filter(
+        module_id__in=module_ids).values('id', 'name', 'level', 'position').order_by('position', 'created')
