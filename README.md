@@ -5,7 +5,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 **你是否会疑问：这群Diao毛去掉了这些还如何高效的开展接口测试？**<br/>
 **那还在等什么？赶快进入Lim的世界，看看Lim是怎么通过另一种方式让接口测试变得简单且高效的吧！**
 #### 在线体验：[点我访问(推荐谷歌、火狐浏览器)](http://121.43.43.59/) (数据一周左右重置一次)
-#### 使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp&nbsp&nbsp提issue：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
+#### 使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 ### 答疑交流、从0教学 + 作者微信：qu-niao：
 ![vx](https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg)
 
