@@ -15,6 +15,7 @@ import {
   treeCascaderModuleCase,
   copyCases,
   mergeCases,
+  setCasePosition,
 } from '@/services/apiData';
 import layoutContext from '@/limLayout/context';
 import { getSelectRowLabel, tableRowOnSelect, tableRowOnSelectAll } from '@/utils/utils';
@@ -79,6 +80,13 @@ const ApiCase: React.FC = () => {
       }
       reqCascaderCaseTree();
       pageRef.current.tableRef.current.onRefresh(formType);
+    });
+  };
+  const onSortFormOk = async (values: any) => {
+    return await setCasePosition(values).then((res) => {
+      message.success(res.msg);
+      setSortOpen(false);
+      pageRef.current.tableRef.current.onRefresh(POST);
     });
   };
   //case_id可以是单个用例，也可以是多个用例（数组）
@@ -290,7 +298,7 @@ const ApiCase: React.FC = () => {
           setCurrentMod: setCurrentMod,
         }}
       />
-      <CaseSortForm open={sortOpen} setOpen={setSortOpen} formData={sortFormData} />,
+      <CaseSortForm open={sortOpen} formOk={onSortFormOk} setOpen={setSortOpen} formData={sortFormData} />,
     </Spin>
   );
 };

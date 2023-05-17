@@ -73,7 +73,7 @@ def tree_api_module(request):
 
 class ApiCaseViews(LimView):
     queryset = ApiCase.objects.filter(is_deleted=False).order_by(
-        '-updated').select_related('creater', 'updater')
+        'position', '-updated').select_related('creater', 'updater')
     query_only_fields = (
         'id', 'name', 'creater', 'updater', 'updated', 'created', 'status', 'latest_run_time')
     serializer_class = ApiCaseListSerializer

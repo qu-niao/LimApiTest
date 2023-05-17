@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Modal, Drawer, Dropdown, message } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import { ProFormCascader,DragSortTable as AntDragSortTable } from '@ant-design/pro-components';
+import { ProFormCascader, DragSortTable as AntDragSortTable } from '@ant-design/pro-components';
 import { API, PATCH, POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
 import DragSortTable from '@/pages/apiCase/dragSortTable';
@@ -240,12 +240,13 @@ export const OverviewForm = ({ open, onCancel }: any) => {
 export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, ...props }) => {
   const formRef = useRef<any>();
   const [dataSource, setDataSource] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const columns: any[] = [
     {
       title: '排序',
       dataIndex: 'sort',
       width: '10%',
-      render: (_: any, __: any, index: number) => <>{index + 1}</>,
+      render: (_: any, __: any, index: number) => <>&nbsp;{index + 1}</>,
     },
 
     {
@@ -256,7 +257,7 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
   ];
   return (
     <LimDrawerForm
-      width={1000}
+      width={700}
       formRef={formRef}
       title="用例列表"
       diyOnFinish={async () => {
@@ -264,6 +265,7 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
           return await formOk({ cases: dataSource }).then(
             () => {
               //成功保存则返回true
+              setDataSource([]);
               return true;
             },
             () => {
@@ -278,7 +280,10 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
       }}
       onOpenChange={(open: boolean) => {
         if (open) {
-          caseSortList({ module_id: formData.id }).then((res) => setDataSource(res.data));
+          setLoading(true);
+          caseSortList({ module_id: formData.id })
+            .then((res) => setDataSource(res.results))
+            .finally(() => setLoading(false));
         }
       }}
       open={open}
@@ -288,6 +293,7 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
         <>
           {' '}
           <AntDragSortTable
+            loading={loading}
             columns={columns}
             rowKey="id"
             bordered

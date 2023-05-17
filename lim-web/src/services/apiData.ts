@@ -82,5 +82,8 @@ export function caseSortList(params: object) {
   return request<any>(PREFIX + 'case-sort-list', { params });
 }
 export function setCasePosition(params: object) {
-  return request<any>(PREFIX + 'set-case-position', { params });
+  return request<any>(PREFIX + 'set-case-position', {
+    method: 'POST',
+    data: params,
+  });
 }
