@@ -20,6 +20,7 @@ CREATE TABLE `api_case`  (
   `creater_id` bigint(0) NOT NULL,
   `module_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `updater_id` bigint(0) NULL DEFAULT NULL,
+  `position` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `api_case_name_module_id_13060238_uniq`(`name`, `module_id`) USING BTREE,
   INDEX `api_case_creater_id_a6d3af6d_fk_auth_user_id`(`creater_id`) USING BTREE,
@@ -45,6 +46,7 @@ CREATE TABLE `api_case_module`  (
   `module_related` json NOT NULL,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `parent_id` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL,
+  `position` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `api_case_module_parent_id_cdd5cd0e_fk_api_case_module_id`(`parent_id`) USING BTREE,
   CONSTRAINT `api_case_module_parent_id_cdd5cd0e_fk_api_case_module_id` FOREIGN KEY (`parent_id`) REFERENCES `api_case_module` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -220,7 +222,7 @@ CREATE TABLE `auth_permission`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `auth_permission_content_type_id_codename_01ab375a_uniq`(`content_type_id`, `codename`) USING BTREE,
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 65 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of auth_permission
@@ -399,7 +401,7 @@ CREATE TABLE `conf_envir`  (
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of conf_envir
@@ -459,7 +461,7 @@ CREATE TABLE `django_content_type`  (
   `model` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `django_content_type_app_label_model_76bd3d3b_uniq`(`app_label`, `model`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of django_content_type
@@ -530,6 +532,7 @@ INSERT INTO `django_migrations` VALUES (27, 'authtoken', '0001_initial', '2023-0
 INSERT INTO `django_migrations` VALUES (28, 'authtoken', '0002_auto_20160226_1747', '2023-02-28 02:25:51.237593');
 INSERT INTO `django_migrations` VALUES (29, 'authtoken', '0003_tokenproxy', '2023-02-28 02:25:51.322367');
 INSERT INTO `django_migrations` VALUES (30, 'sessions', '0001_initial', '2023-02-28 02:25:51.578681');
+INSERT INTO `django_migrations` VALUES (31, 'apiData', '0004_apicase_position_apicasemodule_position', '2023-05-17 06:09:41.080111');
 
 -- ----------------------------
 -- Table structure for django_session
@@ -559,7 +562,7 @@ CREATE TABLE `project`  (
   `remark` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`name`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of project

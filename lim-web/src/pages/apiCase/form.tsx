@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Modal, Drawer, Dropdown, message } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import { ProFormCascader } from '@ant-design/pro-components';
+import { ProFormCascader,DragSortTable as AntDragSortTable } from '@ant-design/pro-components';
 import { API, PATCH, POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
 import DragSortTable from '@/pages/apiCase/dragSortTable';
@@ -11,6 +11,8 @@ import { stepColumns } from './columns';
 import { DiyFormText } from '@/components/diyAntdPomponent';
 import { menuItems } from './MenuItems';
 import { deepCopyJsonArray } from '@/utils/utils';
+import { LimDrawerForm } from '@/components/limDrawerForm';
+import { caseSortList } from '@/services/apiData';
 const ComfirmChangeForm = ({ open, setOpen, setCaseOpen, formRef, formOk, dataSource }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const handleCancel = () => {
@@ -232,5 +234,73 @@ export const OverviewForm = ({ open, onCancel }: any) => {
     >
       <ProjectOverview type={API} />
     </Drawer>
+  );
+};
+
+export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, ...props }) => {
+  const formRef = useRef<any>();
+  const [dataSource, setDataSource] = useState<any[]>([]);
+  const columns: any[] = [
+    {
+      title: '排序',
+      dataIndex: 'sort',
+      width: '10%',
+      render: (_: any, __: any, index: number) => <>{index + 1}</>,
+    },
+
+    {
+      title: '用例名称',
+      dataIndex: 'name',
+      width: '80%',
+    },
+  ];
+  return (
+    <LimDrawerForm
+      width={1000}
+      formRef={formRef}
+      title="用例列表"
+      diyOnFinish={async () => {
+        try {
+          return await formOk({ cases: dataSource }).then(
+            () => {
+              //成功保存则返回true
+              return true;
+            },
+            () => {
+              //保存失败则返回false
+              return false;
+            },
+          );
+        } catch (e) {
+          console.log('error', e);
+          return false;
+        }
+      }}
+      onOpenChange={(open: boolean) => {
+        if (open) {
+          caseSortList({ module_id: formData.id }).then((res) => setDataSource(res.data));
+        }
+      }}
+      open={open}
+      setOpen={setOpen}
+      {...props}
+      formItems={
+        <>
+          {' '}
+          <AntDragSortTable
+            columns={columns}
+            rowKey="id"
+            bordered
+            scroll={{ y: 'calc(100vh - 280px)' }}
+            size="small"
+            pagination={false}
+            search={false}
+            dataSource={dataSource}
+            dragSortKey="sort"
+            onDragSortEnd={(newDataSource: any) => setDataSource(newDataSource)}
+          />
+        </>
+      }
+    />
   );
 };

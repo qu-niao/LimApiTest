@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle, useEffect, useRef, useContext } from 'react';
 import { Spin, message, Popconfirm, Space, Button, Popover } from 'antd';
 import { PlayCircleOutlined, LoadingOutlined, CloseOutlined, SettingTwoTone } from '@ant-design/icons';
-import { CaseForm, OverviewForm } from './form';
+import { CaseForm, CaseSortForm, OverviewForm } from './form';
 import { columns } from './columns';
 import apiDataContext from '@/pages/apiData/context';
 import { paramType, envirView } from '@/services/conf';
@@ -35,6 +35,8 @@ const ApiCase: React.FC = () => {
   const [envirCand, setEnvirCand] = useState<any>([]);
   const [open, setOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
   const [formData, setFormData] = useState<any>({}); //传递给弹窗显示的数据
+  const [sortOpen, setSortOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
+  const [sortFormData, setSortFormData] = useState<any>({}); //传递给弹窗显示的数据
   const [treeCascaderCase, setTreeCascaderCase] = useState<any>([]);
   const [selectedOpen, setSelectedOpen] = useState(false);
   const [mergeCaseName, setMergeCaseName] = useState<string>('');
@@ -153,7 +155,18 @@ const ApiCase: React.FC = () => {
               <Button style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
               </Button>
-              <Button style={{ marginLeft: 10 }} type="primary" onClick={() => message.warning('实现中...')}>
+              <Button
+                style={{ marginLeft: 10 }}
+                type="primary"
+                onClick={() => {
+                  if (!currentMod.id) {
+                    message.warning('请先选择模块！');
+                    return;
+                  }
+                  setSortFormData({ id: currentMod.id });
+                  setSortOpen(true);
+                }}
+              >
                 更改排序
               </Button>
             </div>
@@ -277,6 +290,7 @@ const ApiCase: React.FC = () => {
           setCurrentMod: setCurrentMod,
         }}
       />
+      <CaseSortForm open={sortOpen} setOpen={setSortOpen} formData={sortFormData} />,
     </Spin>
   );
 };

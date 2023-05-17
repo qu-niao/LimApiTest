@@ -77,6 +77,10 @@ export function searchCaseByApi(_: string, params: object) {
 export function getApiReport(params: object) {
   return request<any>(PREFIX + 'api-report', { params });
 }
-// export function ExpectRuleView(type: string, params: number | object = {}) {
-//   return limRequest(PREFIX + 'expect-rule-view', params, type);
-// }
+
+export function caseSortList(params: object) {
+  return request<any>(PREFIX + 'case-sort-list', { params });
+}
+export function setCasePosition(params: object) {
+  return request<any>(PREFIX + 'set-case-position', { params });
+}
