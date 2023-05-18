@@ -3,6 +3,7 @@ import datetime
 from django.db import IntegrityError, transaction
 from django.db.models import Value, F, Q, Max
 from django.db.models.functions import Concat
+from django.utils import timezone
 from rest_framework import status, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -138,6 +139,15 @@ class ApiCaseViews(LimView):
                 return Response(data={'msg': '该用例名已存在！'}, status=status.HTTP_400_BAD_REQUEST)
             return Response(data={'msg': '保存出错：' + str(e)}, status=status.HTTP_400_BAD_REQUEST)
         return Response(data={'msg': '保存成功！', 'case_id': case_id})
+
+    def delete(self, request, *args, **kwargs):
+        if request.data.get('real_delete'):
+            # self.queryset = ApiCase.objects.all()
+            return self.destroy(request, *args, **kwargs)
+        api_plan_name = f"{self.get_object().name}:{str(timezone.now().timestamp())}"
+        request.data.clear()
+        request.data.update({'name': api_plan_name, 'is_deleted': True, 'updater': request.user.id})
+        return self.patch(request, *args, **kwargs)
 
 
 class ApiViews(LimView):
