@@ -138,7 +138,7 @@ class ApiCasesActuator:
                             'type': VAR_PARAM, 'param_type_id': PY_TO_CONF_TYPE.get(str(type(res_v)), STRING),
                             **self.base_params_source}
             else:  # 代码模式
-                res = run_params_code(output, response, self.default_var, i)
+                res = run_params_code(output, self.default_var, i, response)
                 if isinstance(res, dict):
                     self.default_var.update(res)
                     out_data = res
@@ -327,6 +327,9 @@ class ApiCasesActuator:
                     response = r.text
                     if r.status_code == 404:
                         results = '请求路径不存在！'
+                    else:
+                        out_res = self.parse_api_step_output(
+                            params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
                 else:
                     out_res = self.parse_api_step_output(
                         params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
@@ -530,7 +533,6 @@ class ApiCasesActuator:
             req_data, body_log = {}, {}
             for v in data:
                 parm_name, parm_v = v['name'], v['value']
-                print('pp', parm_v)
                 if isinstance(parm_v, dict) and 'type' in parm_v:
                     if parm_v['type'] == FORM_FILE_TYPE:
                         file_name, file_url = parm_v['name'], parm_v['value']
@@ -609,7 +611,6 @@ def go_step(actuator_obj, s_type, step, i=0, prefix_label='', **extra_params):
     if execute_on:
         try:
             res = run_params_code(execute_on, copy.deepcopy(actuator_obj.default_var), i)
-            print('res', res)
             if not res:
                 return {'status': SKIP, 'results': '【控制器】执行条件不满足！'}
         except Exception as e:

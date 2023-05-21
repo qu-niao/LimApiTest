@@ -79,9 +79,8 @@ def parse_param_value(v, params, i=0):
     """
     解析参数并获取它对应的值（放在公共方法的原因是为了后面扩展非接口测试的用例类型）
     """
+    is_eval = False
     if isinstance(v, str):
-        print('asd', v)
-        is_eval = False
         if v.startswith('eval('):
             v, is_eval = v[5:-1], True
         var_name_list = re.findall(r'\${(.*?)}', v)  # 取变量
@@ -140,7 +139,7 @@ def run_params_code(data, params, i, response=None):
     """
     执行编写的代码
     """
-    parse_data = 'def temp_func(var,res,i):' if response else 'def temp_func(var,i):'
+    parse_data = 'def temp_func(var,response,i):' if response else 'def temp_func(var,i):'
     for exp in data.split('\n'):
         parse_data += '\n\t' + exp
     try:
