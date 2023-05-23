@@ -60,14 +60,14 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 ### 开发环境搭建教程
 #### 前端环境
 1.  安装nodejs 17+
-2.  安装yarn：cmd执行命令：npm install -g yarn
+2.  然后在控制台执行命令安装yarn：npm install -g yarn
 3.  进入项目中的lim-web目录执行：`yarn&&yarn start`<br/>
 **注：执行启动后就可直接使用无需再部署后端服务，因为请求的接口地址配置的是演示地址，如要修改请修改文件：`src/utils/constant.ts`中的`HOST_SERVER`**：
 
 ![host_server](https://qu-niao.gitee.io/qu-niao-page/img/host_server.jpg)
 ---
 #### 后端环境
-1.  python 3.9+（64位 且勿使用还未正式发布的python版本）;
+1.  python 3.9+（64位，并且勿使用还未正式发布的python版本）;
 2.  mysql 5.7+;
 3. 执行项目中的`init-db.sql`初始化数据库：
 4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple`;
