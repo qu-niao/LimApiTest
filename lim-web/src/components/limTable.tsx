@@ -133,7 +133,9 @@ const Table: React.FC<any> = ({
           const newFilters = { ...filters };
           //删除搜索和筛选条件为空的项
           [searchParams, newFilters].forEach((items) =>
-            Object.keys(items).forEach((key) => !items[key] && delete items[key]),
+            Object.keys(items).forEach(
+              (key) => !items[key] && ![0, false, null].includes(items[key]) && delete items[key],
+            ),
           );
           //处理排序条件
           let orderParams: object = {};
