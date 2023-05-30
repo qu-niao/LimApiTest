@@ -101,3 +101,9 @@ class ApiCaseListSerializer(ComEditUserNameSerializer):
         model = ApiCase
         fields = (
             'id', 'name', 'creater_name', 'latest_run_time', 'updater_name', 'updated', 'created', 'status', 'updater')
+
+
+class ApiCaseSerializer(ComEditUserNameSerializer):
+    class Meta:
+        model = ApiCase
+        fields = '__all__'

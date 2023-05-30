@@ -77,7 +77,7 @@ class ApiCaseViews(LimView):
         'position', '-updated').select_related('creater', 'updater')
     query_only_fields = (
         'id', 'name', 'creater', 'updater', 'updated', 'created', 'status', 'latest_run_time')
-    serializer_class = ApiCaseListSerializer
+    serializer_class = {'list': ApiCaseListSerializer, 'detail': ApiCaseSerializer}
     diy_search_fields = ('name',)
     filterset_fields = ('module_id', 'status')
     ordering_fields = ('created', 'name', 'updated', 'latest_run_time')
@@ -141,12 +141,14 @@ class ApiCaseViews(LimView):
         return Response(data={'msg': '保存成功！', 'case_id': case_id})
 
     def delete(self, request, *args, **kwargs):
+        print('dd')
         if request.data.get('real_delete'):
             # self.queryset = ApiCase.objects.all()
             return self.destroy(request, *args, **kwargs)
-        api_plan_name = f"{self.get_object().name}:{str(timezone.now().timestamp())}"
+        api_plan_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
         request.data.clear()
         request.data.update({'name': api_plan_name, 'is_deleted': True, 'updater': request.user.id})
+        print('d', request.data)
         return self.patch(request, *args, **kwargs)
 
 

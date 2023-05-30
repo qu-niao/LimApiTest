@@ -1,11 +1,20 @@
 import React, { useState, useImperativeHandle, useEffect, useRef, useContext } from 'react';
-import { Spin, message, Popconfirm, Space, Button, Popover } from 'antd';
-import { PlayCircleOutlined, LoadingOutlined, CloseOutlined, SettingTwoTone } from '@ant-design/icons';
+import { Spin, message, Popconfirm, Space, Button, Popover, Tooltip } from 'antd';
+import {
+  PlayCircleOutlined,
+  LoadingOutlined,
+  ExpandOutlined,
+  CompressOutlined,
+  CloseOutlined,
+  SettingTwoTone,
+  DeleteOutlined,
+  ExclamationCircleTwoTone,
+} from '@ant-design/icons';
 import { CaseForm, CaseSortForm, OverviewForm } from './form';
 import { columns } from './columns';
 import apiDataContext from '@/pages/apiData/context';
 import { paramType, envirView } from '@/services/conf';
-import { DELETE_CONFIRM_TIP, GET, PATCH, POST } from '@/utils/constant';
+import { DELETE_CONFIRM_TIP, GET, PATCH, POST, SKIP_COLOR } from '@/utils/constant';
 import { projectView } from '@/services/project';
 import {
   caseModuleView,
@@ -18,7 +27,7 @@ import {
   setCasePosition,
 } from '@/services/apiData';
 import layoutContext from '@/limLayout/context';
-import { getSelectRowLabel, tableRowOnSelect, tableRowOnSelectAll } from '@/utils/utils';
+import { getSelectRowLabel, scrollOffset, tableRowOnSelect, tableRowOnSelectAll } from '@/utils/utils';
 import { LimStandardPage } from '@/components/limStandardPage';
 import { runEnvirSelPopconfirm } from './components';
 import Input from 'antd/lib/input';
@@ -42,6 +51,7 @@ const ApiCase: React.FC = () => {
   const [selectedOpen, setSelectedOpen] = useState(false);
   const [mergeCaseName, setMergeCaseName] = useState<string>('');
   const [currentMod, setCurrentMod] = useState<any>({});
+  const [expandSerach, setExpandSerach] = useState<boolean>(false);
   const [loadingLabel, setLoadingLabel] = useState<string>('执行中...');
   useEffect(() => {
     paramType().then((res) => setParamTypeCand(res.results));
@@ -152,16 +162,40 @@ const ApiCase: React.FC = () => {
         reqService={caseView}
         tableProps={{
           size: 'small',
-          scroll: { y: `calc(100vh - ${selectedCases.length ? '430' : '360'}px)`, x: '1350px' },
+          scroll: { y: `calc(100vh - ${scrollOffset(expandSerach, selectedCases)}px)`, x: '1350px' },
           columns: columns,
-          search: {
-            labelWidth: 'auto',
-          },
+          search: expandSerach
+            ? {
+                labelWidth: 'auto',
+              }
+            : false,
           headerTitle: (
             <div style={{ width: 700 }}>
-              接口用例列表(shift+Z或点右下角图标查看配置和参数池)
-              <Button style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
+              <Tooltip
+                overlayStyle={{ maxWidth: 600 }}
+                placement="top"
+                title="shift+Z或点右下角图标查看配置和参数池"
+              >
+                用例列表
+                <ExclamationCircleTwoTone style={{ marginLeft: 3, fontSize: 18 }} />
+              </Tooltip>
+
+              <Button style={{ marginLeft: 30 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
+              </Button>
+              <Button
+                icon={<DeleteOutlined />}
+                style={{ marginLeft: 10 }}
+                onClick={() => message.warn('实现中！')}
+              >
+                回收站
+              </Button>
+              <Button
+                style={{ marginLeft: 8 }}
+                icon={expandSerach ? <CompressOutlined /> : <ExpandOutlined />}
+                onClick={() => setExpandSerach(!expandSerach)}
+              >
+                {`${expandSerach ? '隐藏' : '显示'}搜索框`}
               </Button>
               <Button
                 style={{ marginLeft: 10 }}

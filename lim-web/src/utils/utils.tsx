@@ -125,3 +125,14 @@ export const addVisChangeListener = (func: any) => {
 export const removeVisChangeListener = (func: any) => {
   window.removeEventListener('visibilitychange', func);
 };
+//表格高度计算
+export const scrollOffset = (expandSerach: boolean, seledCases: any[]) => {
+  let v = 300;
+  if (expandSerach) {
+    v += 80;
+  }
+  if (seledCases.length) {
+    v += 70;
+  }
+  return v;
+};
