@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { Button, Modal, Drawer, Dropdown, message } from 'antd';
+import { Button, Modal, Drawer, Dropdown, message, Popconfirm } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { ProFormCascader, DragSortTable as AntDragSortTable } from '@ant-design/pro-components';
-import { API, PATCH, POST } from '@/utils/constant';
+import { API, DELETE, DELETE_CONFIRM_TIP, GET, PATCH, POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
 import DragSortTable from '@/pages/apiCase/dragSortTable';
 import { ControllerForm, StepForm } from './stepForm';
@@ -12,7 +12,8 @@ import { DiyFormText } from '@/components/diyAntdPomponent';
 import { menuItems } from './MenuItems';
 import { deepCopyJsonArray } from '@/utils/utils';
 import { LimDrawerForm } from '@/components/limDrawerForm';
-import { caseSortList } from '@/services/apiData';
+import { caseSortList, caseView, cleanDeletedCases } from '@/services/apiData';
+import LimTable from '@/components/limTable';
 const ComfirmChangeForm = ({ open, setOpen, setCaseOpen, formRef, formOk, dataSource }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const handleCancel = () => {
@@ -304,6 +305,113 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
             dataSource={dataSource}
             dragSortKey="sort"
             onDragSortEnd={(newDataSource: any) => setDataSource(newDataSource)}
+          />
+        </>
+      }
+    />
+  );
+};
+export const DeletedCaseForm: React.FC<any> = ({ open, setOpen, formOk, formData, ...props }) => {
+  const formRef = useRef<any>();
+  const tableRef = useRef<any>();
+  const [dataSource, setDataSource] = useState<any[]>([]);
+
+  const columns: any[] = [
+    {
+      title: '序号',
+      dataIndex: 'sort',
+      width: '5%',
+      render: (_: any, __: any, index: number) => <>{index + 1}</>,
+    },
+
+    {
+      title: '用例名称',
+      dataIndex: 'name',
+      width: '80%',
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      valueType: 'option',
+      width: '15%',
+    },
+  ];
+  return (
+    <LimDrawerForm
+      width={1000}
+      formRef={formRef}
+      title="已删除用例列表"
+      submitter={false}
+      diyOnFinish={async () => {
+        try {
+          return await formOk({ cases: dataSource }).then(
+            () => {
+              //成功保存则返回true
+              setDataSource([]);
+              return true;
+            },
+            () => {
+              //保存失败则返回false
+              return false;
+            },
+          );
+        } catch (e) {
+          console.log('error', e);
+          return false;
+        }
+      }}
+      open={open}
+      setOpen={setOpen}
+      {...props}
+      formItems={
+        <>
+          <LimTable
+            headerTitle={
+              <Popconfirm
+                key="delete"
+                title={DELETE_CONFIRM_TIP}
+                onConfirm={() =>
+                  cleanDeletedCases().then((res) => {
+                    message.success(res.msg);
+                    tableRef.current.onRefresh(POST);
+                  })
+                }
+              >
+                <Button danger>清空回收站</Button>
+              </Popconfirm>
+            }
+            size="small"
+            toolBarRender={() => []}
+            actionRef={tableRef}
+            rowKey="id"
+            columns={columns}
+            reqService={caseView}
+            otherParams={{ is_deleted: true }}
+            optionRender={(_: any, record: any) => [
+              <a
+                key="restore"
+                onClick={() => {
+                  caseView(PATCH, { id: record.id, is_deleted: false }).then((res) => {
+                    message.success('恢复成功！');
+                    tableRef.current.onRefresh(PATCH);
+                  });
+                }}
+              >
+                恢复
+              </a>,
+              <Popconfirm
+                key="delete"
+                title={DELETE_CONFIRM_TIP}
+                onConfirm={() =>
+                  caseView(DELETE, { id: record.id, real_delete: true }).then((res) => {
+                    message.success('删除成功！');
+                    tableRef.current.onRefresh(PATCH);
+                  })
+                }
+              >
+                <a> 彻底删除 </a>
+              </Popconfirm>,
+            ]}
           />
         </>
       }

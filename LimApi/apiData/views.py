@@ -73,13 +73,13 @@ def tree_api_module(request):
 
 
 class ApiCaseViews(LimView):
-    queryset = ApiCase.objects.filter(is_deleted=False).order_by(
+    queryset = ApiCase.objects.order_by(
         'position', '-updated').select_related('creater', 'updater')
     query_only_fields = (
         'id', 'name', 'creater', 'updater', 'updated', 'created', 'status', 'latest_run_time')
     serializer_class = {'list': ApiCaseListSerializer, 'detail': ApiCaseSerializer}
     diy_search_fields = ('name',)
-    filterset_fields = ('module_id', 'status')
+    filterset_fields = ('module_id', 'status', 'is_deleted')
     ordering_fields = ('created', 'name', 'updated', 'latest_run_time')
 
     def get(self, request, *args, **kwargs):
@@ -141,14 +141,12 @@ class ApiCaseViews(LimView):
         return Response(data={'msg': '保存成功！', 'case_id': case_id})
 
     def delete(self, request, *args, **kwargs):
-        print('dd')
         if request.data.get('real_delete'):
             # self.queryset = ApiCase.objects.all()
             return self.destroy(request, *args, **kwargs)
         api_plan_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
         request.data.clear()
         request.data.update({'name': api_plan_name, 'is_deleted': True, 'updater': request.user.id})
-        print('d', request.data)
         return self.patch(request, *args, **kwargs)
 
 
@@ -392,3 +390,12 @@ def set_case_position(request):
         case_objs.append(ApiCase(position=i, id=case['id']))
     ApiCase.objects.bulk_update(case_objs, fields=('position',))
     return Response({'msg': '修改成功'})
+
+
+@api_view(['DELETE'])
+def clean_deleted_cases(request):
+    """
+    清空回收站
+    """
+    ApiCase.objects.filter(is_deleted=True).delete()
+    return Response({'msg': '清空成功！'})

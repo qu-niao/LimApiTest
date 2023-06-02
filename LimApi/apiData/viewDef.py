@@ -321,17 +321,13 @@ class ApiCasesActuator:
                 req_log['results'] = results = '请求地址不能为空！'
             else:
                 spend_time = float('%.2f' % r.elapsed.total_seconds())
-                try:
-                    response = r.json()
-                except Exception as e:
-                    response = r.text
-                    if r.status_code == 404:
-                        results = '请求路径不存在！'
-                    else:
-                        #todo 2023年5月22日 18:26:56
-                        out_res = self.parse_api_step_output(
-                            params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
-                else:
+                res_code = r.status_code
+                response = ''
+                if str(res_code).startswith('2'):  # 代表请求成功
+                    try:
+                        response = r.json()
+                    except Exception:
+                        response = r.text
                     out_res = self.parse_api_step_output(
                         params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
                     res_status, results = out_res['status'], out_res.get('results')
@@ -344,6 +340,10 @@ class ApiCasesActuator:
                         res_status = ext_res['status']
                     if ext_res['status'] == FAILED:
                         results = self.api_process + ext_res.get('results', '')
+                elif res_code == 404:
+                    results = '请求路径不存在！'
+                else:
+                    results = '请求异常！'
                 req_log.update({'url': r.url, 'res_header': dict(r.headers), 'response': response,
                                 'spend_time': spend_time, 'results': results})
         except Exception as e:

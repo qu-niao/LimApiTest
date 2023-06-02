@@ -24,4 +24,5 @@ urlpatterns = [
     path('api-report', views.get_api_report),
     path('case-sort-list', views.case_sort_list),
     path('set-case-position', views.set_case_position),
+    path('clean-deleted-cases', views.clean_deleted_cases),
 ]

@@ -4,13 +4,10 @@
 Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开展接口测试时能够“四两拨千斤”！让用户操作更少但开展建设的效率更高。因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的传统建设思想，甚至还取消了“登录”！<br/>
 **你是否会疑问：这群Diao毛去掉了这些还如何高效的开展接口测试？**<br/>
 **那还在等什么？赶快进入Lim的世界，看看Lim是怎么通过另一种方式让接口测试变得简单且高效的吧！**
-#### 在线体验：[点我访问(推荐谷歌、火狐浏览器)](http://121.43.43.59/) (数据一周左右重置一次)
-#### 使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
+#### 在线体验：[点我访问(推荐谷歌、火狐)](http://121.43.43.59/)
+#### 使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;安装部署：[点我访问](http://qu-niao.gitee.io/lim-doc/deploy/)&nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 #### 答疑交流、从0教学 + 作者微信：qu-niao：
 ![vx](https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg)
-
-### 安装部署
-[点我访问](http://qu-niao.gitee.io/lim-doc/deploy/)
 
 ### 主功能介绍
 #### 项目主页

@@ -87,3 +87,8 @@ export function setCasePosition(params: object) {
     data: params,
   });
 }
+export function cleanDeletedCases() {
+  return request<any>(PREFIX + 'clean-deleted-cases', {
+    method: 'DELETE',
+  });
+}

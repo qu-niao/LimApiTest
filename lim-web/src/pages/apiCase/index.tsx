@@ -10,7 +10,7 @@ import {
   DeleteOutlined,
   ExclamationCircleTwoTone,
 } from '@ant-design/icons';
-import { CaseForm, CaseSortForm, OverviewForm } from './form';
+import { CaseForm, CaseSortForm, DeletedCaseForm, OverviewForm } from './form';
 import { columns } from './columns';
 import apiDataContext from '@/pages/apiData/context';
 import { paramType, envirView } from '@/services/conf';
@@ -47,6 +47,8 @@ const ApiCase: React.FC = () => {
   const [formData, setFormData] = useState<any>({}); //传递给弹窗显示的数据
   const [sortOpen, setSortOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
   const [sortFormData, setSortFormData] = useState<any>({}); //传递给弹窗显示的数据
+  const [deledCaseOpen, setDeledCaseOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
+  const [deledCaseFormData, setDeledCaseFormData] = useState<any>({}); //传递给弹窗显示的数据
   const [treeCascaderCase, setTreeCascaderCase] = useState<any>([]);
   const [selectedOpen, setSelectedOpen] = useState(false);
   const [mergeCaseName, setMergeCaseName] = useState<string>('');
@@ -164,6 +166,7 @@ const ApiCase: React.FC = () => {
           size: 'small',
           scroll: { y: `calc(100vh - ${scrollOffset(expandSerach, selectedCases)}px)`, x: '1350px' },
           columns: columns,
+          otherParams: { is_deleted: false },
           search: expandSerach
             ? {
                 labelWidth: 'auto',
@@ -177,16 +180,16 @@ const ApiCase: React.FC = () => {
                 title="shift+Z或点右下角图标查看配置和参数池"
               >
                 用例列表
-                <ExclamationCircleTwoTone style={{ marginLeft: 3, fontSize: 18 }} />
+                <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3, fontSize: 18 }} />
               </Tooltip>
 
-              <Button style={{ marginLeft: 30 }} onClick={() => setOverviewOpen(true)}>
+              <Button style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
               </Button>
               <Button
                 icon={<DeleteOutlined />}
                 style={{ marginLeft: 10 }}
-                onClick={() => message.warn('实现中！')}
+                onClick={() => setDeledCaseOpen(true)}
               >
                 回收站
               </Button>
@@ -333,6 +336,7 @@ const ApiCase: React.FC = () => {
         }}
       />
       <CaseSortForm open={sortOpen} formOk={onSortFormOk} setOpen={setSortOpen} formData={sortFormData} />,
+      <DeletedCaseForm open={deledCaseOpen} setOpen={setDeledCaseOpen} formData={deledCaseFormData} />,
     </Spin>
   );
 };
