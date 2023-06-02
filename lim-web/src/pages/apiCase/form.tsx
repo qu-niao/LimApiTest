@@ -342,6 +342,7 @@ export const DeletedCaseForm: React.FC<any> = ({ open, setOpen, formOk, formData
       formRef={formRef}
       title="已删除用例列表"
       submitter={false}
+      extraDrawerProps={{ maskClosable: true }}
       diyOnFinish={async () => {
         try {
           return await formOk({ cases: dataSource }).then(

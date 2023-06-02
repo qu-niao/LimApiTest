@@ -48,7 +48,6 @@ const ApiCase: React.FC = () => {
   const [sortOpen, setSortOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
   const [sortFormData, setSortFormData] = useState<any>({}); //传递给弹窗显示的数据
   const [deledCaseOpen, setDeledCaseOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
-  const [deledCaseFormData, setDeledCaseFormData] = useState<any>({}); //传递给弹窗显示的数据
   const [treeCascaderCase, setTreeCascaderCase] = useState<any>([]);
   const [selectedOpen, setSelectedOpen] = useState(false);
   const [mergeCaseName, setMergeCaseName] = useState<string>('');
@@ -336,7 +335,11 @@ const ApiCase: React.FC = () => {
         }}
       />
       <CaseSortForm open={sortOpen} formOk={onSortFormOk} setOpen={setSortOpen} formData={sortFormData} />,
-      <DeletedCaseForm open={deledCaseOpen} setOpen={setDeledCaseOpen} formData={deledCaseFormData} />,
+      <DeletedCaseForm
+        open={deledCaseOpen}
+        setOpen={setDeledCaseOpen}
+      />
+      ,
     </Spin>
   );
 };
