@@ -57,29 +57,12 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 #### 技术栈
 **前端：react+ant-design**
 **后端：python3+django**
-### 开发环境搭建教程
-#### 前端环境
-1.  安装nodejs 17+
-2.  然后在控制台执行命令安装yarn：npm install -g yarn
-3.  进入项目中的lim-web目录执行：`yarn&&yarn start`<br/>
-**注：执行启动后就可直接使用无需再部署后端服务，因为请求的接口地址配置的是演示地址，如要修改请修改文件：`src/utils/constant.ts`中的`HOST_SERVER`**：
-
-![host_server](https://qu-niao.gitee.io/qu-niao-page/img/host_server.jpg)
----
-#### 后端环境
-1.  python 3.9+（64位，并且勿使用还未正式发布的python版本）;
-2.  mysql 5.7+;
-3. 执行项目中的`init-db.sql`初始化数据库：
-4.  进入LimApi目录执行依赖包安装命令：`pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple`;
-5. 修改`LimApi/LimApi/settings.py`文件的`DATABASES`数据库配置；
-6. 启动服务：`python manage.py runserver 0.0.0.0:8001`;
-7. （可选）如果不涉及文件上传的操作可不执行：新开cmd窗口进入FileData目录执行命令`python3 -m http.server 8003`;
-
-**注意：因为django默认启动为单线程模式，所以上述的部署方式无法进行并发操作（例：在用例执行的同时进行中断执行的操作）所以可以通过UWSGI来启动项目。对于Linux系统推荐`gunicorn`+`gevent`的方式部署，本项目中的`requirements.txt`已集成了这两个库，所以在linux服务器上将启动命令更换为：`python3 -m gunicorn -w 5 -k gevent -t 120 -D  LimApi.wsgi -b 0.0.0.0:8006` 即可。**
+### 安装部署
+![点我访问](http://qu-niao.gitee.io/lim-doc/deploy/)
 
 ---
 
-在未来的版本还会加入测试报告、Swagger导入、自定义函数以及执行实时监控等功能。大家提出的问题和BUG也会尽量解决。让我们一起成长吧！
+在未来的版本还会加入Swagger导入、自定义函数以及执行实时监控等功能。大家提出的问题和BUG也会尽量解决。让我们一起成长吧！
 
 **开源不易，全靠用爱发电，如果对你有帮助请给我们点个Star！**
 
