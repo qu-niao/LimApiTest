@@ -1,6 +1,6 @@
 import { DrawerForm } from '@ant-design/pro-components';
 export const LimDrawerForm = ({
-  diyCancel,
+  cancel,
   title,
   initialValues,
   formItems,
@@ -46,7 +46,7 @@ export const LimDrawerForm = ({
         zIndex: 102,
         maskClosable: false,
         destroyOnClose: true,
-        onClose: diyCancel ? async () => await diyCancel() : () => setOpen(false),
+        onClose: cancel ? async () => await cancel() : () => setOpen(false),
         ...extraDrawerProps,
    
       }}

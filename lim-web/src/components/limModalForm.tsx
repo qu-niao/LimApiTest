@@ -1,6 +1,6 @@
 import { ModalForm } from '@ant-design/pro-components';
 export const LimModalForm = ({
-  diyCancel,
+  cancel,
   title,
   initialValues,
   formItems,
@@ -46,7 +46,7 @@ export const LimModalForm = ({
         ...extraModalProps,
         maskClosable: false,
         destroyOnClose: true,
-        onCancel: diyCancel ? async () => await diyCancel() : () => setOpen(false),
+        onCancel: cancel ? async () => await cancel() : () => setOpen(false),
       }}
     >
       {formItems}

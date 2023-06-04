@@ -326,7 +326,6 @@ const ApiCase: React.FC = () => {
             </apiDataContext.Provider>
           ),
         }}
-        ExtraItems={[<OverviewForm key="view" open={overviewOpen} onCancel={() => setOverviewOpen(false)} />]}
         treeProps={{
           onFinishService: caseModuleView,
           treeService: treeCaseModule,
@@ -334,10 +333,15 @@ const ApiCase: React.FC = () => {
           setCurrentMod: setCurrentMod,
         }}
       />
+      <OverviewForm key="view" open={overviewOpen} onCancel={() => setOverviewOpen(false)} />
       <CaseSortForm open={sortOpen} formOk={onSortFormOk} setOpen={setSortOpen} formData={sortFormData} />,
       <DeletedCaseForm
         open={deledCaseOpen}
         setOpen={setDeledCaseOpen}
+        cancel={() => {
+          setDeledCaseOpen(false);
+          pageRef.current?.tableRef?.current?.onRefresh(POST);
+        }}
       />
       ,
     </Spin>

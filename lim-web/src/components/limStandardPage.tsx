@@ -12,7 +12,6 @@ export const LimStandardPage = ({
   onFomrOk, //自定义弹窗确定的方法
   reqService, //基础请求接口
   tableProps, //表格
-  ExtraItems, //页面其它要展示的组件
   tableVisable = true, //控制表格是否可见
 }: any) => {
   const tableRef = useRef<any>();
@@ -82,7 +81,6 @@ export const LimStandardPage = ({
         />
       )}
       {diyForm?.open && diyForm.Items}
-      {ExtraItems}
     </Row>
   );
 };

@@ -112,7 +112,7 @@ export const CaseForm: React.FC<any> = ({ treeCaseModuleData, formOk, formData, 
           remark: formData.remark || null,
           module_related: formData.module_related || [],
         }}
-        diyCancel={() => {
+        cancel={() => {
           if (JSON.stringify(savedSource) === JSON.stringify(dataSource)) {
             //是否对用例有修改
             props.setOpen(false);
