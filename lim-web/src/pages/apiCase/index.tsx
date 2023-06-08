@@ -173,15 +173,10 @@ const ApiCase: React.FC = () => {
             : false,
           headerTitle: (
             <div style={{ width: 700 }}>
-              <Tooltip
-                overlayStyle={{ maxWidth: 600 }}
-                placement="top"
-                title="shift+Z或点右下角图标查看配置和参数池"
-              >
-                用例列表
+              用例列表
+              <Popover content="shift+Z或点右下角图标查看配置和参数池" placement="top">
                 <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3, fontSize: 18 }} />
-              </Tooltip>
-
+              </Popover>
               <Button style={{ marginLeft: 10 }} onClick={() => setOverviewOpen(true)}>
                 查看接口库
               </Button>

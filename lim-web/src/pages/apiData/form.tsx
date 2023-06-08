@@ -8,6 +8,7 @@ import {
   ProFormRadio,
   ProFormGroup,
   ProFormSelect,
+  ProFormCheckbox,
 } from '@ant-design/pro-components';
 import {
   API_PARAM_TEXT,
@@ -458,6 +459,9 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
             />
           </ProFormItem>
         </Tooltip>
+        <div style={{ position: 'relative', top: 30 }}>
+          <ProFormCheckbox name="allow_redirects">禁止重定向</ProFormCheckbox>
+        </div>
         <Button type="primary" style={{ top: 30.5 }} onClick={() => sendReq()} loading={sendButLoading}>
           发送请求
         </Button>
