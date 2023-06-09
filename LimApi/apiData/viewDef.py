@@ -29,7 +29,7 @@ def create_api(req_data, default_params):
     """
     创建自定义Api用例基础数据
     """
-    # 因为唯一性可能会报错
+    # 因为唯一性可能会报错,所以需要在外层做捕获
     api = ApiData.objects.create(
         name=req_data['name'], path=req_data['path'], method=req_data['method'], default_params=default_params,
         timeout=req_data.get('timeout'), project_id=req_data['project_id'], source=USER_API,
@@ -61,7 +61,7 @@ def save_api(req_data, api_id, source):
     param_fields = []
     for key in ('header', 'query', 'body', 'expect', 'output'):
         param_fields.extend((f'{key}_source', f'{key}_mode'))
-    param_fields.extend(('host', 'host_type'))
+    param_fields.extend(('host', 'host_type', 'ban_redirects'))
     default_params = {key: req_data.get(key) for key in param_fields}
     if api_id:
         update_api(req_data, default_params, api_id, source)
@@ -288,7 +288,8 @@ class ApiCasesActuator:
             else:
                 body = self.parse_source_params(
                     params.get('body_source'), params['body_mode'], i, file_list=upload_files_list)
-            req_params = {'url': url, 'headers': header, 'params': query, 'method': method.lower(), 'timeout': timeout}
+            req_params = {'url': url, 'headers': header, 'params': query, 'method': method.lower(),
+                          'allow_redirects': not params.get('ban_redirects', False), 'timeout': timeout}
             req_log.update({'header': copy.deepcopy(header), 'body': body})
             content_type = header['content-type']
             if params['body_mode'] != FORM_MODE:
@@ -310,6 +311,7 @@ class ApiCasesActuator:
                 req_log['header']['content-type'] = 'multipart/form-data'
                 req_params['files'], req_log['body'] = body
             try:
+                print('dd', req_params['allow_redirects'])
                 r = requests.request(**req_params)
             except KeyError as e:
                 req_log['results'] = results = self.api_process + '未找到key：' + str(e)

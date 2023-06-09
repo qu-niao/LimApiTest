@@ -57,7 +57,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
   const [relationOpen, setrelationOpen] = useState<boolean>(false);
   const [curProjCand, setCurProjCand] = useState<any[]>(projectCand || []);
   const [paramEditableKeys, setParamEditableKeys] = useState<object>(() => {
-    let _json = {};
+    let _json: any = {};
     ['header', 'query', 'body', 'expect', 'output'].forEach((type) => {
       _json[`${type}_source`] = Array.isArray(params[`${type}_source`])
         ? params[`${type}_source`]?.map((item: any) => item.id) || []
@@ -65,7 +65,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
     });
     return _json;
   });
-  const [paramMode, setParamMode] = useState({
+  const [paramMode, setParamMode] = useState<any>({
     header_mode: params['header_mode'] || TABLE_MODE,
     query_mode: params['query_mode'] || TABLE_MODE,
     body_mode: params['body_mode'] || TABLE_MODE,
@@ -190,7 +190,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
           setCurApiId(results.api_id);
           if (isSetParams) {
             setParamEditableKeys(() => {
-              let _json = {};
+              let _json: any = {};
               ['header', 'query', 'body', 'expect', 'output'].forEach((type) => {
                 _json[`${type}_source`] = Array.isArray(apiParams[`${type}_source`])
                   ? apiParams[`${type}_source`]?.map((item: any) => item.id) || []
@@ -269,7 +269,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
           type: { auto: false, type: 'string' },
         });
       }
-      const editKeys = { ...paramEditableKeys };
+      const editKeys: any = { ...paramEditableKeys };
       editKeys['query_source'] = queryEditKeys;
       setParamMode({ ...paramMode });
       paramMode['query_mode'] = TABLE_MODE;
@@ -460,7 +460,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
           </ProFormItem>
         </Tooltip>
         <div style={{ position: 'relative', top: 30 }}>
-          <ProFormCheckbox name="allow_redirects">禁止重定向</ProFormCheckbox>
+          <ProFormCheckbox name="ban_redirects">禁止重定向</ProFormCheckbox>
         </div>
         <Button type="primary" style={{ top: 30.5 }} onClick={() => sendReq()} loading={sendButLoading}>
           发送请求
@@ -572,6 +572,7 @@ export const getApiInitValues = (formData: any) => {
     timeout: formData.timeout || null,
     path: formData.path || null,
     host: params.host || null,
+    ban_redirects: params.ban_redirects || false,
     host_type: params.host_type || DIY_CFG,
   };
   ['header', 'query', 'body', 'expect', 'output'].forEach((type) => {

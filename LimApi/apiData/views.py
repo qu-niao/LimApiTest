@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 from apiData.models import ApiCaseModule, ApiCase, ApiModule, ApiData, ApiCaseStep, ApiForeachStep
 from apiData.serializers import CaseModuleSerializer, ApiCaseListSerializer, ApiModuleSerializer, ApiCaseSerializer, \
-    ApiDataListSerializer
+    ApiDataListSerializer, ApiCaseDetailSerializer
 from apiData.viewDef import save_api, parse_api_case_steps, run_api_case_func, ApiCasesActuator, \
     parse_create_foreach_steps, go_step, monitor_interrupt, copy_cases_func
 from comMethod.comDef import get_next_id, MyThread, get_module_related, get_case_sort_list
@@ -88,7 +88,7 @@ class ApiCaseViews(LimView):
         case_id, api_id = req_params.get('id'), req_params.get('api_id')
         if case_id:  # 有case_id代表请求详情
             instance = ApiCase.objects.defer('report_data').get(id=case_id)
-            serializer = ApiCaseSerializer(instance, context={'api_id': api_id, 'user_id': request.user.id})
+            serializer = ApiCaseDetailSerializer(instance, context={'api_id': api_id, 'user_id': request.user.id})
             return Response(data=serializer.data)
         return self.list(request, *args, **kwargs)
 
@@ -141,8 +141,7 @@ class ApiCaseViews(LimView):
         return Response(data={'msg': '保存成功！', 'case_id': case_id})
 
     def delete(self, request, *args, **kwargs):
-        if request.data.get('real_delete'):
-            # self.queryset = ApiCase.objects.all()
+        if request.query_params.get('real_delete'):
             return self.destroy(request, *args, **kwargs)
         api_plan_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
         request.data.clear()

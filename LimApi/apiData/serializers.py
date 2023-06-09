@@ -82,7 +82,7 @@ class ApiIsRelatedCaseStepMixin:
         return fields
 
 
-class ApiCaseSerializer(ApiIsRelatedCaseStepMixin, serializers.ModelSerializer):
+class ApiCaseDetailSerializer(ApiIsRelatedCaseStepMixin, serializers.ModelSerializer):
     steps = ApiCaseStepSerializer(source='case_step', many=True)
     module_related = serializers.JSONField(source='module.module_related')
     only_show = serializers.SerializerMethodField()

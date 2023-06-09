@@ -34,6 +34,7 @@ class ApiData(ComTimeModel, UserEditModel):
     module = models.ForeignKey(to=ApiModule, default=1, on_delete=models.PROTECT, verbose_name="所属模块")
     source = models.SmallIntegerField(default=USER_API, verbose_name="接口来源")
 
+
     class Meta:
         verbose_name = 'api用例'
         db_table = 'api_data'
