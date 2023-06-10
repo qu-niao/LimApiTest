@@ -91,11 +91,7 @@ export const stepColumns = (
   {
     title: '排序',
     dataIndex: 'sort',
-    className: 'mouse',
     width: '5%',
-    render: (_: any, rowData: any, index: number) => {
-      return <span style={{ marginLeft: 6 }}>{index + 1}</span>;
-    },
   },
   {
     title: '类型',
@@ -253,7 +249,7 @@ export const stepColumns = (
                 )
               }
             >
-              <Button type="primary">复制到其它用例</Button>
+              <Button>复制到其它用例</Button>
             </Cascader>
           }
         >

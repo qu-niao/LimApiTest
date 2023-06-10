@@ -1,5 +1,4 @@
 import { WAITING_STATUS } from './constant';
-
 export function JSONPrase(data: any) {
   var Fn = Function; //一个变量指向Function，防止有些前端编译工具报错
   try {
@@ -136,3 +135,4 @@ export const scrollOffset = (expandSerach: boolean, seledCases: any[]) => {
   }
   return v;
 };
+

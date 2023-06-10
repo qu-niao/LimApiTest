@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Button, Modal, Drawer, Dropdown, message, Popconfirm } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { ProFormCascader, DragSortTable as AntDragSortTable } from '@ant-design/pro-components';
-import { API, DELETE, DELETE_CONFIRM_TIP, GET, PATCH, POST } from '@/utils/constant';
+import { API, DELETE, DELETE_CONFIRM_TIP, PATCH, POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
 import DragSortTable from '@/pages/apiCase/dragSortTable';
 import { ControllerForm, StepForm } from './stepForm';
@@ -13,7 +13,9 @@ import { menuItems } from './MenuItems';
 import { deepCopyJsonArray } from '@/utils/utils';
 import { LimDrawerForm } from '@/components/limDrawerForm';
 import { caseSortList, caseView, cleanDeletedCases } from '@/services/apiData';
+
 import LimTable from '@/components/limTable';
+import { dragHandleRender } from '@/components/dragTable';
 const ComfirmChangeForm = ({ open, setOpen, setCaseOpen, formRef, formOk, dataSource }: any) => {
   const [loading, setLoading] = useState<boolean>(false);
   const handleCancel = () => {
@@ -242,18 +244,18 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
   const formRef = useRef<any>();
   const [dataSource, setDataSource] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
   const columns: any[] = [
     {
       title: '排序',
       dataIndex: 'sort',
-      width: '10%',
-      render: (_: any, __: any, index: number) => <>&nbsp;{index + 1}</>,
+      width: '8%',
     },
 
     {
       title: '用例名称',
       dataIndex: 'name',
-      width: '80%',
+      width: '92%',
     },
   ];
   return (
@@ -298,6 +300,7 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
             columns={columns}
             rowKey="id"
             bordered
+            dragSortHandlerRender={dragHandleRender}
             scroll={{ y: 'calc(100vh - 280px)' }}
             size="small"
             pagination={false}

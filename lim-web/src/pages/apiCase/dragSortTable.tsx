@@ -10,6 +10,7 @@ import { LimModalForm } from '@/components/limModalForm';
 import { DiyFormText } from '@/components/diyAntdPomponent';
 import apiDataContext from '@/pages/apiData/context';
 import { caseView } from '@/services/apiData';
+import { dragHandleRender } from '@/components/dragTable';
 const SortTable: React.FC<any> = ({
   columns,
   stepFormState,
@@ -164,6 +165,7 @@ const SortTable: React.FC<any> = ({
         pagination={false}
         dataSource={tableState.dataSource}
         dragSortKey="sort"
+        dragSortHandlerRender={dragHandleRender}
         onDragSortEnd={(newSource: any) => tableState.setDataSource([...newSource])}
       />
       <LimModalForm
