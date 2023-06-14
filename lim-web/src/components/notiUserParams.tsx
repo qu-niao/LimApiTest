@@ -39,12 +39,7 @@ const columns = [
         case BOOL:
           return `${v}`;
         case OBJECT:
-          return (
-            <>
-              <JsonViewer src={v} collapsed={0} />
-              {/* <a>展开</a> */}
-            </>
-          );
+          return <>{v !== null ? <JsonViewer src={v} collapsed={0} /> : 'null'}</>;
         default:
           return v;
       }

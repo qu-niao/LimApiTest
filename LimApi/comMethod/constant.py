@@ -51,7 +51,7 @@ STRING = 'string'
 OBJECT = 'object'
 BOOL = 'boolean'
 NUMBER = 'number'
-PY_TO_CONF_TYPE = {"<class 'int'>": NUMBER, "<class 'float'>": NUMBER,
+PY_TO_CONF_TYPE = {"<class 'int'>": NUMBER, "<class 'float'>": NUMBER, "<class 'NoneType'>": OBJECT,
                    "<class 'dict'>": OBJECT, "<class 'list'>": OBJECT, "<class 'bool'>": BOOL, "<class 'str'>": STRING}
 # ---
 VAR_REGEX = r'\${(.*?)}'  # 取变量的正则规则
