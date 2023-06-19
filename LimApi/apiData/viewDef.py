@@ -18,7 +18,7 @@ from comMethod.comDef import get_proj_envir_db_data, db_connect, execute_sql_fun
 from comMethod.constant import USER_API, VAR_PARAM, HEADER_PARAM, HOST_PARAM, RUNNING, SUCCESS, FAILED, DISABLED, \
     INTERRUPT, SKIP, API_CASE, API_FOREACH, TABLE_MODE, STRING, DIY_CFG, JSON_MODE, PY_TO_CONF_TYPE, CODE_MODE, \
     OBJECT, FAILED_STOP, WAITING, PRO_CFG, FORM_MODE, EQUAL, API_VAR, NOT_EQUAL, \
-    CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE
+    CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE, FORM_TEXT_TYPE
 from comMethod.diyException import DiyBaseException, NotFoundFileError
 from comMethod.paramsDef import parse_param_value, run_params_code, parse_temp_params, get_parm_v_by_temp
 from project.models import ProjectEnvirData
@@ -218,7 +218,6 @@ class ApiCasesActuator:
             if isinstance(field_data, dict) and 'type' in field_data:
                 if field_data['type'] == FORM_FILE_TYPE:
                     file_name, file_url = field_data['name'], field_data['value']
-                    print('ff', file_url)
                     r = requests.get(file_url)
                     if r.status_code == 404:
                         raise NotFoundFileError('未找到上传的文件：' + file_name)
@@ -311,7 +310,6 @@ class ApiCasesActuator:
                 req_log['header']['content-type'] = 'multipart/form-data'
                 req_params['files'], req_log['body'] = body
             try:
-                print('dd', req_params['allow_redirects'])
                 r = requests.request(**req_params)
             except KeyError as e:
                 req_log['results'] = results = self.api_process + '未找到key：' + str(e)
@@ -535,13 +533,12 @@ class ApiCasesActuator:
         elif mode == FORM_MODE:
             req_data, body_log = {}, {}
             for v in data:
-                parm_name, parm_v = v['name'], v['value']
+                parm_name, parm_v = v['name'], v.get('value') or {'value': '', 'type': FORM_TEXT_TYPE}
                 if isinstance(parm_v, dict) and 'type' in parm_v:
                     if parm_v['type'] == FORM_FILE_TYPE:
                         file_name, file_url = parm_v['name'], parm_v['value']
                         r = requests.get(file_url)
                         if r.status_code == 404:
-                            print('ff', file_url)
                             raise NotFoundFileError('未找到上传的文件：' + file_name)
                         with open(file_name, 'wb') as f:
                             f.write(r.content)
