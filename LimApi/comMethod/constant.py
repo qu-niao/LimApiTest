@@ -38,14 +38,14 @@ JSON_MODE = 2  # 用例填写参数时的方式，Json格式
 TEXT_MODE = 3  # 用例填写参数时的方式，文本格式
 FORM_MODE = 4  # 用例填写参数时的方式，表单格式
 CODE_MODE = 5  # 用例填写参数时的方式，代码格式
-FORM_FILE_TYPE = 1
-FORM_TEXT_TYPE = 2
+FORM_FILE_TYPE = 1  # 表单模式-文件
+FORM_TEXT_TYPE = 2  # 表单模式-文本
 DEFAULT_MODULE_NAME = '默认模块'
-USER_API = 1
-SWAGGER_API = 2
-VAR_PARAM = 3
-HEADER_PARAM = 2
-HOST_PARAM = 1
+USER_API = 1  # 用户创建的接口
+SWAGGER_API = 2  # Swagger导入的接口
+VAR_PARAM = 3  # 全局变量
+HEADER_PARAM = 2  # 请求头
+HOST_PARAM = 1  # 请求主机地址
 # ---参数类型枚举
 STRING = 'string'
 OBJECT = 'object'
@@ -64,4 +64,4 @@ CONTAIN = 3  # 包含
 NOT_CONTAIN = 4  # 不包含
 HAVE_KEY = 5  # 字段存在即可
 # ---
-PROTECT_CODE = '1451'
+PROTECT_CODE = '1451'  # 保护关联删除还存在关联关系的报错code
