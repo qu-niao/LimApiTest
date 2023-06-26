@@ -220,4 +220,4 @@ def get_case_sort_list(case_model, mod_model, request):
     """
     module_ids = get_module_children([request.query_params['module_id']], mod_model)
     return case_model.objects.filter(
-        module_id__in=module_ids, is_deleted=False).values('id', 'name', 'position').order_by('position', 'created')
+        module_id__in=module_ids, is_deleted=False).values('id', 'name', 'position').order_by('position', '-updated')
