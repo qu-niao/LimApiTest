@@ -336,6 +336,7 @@ const ApiCase: React.FC = () => {
         cancel={() => {
           setDeledCaseOpen(false);
           pageRef.current?.tableRef?.current?.onRefresh(POST);
+          reqCascaderCaseTree();
         }}
       />
       ,

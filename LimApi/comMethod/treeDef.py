@@ -69,13 +69,14 @@ def create_tree(request, model, extra_fields=None, order_fields=None):
     return data_list
 
 
-def create_cascader_tree(request, model, data_model, extra_filter=None):
+def create_cascader_tree(request, model, data_model, extra_filter=None, order_fields=None):
     """
     公共模块树+用例和测试计划树+计划的树生成方法
     """
     extra_filter = extra_filter or {}
+    order_fields = order_fields or ['name']
     req_params = request.query_params.dict()
-    data_list = model.objects.filter(**req_params).values('id', 'parent_id', 'name')
+    data_list = model.objects.filter(**req_params).values('id', 'parent_id', 'name').order_by(*order_fields)
     module_ids = [mod_id['id'] for mod_id in data_list]
     detail_data = data_model.objects.filter(
         module_id__in=module_ids, **extra_filter).values('id', 'name', 'module_id').order_by('id')

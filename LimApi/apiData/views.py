@@ -1,7 +1,7 @@
 import datetime
 
 from django.db import IntegrityError, transaction
-from django.db.models import Value, F, Q, Max
+from django.db.models import Value, F, Q, Max, ProtectedError
 from django.db.models.functions import Concat
 from django.utils import timezone
 from rest_framework import status, filters
@@ -61,7 +61,7 @@ def tree_cascader_module_case(request):
     """
     测试模块带用例的树
     """
-    return create_cascader_tree(request, ApiCaseModule, ApiCase, extra_filter={'is_deleted': 0})
+    return create_cascader_tree(request, ApiCaseModule, ApiCase, extra_filter={'is_deleted': False})
 
 
 @api_view(['GET'])
@@ -144,6 +144,8 @@ class ApiCaseViews(LimView):
         if request.query_params.get('real_delete'):
             return self.destroy(request, *args, **kwargs)
         api_plan_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
+        if ApiCaseStep.objects.filter(quote_case_id=request.query_params['id']):
+            return Response({'msg': '该用例已经其他用例引用，请先清除相关数据后重试！'}, status=status.HTTP_400_BAD_REQUEST)
         request.data.clear()
         request.data.update({'name': api_plan_name, 'is_deleted': True, 'updater': request.user.id})
         return self.patch(request, *args, **kwargs)
