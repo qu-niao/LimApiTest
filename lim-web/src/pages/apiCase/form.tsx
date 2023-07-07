@@ -300,8 +300,9 @@ export const CaseSortForm: React.FC<any> = ({ open, setOpen, formOk, formData, .
             columns={columns}
             rowKey="id"
             bordered
+            options={false}
             dragSortHandlerRender={dragHandleRender}
-            scroll={{ y: 'calc(100vh - 280px)' }}
+            scroll={{ y: 'calc(100vh - 220px)' }}
             size="small"
             pagination={false}
             search={false}
