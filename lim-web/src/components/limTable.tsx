@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useContext, useRef, useState, useEffect } from 'react';
+import React, { useImperativeHandle, useContext, useRef, useState, useEffect, useCallback } from 'react';
 import { ProTable, ProProvider } from '@ant-design/pro-components';
 import { Button, Tag, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -22,7 +22,6 @@ const Table: React.FC<any> = ({
   const [createBut, setCreateBut] = useState<boolean>(createButDisabled || false); //用于判断新建按钮是否可用
   const defaultPageSize = localStorage.getItem('defaultPageSize') || 10;
   const [dataLength, setDataLength] = useState<number>(0); //列表返回数据的长度（行数）
-  const [tableColumns, setTableColumns] = useState<any>(columns);
   const [otherReqParams, setOtherReqParams] = useState<object>(otherParams || {}); //额外参数
   //分页器
   const [handlePagination, setHandlePagination] = useState<object>({
@@ -61,7 +60,6 @@ const Table: React.FC<any> = ({
       </Popconfirm>
     ),
   };
-
   //设置表单options（操作栏）的方法
   const setColumnsOptions = () => {
     for (let i = 0; i < columns.length; i++) {
@@ -78,15 +76,13 @@ const Table: React.FC<any> = ({
               { update: defaultColumnDom.update(record), delete: defaultColumnDom.delete(record) },
               record,
             );
-          setTableColumns([...columns]);
         }
         break;
       }
     }
   };
-  useEffect(() => {
-    setColumnsOptions();
-  }, optionRefresh || []);
+  setColumnsOptions();
+
   useImperativeHandle(actionRef, () => ({
     tableRef: ref,
     allowRefresh: !createBut,
@@ -126,7 +122,7 @@ const Table: React.FC<any> = ({
     >
       <ProTable
         actionRef={ref}
-        columns={tableColumns}
+        columns={columns}
         scroll={{ y: 'calc(100vh - 300px)' }}
         params={otherReqParams}
         request={async (pagationAndSearch, sorts, filters) => {

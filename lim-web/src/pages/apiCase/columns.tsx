@@ -15,21 +15,17 @@ import { changeStepData, changeStepEnabled, copyStep, deleteStep } from '@/utils
 import { copyStepToOtherCase, runApiStep } from '@/services/apiData';
 import { menuItems } from './MenuItems';
 import './index.css';
+import { CellResize } from '@/components/ResizeTableHeader';
 export const columns = ({ cellWitdhState }: any) => {
-  const { cellWitdh, setCellWitdh } = cellWitdhState;
+  const CellObj = new CellResize(cellWitdhState);
   return [
     {
       title: '用例名称',
       dataIndex: 'name',
       sorter: true,
       search: true,
-      width: cellWitdh.name,
-      onHeaderCell: (column: any) => ({
-        width: column.width,
-        onResize: (_: any, { size }: any) => {
-          setCellWitdh({ ...cellWitdh, name: size.width });
-        },
-      }),
+      width: CellObj.cellWitdh.name,
+      onHeaderCell: (column: any) => CellObj.cellResizeWitdh(column, 'name'),
     },
     {
       title: '修改时间',

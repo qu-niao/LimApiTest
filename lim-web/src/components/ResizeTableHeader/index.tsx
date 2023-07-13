@@ -20,3 +20,19 @@ export const tableComponents = {
     cell: ResizeableHeader,
   },
 };
+export class CellResize {
+  cellWitdh: any;
+  setCellWitdh: any;
+  constructor(cellWitdhState: any) {
+    this.cellWitdh = cellWitdhState.cellWitdh;
+    this.setCellWitdh = cellWitdhState.setCellWitdh;
+  }
+  cellResizeWitdh = (column: any, colName: string) => {
+    return {
+      width: column.width,
+      onResize: (_: any, { size }: any) => {
+        this.setCellWitdh({ ...this.cellWitdh, [`${colName}`]: size.width });
+      },
+    };
+  };
+}

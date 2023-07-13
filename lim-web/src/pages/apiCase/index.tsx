@@ -215,8 +215,6 @@ const ApiCase: React.FC = () => {
             </div>
           ),
           manualRequest: true,
-          colRefresh: [cellWitdh],
-          optionRefresh: [envir, mergeCaseName, currentMod],
           optionRender: (dom: any, record: any) => {
             return [
               runEnvirSelPopconfirm(
