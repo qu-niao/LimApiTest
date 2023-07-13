@@ -31,6 +31,8 @@ import { getSelectRowLabel, scrollOffset, tableRowOnSelect, tableRowOnSelectAll 
 import { LimStandardPage } from '@/components/limStandardPage';
 import { runEnvirSelPopconfirm } from './components';
 import Input from 'antd/lib/input';
+import { tableComponents } from '@/components/ResizeTableHeader';
+import LimTable from '@/components/limTable';
 
 const ApiCase: React.FC = () => {
   const { layoutRef } = useContext(layoutContext);
@@ -54,6 +56,7 @@ const ApiCase: React.FC = () => {
   const [currentMod, setCurrentMod] = useState<any>({});
   const [expandSerach, setExpandSerach] = useState<boolean>(false);
   const [loadingLabel, setLoadingLabel] = useState<string>('执行中...');
+  const [cellWitdh, setCellWitdh] = useState<any>({ name: 200, updated: 130 });
   useEffect(() => {
     paramType().then((res) => setParamTypeCand(res.results));
     projectView(GET).then((res) => setProjectCand(res.results));
@@ -164,7 +167,8 @@ const ApiCase: React.FC = () => {
         tableProps={{
           size: 'small',
           scroll: { y: `calc(100vh - ${scrollOffset(expandSerach, selectedCases)}px)`, x: '1350px' },
-          columns: columns,
+          columns: columns({ cellWitdhState: { cellWitdh, setCellWitdh } }),
+          components: tableComponents,
           otherParams: { is_deleted: false },
           search: expandSerach
             ? {
@@ -211,7 +215,8 @@ const ApiCase: React.FC = () => {
             </div>
           ),
           manualRequest: true,
-          optionRefresh: [envir, copyLoadings, mergeCaseName, currentMod],
+          colRefresh: [cellWitdh],
+          optionRefresh: [envir, mergeCaseName, currentMod],
           optionRender: (dom: any, record: any) => {
             return [
               runEnvirSelPopconfirm(

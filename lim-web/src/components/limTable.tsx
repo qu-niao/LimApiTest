@@ -14,6 +14,7 @@ const Table: React.FC<any> = ({
   otherParams,
   optionRender,
   optionRefresh,
+  colRefresh,
   ...props
 }) => {
   const ref = useRef<any>();
@@ -62,7 +63,7 @@ const Table: React.FC<any> = ({
   };
 
   //设置表单options（操作栏）的方法
-  const setDefualtColumnsOptions = () => {
+  const setColumnsOptions = () => {
     for (let i = 0; i < columns.length; i++) {
       if (columns[i].dataIndex === 'option') {
         if (!optionRender) {
@@ -83,6 +84,9 @@ const Table: React.FC<any> = ({
       }
     }
   };
+  useEffect(() => {
+    setColumnsOptions();
+  }, optionRefresh || []);
   useImperativeHandle(actionRef, () => ({
     tableRef: ref,
     allowRefresh: !createBut,
@@ -99,9 +103,6 @@ const Table: React.FC<any> = ({
       formType === PATCH ? ref.current.reload() : ref.current.reloadAndRest();
     },
   }));
-  useEffect(() => {
-    setDefualtColumnsOptions();
-  }, optionRefresh || []);
 
   return (
     <ProProvider.Provider

@@ -15,69 +15,78 @@ import { changeStepData, changeStepEnabled, copyStep, deleteStep } from '@/utils
 import { copyStepToOtherCase, runApiStep } from '@/services/apiData';
 import { menuItems } from './MenuItems';
 import './index.css';
-export const columns = [
-  {
-    title: '用例名称',
-    dataIndex: 'name',
-    sorter: true,
-    search: true,
-    width: '20%',
-  },
-  {
-    title: '修改时间',
-    search: false,
-    sorter: true,
-    dataIndex: 'updated',
-    width: '13%',
-    valueType: 'dateTime',
-  },
-  {
-    title: '状态',
-    dataIndex: 'status',
-    width: '8%',
-    search: false,
-    filters: true,
-    filterMultiple: false, //控制单选还是多选
-    valueType: 'tags',
-    valueEnum: STATUS_LABEL,
-  },
-  {
-    title: '创建人',
-    search: false,
-    key: 'creater_name',
-    dataIndex: 'creater_name',
-    width: '8%',
-  },
-  {
-    title: '修改人',
-    search: false,
-    dataIndex: 'updater_name',
-    width: '8%',
-  },
-  {
-    title: '执行完成时间',
-    dataIndex: 'latest_run_time',
-    sorter: true,
-    search: false,
-    width: '13%',
-    valueType: 'dateTime',
-  },
-  {
-    title: '创建时间',
-    search: false,
-    sorter: true,
-    dataIndex: 'created',
-    valueType: 'dateTime',
-    width: '13%',
-  },
-  {
-    title: '操作',
-    width: '18%',
-    fixed: 'right',
-    dataIndex: 'option',
-    valueType: 'option',
-  },
-];
+export const columns = ({ cellWitdhState }: any) => {
+  const { cellWitdh, setCellWitdh } = cellWitdhState;
+  return [
+    {
+      title: '用例名称',
+      dataIndex: 'name',
+      sorter: true,
+      search: true,
+      width: cellWitdh.name,
+      onHeaderCell: (column: any) => ({
+        width: column.width,
+        onResize: (_: any, { size }: any) => {
+          setCellWitdh({ ...cellWitdh, name: size.width });
+        },
+      }),
+    },
+    {
+      title: '修改时间',
+      search: false,
+      sorter: true,
+      dataIndex: 'updated',
+      width: 130,
+      valueType: 'dateTime',
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+      width: 80,
+      search: false,
+      filters: true,
+      filterMultiple: false, //控制单选还是多选
+      valueType: 'tags',
+      valueEnum: STATUS_LABEL,
+    },
+    {
+      title: '创建人',
+      search: false,
+      key: 'creater_name',
+      dataIndex: 'creater_name',
+      width: 80,
+    },
+    {
+      title: '修改人',
+      search: false,
+      dataIndex: 'updater_name',
+      width: 80,
+    },
+    {
+      title: '执行完成时间',
+      dataIndex: 'latest_run_time',
+      sorter: true,
+      search: false,
+      width: 130,
+      valueType: 'dateTime',
+    },
+    {
+      title: '创建时间',
+      search: false,
+      sorter: true,
+      dataIndex: 'created',
+      valueType: 'dateTime',
+      width: 130,
+    },
+    {
+      title: '操作',
+      width: 180,
+      fixed: 'right',
+      dataIndex: 'option',
+      valueType: 'option',
+    },
+  ];
+};
 export const stepColumns = (
   stepFormState: any,
   controllerFormState: any,

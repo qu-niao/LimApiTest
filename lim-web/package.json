@@ -26,6 +26,7 @@
     "@emotion/css": "^11.10.5",
     "@types/jsoneditor": "9.5.1",
     "@types/lodash": "^4.14.191",
+    "@types/react-resizable": "^3.0.4",
     "@uiw/react-codemirror": "^4.15.1",
     "antd": "4.24.12",
     "jsoneditor": "9.10.0",
@@ -33,6 +34,7 @@
     "react": "17.x",
     "react-dom": "17.x",
     "react-json-view": "^1.21.3",
+    "react-resizable": "^3.0.5",
     "umi": "^3.5.35"
   },
   "devDependencies": {
