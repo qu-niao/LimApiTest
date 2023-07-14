@@ -1,5 +1,5 @@
 .hideTreeName{
-    max-width:180px;
+    width: 160px;
     display: block;
     overflow: hidden;
     text-overflow:ellipsis;

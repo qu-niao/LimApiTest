@@ -1,5 +1,5 @@
 import { useState, forwardRef, useRef, useEffect } from 'react';
-import { Col, Switch, Tooltip, Popconfirm, message } from 'antd';
+import { Col, Switch, Tooltip, Popconfirm, message, Dropdown } from 'antd';
 import { EditOutlined, PlusCircleOutlined, DeleteOutlined, RedoOutlined } from '@ant-design/icons';
 import ComTree from '@/components/LimTree';
 import styles from './index.css';
@@ -20,7 +20,6 @@ export const LimTreeData = ({
 }: any) => {
   const [open, setOpen] = useState<boolean>(false); //控制弹窗显示还是隐藏
   const [formData, setFormData] = useState<any>({}); //传递给弹窗显示的数据
-  const [treeEditDisplay, setTreeEditDisplay] = useState<string>('none');
   let reqTreeParams: object;
   reqTreeParams = extraParams || {};
   actionLabel = actionLabel ? actionLabel : '模块';
@@ -28,8 +27,11 @@ export const LimTreeData = ({
     treeRef.current.reqTree(treeService, reqTreeParams);
   }, []);
   const showForm = (type: string, values: any = {}) => {
-    values['formType'] = type;
-    setFormData({ ...values });
+    let newValues = { ...values, formType: type };
+    if (type === POST) {
+      newValues.name = null;
+    }
+    setFormData(newValues);
     setOpen(true);
   };
   const onModuleFormOk = async (values: any) => {
@@ -49,36 +51,42 @@ export const LimTreeData = ({
   const setTreeTitle = (item: any) => {
     const title = (
       <div style={{ display: 'flex' }}>
-        <Tooltip title={item.name} placement="right" overlayStyle={{ maxWidth: 300 }}>
-          <span className={styles.hideTreeName}>{item.name}</span>
-        </Tooltip>
-        <span
-          key={item.id}
-          style={{
-            zIndex: 1,
-            width: '80px',
-            display: treeEditDisplay,
+        <Dropdown
+          menu={{
+            items: [
+              {
+                label: <span onClick={(e) => showForm(POST, item)}>{`增加子${actionLabel}`}</span>,
+                key: 'add',
+              }, // 菜单项务必填写 key
+              {
+                label: <span onClick={(e) => showForm(PATCH, item)}>{`修改${actionLabel}`}</span>,
+                key: 'update',
+              },
+              {
+                label: (
+                  <Popconfirm
+                    title="您确定要删除吗？"
+                    okText="是"
+                    cancelText="否"
+                    onConfirm={() =>
+                      onFinishService(DELETE, item.id).then((res: any) =>
+                        treeRef.current.reqTree(treeService, reqTreeParams),
+                      )
+                    }
+                  >
+                    <span style={{ color: 'red' }}>{`删除${actionLabel}`}</span>{' '}
+                  </Popconfirm>
+                ),
+                key: 'delete',
+              },
+            ],
           }}
+          trigger={['contextMenu']}
         >
-          <Tooltip title={`增加${actionLabel}`}>
-            <PlusCircleOutlined style={{ marginLeft: 10 }} onClick={(e) => showForm(POST)} />
+          <Tooltip title={item.name} placement="right" overlayStyle={{ maxWidth: 300 }}>
+            <span className={styles.hideTreeName}>{item.name}</span>
           </Tooltip>
-          <Tooltip title={`编辑${actionLabel}`}>
-            <EditOutlined onClick={(e) => showForm(PATCH, item)} style={{ marginLeft: 10 }} />
-          </Tooltip>
-          <Popconfirm
-            title="您确定要删除吗？"
-            onConfirm={() =>
-              onFinishService(DELETE, item.id).then((res: any) =>
-                treeRef.current.reqTree(treeService, reqTreeParams),
-              )
-            }
-          >
-            <Tooltip title={`删除${actionLabel}`}>
-              <DeleteOutlined style={{ marginLeft: 10 }} />
-            </Tooltip>
-          </Popconfirm>
-        </span>
+        </Dropdown>
       </div>
     );
     return title;
@@ -100,15 +108,9 @@ export const LimTreeData = ({
       >
         {!editDisabled ? (
           <ul className={styles.modTreeCfg}>
-            <li className={styles.operationStyle} onClick={() => showForm(POST)}>
+            <li style={{ fontWeight: 'bold', marginLeft: 10 }}>模块树</li>
+            <li className={styles.operationStyle} style={{ marginRight: 10 }} onClick={() => showForm(POST)}>
               ＋增加主{actionLabel}
-            </li>
-            <li>
-              <Switch
-                checkedChildren="关闭编辑"
-                unCheckedChildren="开启编辑"
-                onChange={(e) => setTreeEditDisplay(e ? '' : 'none')}
-              />
             </li>
           </ul>
         ) : (
