@@ -7,7 +7,7 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 #### 在线体验：[点我访问(推荐谷歌、火狐)](http://121.43.43.59/)
 #### 使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;安装部署：[点我访问](http://qu-niao.gitee.io/lim-doc/deploy/)&nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 
-#### VX扫码进测开联盟，后续会进行项目源码剖析：
+#### 扫码进测开联盟，后续会进行项目源码剖析：
 <div align=center><img src="https://qu-niao.gitee.io/qu-niao-page/img/XC.png" width="250" height="349"></div>
 
 #### 从0教学、交流+ 作者微信：qu-niao：
