@@ -100,7 +100,11 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
                 doubleClick: (e: any) => {
                   if (paramMode[currentTabs + '_mode'] === TABLE_MODE) {
                     let fieldName = '';
+                    let parentValue = Array.isArray(srcItem) ? [...srcItem] : { ...srcItem };
                     value['namespace'].forEach((item: any) => {
+                      if (parentValue) {
+                        parentValue = parentValue[item];
+                      }
                       if (isNaN(item)) {
                         //判断item是否不是 数字
                         fieldName += '.' + item;
@@ -108,7 +112,8 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
                         fieldName += `[${item}]`;
                       }
                     });
-                    fieldName += '.' + value['name'];
+                    //代表的是数组索引值
+                    fieldName += Array.isArray(parentValue) ? `[${value['name']}]` : `.${value['name']}`;
                     //响应结果不为纯数组则需要去除
                     if (!fieldName.startsWith('[')) {
                       fieldName = fieldName.slice(1);
