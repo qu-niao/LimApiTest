@@ -400,3 +400,12 @@ def clean_deleted_cases(request):
     """
     ApiCase.objects.filter(is_deleted=True).delete()
     return Response({'msg': '清空成功！'})
+
+
+@api_view(['DELETE'])
+def delete_selected_cases(request):
+    """
+    删除选中的测试用例
+    """
+    ApiCase.objects.filter(id__in=request.data['ids']).update(is_deleted=True)
+    return Response({'msg': '删除成功！'})

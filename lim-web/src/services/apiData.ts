@@ -92,3 +92,9 @@ export function cleanDeletedCases() {
     method: 'DELETE',
   });
 }
+export function deleteSelectedCases(params: any) {
+  return request<any>(PREFIX + 'delete-selected-cases', {
+    method: 'DELETE',
+    data: params,
+  });
+}

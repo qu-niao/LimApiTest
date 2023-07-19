@@ -9,6 +9,7 @@ urlpatterns = [
     path('tree-cascader-module-case', views.tree_cascader_module_case),
     path('case-module-view', views.CaseModuleViews.as_view()),
     path('case-view', views.ApiCaseViews.as_view()),
+    path('delete-selected-cases', views.delete_selected_cases),
     path('api-view', views.ApiViews.as_view()),
     path('tree-api-module', views.tree_api_module),
     path('api-module-view', views.ApiModuleViews.as_view()),

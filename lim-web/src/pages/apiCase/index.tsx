@@ -25,6 +25,7 @@ import {
   copyCases,
   mergeCases,
   setCasePosition,
+  deleteSelectedCases,
 } from '@/services/apiData';
 import layoutContext from '@/limLayout/context';
 import { getSelectRowLabel, scrollOffset, tableRowOnSelect, tableRowOnSelectAll } from '@/utils/utils';
@@ -153,7 +154,6 @@ const ApiCase: React.FC = () => {
       });
     }
   };
-
   return (
     <Spin
       tip={<span style={{ fontWeight: 'bold' }}>{loadingLabel}</span>}
@@ -303,6 +303,19 @@ const ApiCase: React.FC = () => {
                 onConfirm={() => mergeCasesFunc()}
               >
                 <Button> 将选中合并为新用例</Button>
+              </Popconfirm>
+              <Popconfirm
+                title="您确定要删除吗？"
+                okText="是"
+                cancelText="否"
+                onConfirm={() =>
+                  deleteSelectedCases({ ids: selectedCases.map((item: any) => item.id) }).then((res: any) => {
+                    message.success(res.msg);
+                    pageRef.current?.tableRef?.current?.onRefresh();
+                  })
+                }
+              >
+                <Button danger>全部删除</Button>
               </Popconfirm>
             </Space>
           ),
