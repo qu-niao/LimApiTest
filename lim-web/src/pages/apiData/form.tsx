@@ -162,7 +162,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
     return {
       label: <span style={{ fontWeight: 'bold' }}>{API_PARAM_TEXT[type]}</span>,
       key: type,
-      children: returnNodes,
+      children: <div style={{ maxHeight: 300, overflowY: 'auto' }}>{returnNodes}</div>,
     };
   };
   const searchApiFunc = debounce(async (keywords) => {
@@ -540,9 +540,9 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
                   </Tag>
                 ) : null}
               </Tooltip>
-              {reqLog.results && <pre style={{ color: 'red', marginTop: 30 }}>{reqLog.results}</pre>}
+              {reqLog.results && <pre style={{ color: 'red', marginTop: 8 }}>{reqLog.results}</pre>}
               <Tabs
-                style={{ marginTop: 16 }}
+              
                 tabBarGutter={0}
                 type="card"
                 defaultActiveKey="1"
