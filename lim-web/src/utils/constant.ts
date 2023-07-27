@@ -96,7 +96,7 @@ export const DISABLED_COLOR = '#BEBEBE';
 export const PINK_COLOR = '#DA70D6';
 export const STEP_TYPE_LABEL = {
   header: '全局请求头',
-  host: '全局请求地址',
+  host: '请求地址',
   var: '全局变量',
   foreach: '循环控制器',
   api: '接口',
