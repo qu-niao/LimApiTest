@@ -162,8 +162,8 @@ def set_user_temp_params(params, user_id):
     """
 
     change_params_objs, no_change_param_ids = [], []
-    for key in params.keys():
-        for parm in params[key].values():
+    for key, v in params.items():
+        for parm in v.values():
             if parm_id := parm.get('id'):
                 no_change_param_ids.append(parm_id)
             else:

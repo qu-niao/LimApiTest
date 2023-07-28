@@ -13,7 +13,7 @@ export const ParamValue = ({ onChange, value, editorFormRef, reqParamType, index
     const data = editorFormRef.current?.getRowData(index);
     if (!['header', 'query', 'output'].includes(reqParamType) && data.type.auto) {
       editorFormRef.current?.setRowData?.(index, { type: { type: getValueType(v), auto: true } });
-      setParmTypeFunc(reqParamType, index, { type: getValueType(v), auto: true });
+      setParmTypeFunc && setParmTypeFunc(reqParamType, index, { type: getValueType(v), auto: true });
     }
   };
 
@@ -56,7 +56,7 @@ export const ParamType: React.FC<any> = ({
           _v.type = v;
           setFieldValue(_v);
           onChange(_v);
-          setParmTypeFunc(reqParamType, index, _v);
+          setParmTypeFunc && setParmTypeFunc(reqParamType, index, _v);
         }}
         options={paramTypeCand}
       />
@@ -68,7 +68,7 @@ export const ParamType: React.FC<any> = ({
             _v.auto = e.target.checked;
             setFieldValue(_v);
             onChange(_v);
-            setParmTypeFunc(reqParamType, index, _v);
+            setParmTypeFunc && setParmTypeFunc(reqParamType, index, _v);
           }}
           checked={fieldValue.auto}
         >
@@ -94,7 +94,7 @@ export const paramsColumns = (
   type: string,
   paramTypeCand: any,
   editorFormRef: any,
-  setParmTypeFunc: Function,
+  setParmTypeFunc: Function | null = null,
 ) => {
   let nameLabel: string;
   let valueLabel: string;

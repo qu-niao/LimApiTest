@@ -25,7 +25,6 @@ import {
 import apiDataContext from './context';
 import { ExclamationCircleTwoTone, ExclamationCircleOutlined } from '@ant-design/icons';
 import { debounce } from 'lodash';
-import './index.css';
 import { LimDrawerForm } from '@/components/limDrawerForm';
 import { apiDataView, searchApi, testApiData } from '@/services/apiData';
 import { DiyFormText } from '@/components/diyAntdPomponent';

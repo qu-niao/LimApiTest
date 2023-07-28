@@ -1,20 +1,11 @@
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import {
-  ProFormText,
-  ProFormTextArea,
-  ProFormCascader,
-  ProFormItem,
-  ProFormDigit,
-  ProFormRadio,
-  ProFormGroup,
-  ProFormSelect,
-  EditableProTable,
-} from '@ant-design/pro-components';
-import { Dropdown, Button, Tooltip, AutoComplete, Tabs, Divider, Radio, Collapse } from 'antd';
+import { ProFormTextArea, ProFormItem, ProFormRadio, EditableProTable } from '@ant-design/pro-components';
+import { Tooltip, Divider } from 'antd';
 import { paramsJsonToTable, paramsTableToJson } from './func';
 import JsonEditor from '@/components/JsonEditor';
 import { CodeEditNode } from '@/components/codeEdit';
 import { paramsColumns, paramsFormDataColumns } from './columns';
+import './index.css';
 import {
   TABLE_MODE,
   JSON_MODE,

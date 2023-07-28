@@ -142,11 +142,11 @@ class ApiCasesActuator:
                 if isinstance(res, dict):
                     self.default_var.update(res)
                     out_data = res
-                    for name in res.keys():
+                    for name, v in res.items():
                         self.params_source[VAR_PARAM][name] = {
-                            'name': name, 'value': res[name], 'step_name': prefix_label + step_name,
+                            'name': name, 'value': v, 'step_name': prefix_label + step_name,
                             'type': VAR_PARAM,
-                            'param_type_id': PY_TO_CONF_TYPE.get(str(type(res[name])), STRING),
+                            'param_type_id': PY_TO_CONF_TYPE.get(str(type(v)), STRING),
                             **self.base_params_source}
                 else:
                     return {'status': FAILED, 'results': '返回数据格式不符合要求！'}
@@ -359,10 +359,9 @@ class ApiCasesActuator:
         if params := step['params']:
             header = self.parse_source_params(params, i=i)
             self.default_header = header
-            for name in header.keys():
-                self.params_source[HEADER_PARAM][name] = {
-                    'name': name, 'value': header[name], 'step_name': prefix_label + step['step_name'],
-                    'type': HEADER_PARAM, 'param_type_id': STRING, **self.base_params_source}
+            self.params_source[HEADER_PARAM] = {name: {
+                'name': name, 'value': v, 'step_name': prefix_label + step['step_name'], 'type': HEADER_PARAM,
+                'param_type_id': STRING, **self.base_params_source} for name, v in header.items()}
 
     def host(self, step, prefix_label, i=0):
         """
@@ -386,7 +385,7 @@ class ApiCasesActuator:
         执行类型为用例
         """
 
-        if cascader_level > 10:
+        if cascader_level > 10:  # 引用计划嵌套超过10层判断为死循环
             self.cascader_error = True
             return {'status': FAILED}
         params = step.get('params')
@@ -406,10 +405,10 @@ class ApiCasesActuator:
         if f'{self.envir}_mode' in params and f'{self.envir}_source' in params:
             mode, data = params[f'{self.envir}_mode'], params[f'{self.envir}_source']
             var = self.parse_source_params(data, mode, i, params_type=API_VAR)
-            for name in var.keys():
+            for name, v in var.items():
                 self.params_source[VAR_PARAM][name] = {
-                    'name': name, 'value': var[name], 'step_name': prefix_label + step['step_name'], 'type': VAR_PARAM,
-                    'param_type_id': PY_TO_CONF_TYPE.get(str(type(var[name])), STRING), **self.base_params_source}
+                    'name': name, 'value': v, 'step_name': prefix_label + step['step_name'], 'type': VAR_PARAM,
+                    'param_type_id': PY_TO_CONF_TYPE.get(str(type(v)), STRING), **self.base_params_source}
 
     def sql(self, step, prefix_label='', i=0):
         """
@@ -446,7 +445,7 @@ class ApiCasesActuator:
         """
         循环控制器
         """
-        if cascader_level > 15:
+        if cascader_level > 15:  # 嵌套超过15层则判断为死循环
             self.cascader_error = True
             return {'status': FAILED}
         params = step['params']
@@ -513,10 +512,9 @@ class ApiCasesActuator:
                         self.default_var[p_name] = res[p_name]
         elif mode == JSON_MODE:
             if isinstance(data, dict):
-                for p_name in data.keys():
+                for p_name, p_v in data.items():
                     p_name = parse_param_value(p_name, self.default_var, i)
-                    p_v = parse_param_value(data[p_name], self.default_var, i)
-                    res[p_name] = p_v
+                    res[p_name] = parse_param_value(p_v, self.default_var, i)
                     if params_type == API_VAR:
                         self.default_var[p_name] = res[p_name]
             else:
@@ -666,7 +664,7 @@ def run_api_case_func(case_data, user_id, cfg_data=None, temp_params=None):
     thread = MyThread(target=monitor_interrupt, args=[user_id, actuator_obj])
     thread.start()
     if isinstance(case_data, dict):
-        for case_id in case_data.keys():
+        for case_id, v in case_data.items():
             start_time = datetime.datetime.now()
             case_objs = ApiCase.objects.filter(id=case_id).first()
             if case_objs:
@@ -676,7 +674,7 @@ def run_api_case_func(case_data, user_id, cfg_data=None, temp_params=None):
                            'steps': []}
             actuator_obj.base_params_source['case_id'] = case_id
             # 默认测试是通过的
-            case_status, step_data = run_step_groups(actuator_obj, case_data[case_id])
+            case_status, step_data = run_step_groups(actuator_obj, v)
             report_dict['steps'] = step_data
             for step in step_data:
                 res_step_objs.append(ApiCaseStep(**step))
