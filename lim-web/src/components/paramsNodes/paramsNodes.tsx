@@ -38,7 +38,6 @@ export const ParamsNodes = ({
     _types[reqParamType][index] = { ...newV };
     setParmsType(_types);
   };
-
   const modeRadioChange = (mode: number, type: string) => {
     let mode_json = { ...paramMode };
     const fieldName = `${type}_source`;
@@ -284,7 +283,9 @@ export const ParamsNodes = ({
             name={`${type}_mode`}
             trigger="onValuesChange"
             options={modeOptions}
-            fieldProps={{ onChange: (e) => modeRadioChange(e.target.value, type) }}
+            fieldProps={{
+              onChange: (e) => modeRadioChange(e.target.value, type),
+            }}
           />
         </div>
         {renderNodes}

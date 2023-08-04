@@ -172,9 +172,69 @@ export const VarForm = ({ formData, formRef, childRef }: any) => {
   useImperativeHandle(childRef, () => ({
     parmsType: parmsType,
   }));
+  const renderImportMenu = (envir: any) => {
+    let resData: any[] = [];
+    formData.envirData.forEach((item: any) => {
+      if (envir.id !== item.id) {
+        resData.push({
+          label: (
+            <span
+              onClick={() => {
+                const data = formRef.current.getFieldsValue();
+                const newModeKey = `${envir.id}_mode`;
+                const newSourceKey = `${envir.id}_source`;
+                const newData = {
+                  [`${newModeKey}`]: data[`${item.id}_mode`],
+                  [`${newSourceKey}`]: data[`${item.id}_source`],
+                };
+                if (newData[newModeKey] === TABLE_MODE) {
+                  let source: any = [];
+                  editableKeys[newSourceKey] = [];
+                  paramMode[newModeKey] = TABLE_MODE;
+                  const idx = Date.now();
+                  newData[newSourceKey].forEach((item: any, index: number) => {
+                    source.push({ ...item, ...{ id: idx + index } });
+                    editableKeys[newSourceKey].push(idx + index);
+                  });
+                  newData[newSourceKey] = source;
+                  setEditableKeys({ ...editableKeys });
+                } else {
+                  paramMode[newModeKey] = newData[newModeKey];
+                }
+                formRef.current.setFieldsValue(newData);
+                console.log('dd', paramMode, newData);
+                setParamMode({ ...paramMode });
+              }}
+            >
+              {item.name}
+            </span>
+          ),
+          key: item.key,
+        });
+      }
+    });
+    return resData;
+  };
   const renderPanes = (envir: any) => {
     return {
+      forceRender: true,
       label: <span style={{ fontWeight: 'bold' }}>{envir.name}</span>,
+      // label: (
+      //   <Dropdown
+      //     menu={{
+      //       items: [
+      //         {
+      //           label: '导入变量',
+      //           key: 'insert',
+      //           children: renderImportMenu(envir),
+      //         }, // 菜单项务必填写 key
+      //       ],
+      //     }}
+      //     trigger={['contextMenu']}
+      //   >
+      //     <span style={{ fontWeight: 'bold' }}>{envir.name}</span>
+      //   </Dropdown>
+      // ),
       key: envir.id,
       children: (
         <ParamsNodes

@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { apiDataView, caseView, getForeachStep } from '@/services/apiData';
+import { apiDataView, caseView } from '@/services/apiData';
 import {
   API,
   API_HEADER,
@@ -17,9 +17,7 @@ import {
 } from '@/utils/constant';
 import { envirView } from '@/services/conf';
 import { projectHaveEnvir } from '@/services/project';
-
 export const showStepForm = async (stepFormState: any, values: any = {}) => {
-  console.log('vv', values);
   let newValues = { ...values };
   switch (newValues.type) {
     case API:

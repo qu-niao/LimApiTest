@@ -11,7 +11,7 @@ export const ParamValue = ({ onChange, value, editorFormRef, reqParamType, index
     setInputValue(v);
     onChange(v);
     const data = editorFormRef.current?.getRowData(index);
-    if (!['header', 'query', 'output'].includes(reqParamType) && data.type.auto) {
+    if (!['header', 'query', 'output'].includes(reqParamType) && data?.type.auto) {
       editorFormRef.current?.setRowData?.(index, { type: { type: getValueType(v), auto: true } });
       setParmTypeFunc && setParmTypeFunc(reqParamType, index, { type: getValueType(v), auto: true });
     }

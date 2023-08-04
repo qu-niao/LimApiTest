@@ -13,7 +13,6 @@ import { menuItems } from './MenuItems';
 import { deepCopyJsonArray } from '@/utils/utils';
 import { LimDrawerForm } from '@/components/limDrawerForm';
 import { caseSortList, caseView, cleanDeletedCases } from '@/services/apiData';
-
 import LimTable from '@/components/limTable';
 import { dragHandleRender } from '@/components/dragTable';
 const ComfirmChangeForm = ({ open, setOpen, setCaseOpen, formRef, formOk, dataSource }: any) => {
