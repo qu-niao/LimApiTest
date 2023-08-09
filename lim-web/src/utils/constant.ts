@@ -1,6 +1,6 @@
 //export const HOST_SERVER = 'http://127.0.0.1:8006';
 export const HOST_SERVER = 'http://121.43.43.59:8006'; //接口服务地址
-export const VERSION = '1.9';
+export const VERSION = '1.2.0';
 export const GET = 'get'; //代表请求列表
 export const DELETE = 'delete'; //代表删除数据
 export const POST = 'post'; //代表创建数据
