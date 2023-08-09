@@ -399,7 +399,7 @@ export const SqlForm = ({ formRef, formData }: any) => {
               placement="right"
               title="列表数据为id=1的环境下配置的数据库连接名称，若要在其他环境执行该任务，需其他环境下有同名连接名称！"
             >
-              选择数据库连接
+              选择数据库连接【默认环境(id=1)的连接必填】
               <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3 }} />
             </Tooltip>
           }

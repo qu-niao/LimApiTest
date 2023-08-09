@@ -18,7 +18,7 @@ from comMethod.comDef import get_proj_envir_db_data, db_connect, execute_sql_fun
 from comMethod.constant import USER_API, VAR_PARAM, HEADER_PARAM, HOST_PARAM, RUNNING, SUCCESS, FAILED, DISABLED, \
     INTERRUPT, SKIP, API_CASE, API_FOREACH, TABLE_MODE, STRING, DIY_CFG, JSON_MODE, PY_TO_CONF_TYPE, CODE_MODE, \
     OBJECT, FAILED_STOP, WAITING, PRO_CFG, FORM_MODE, EQUAL, API_VAR, NOT_EQUAL, \
-    CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE, FORM_TEXT_TYPE
+    CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE, FORM_TEXT_TYPE, API_SQL
 from comMethod.diyException import DiyBaseException, NotFoundFileError
 from comMethod.paramsDef import parse_param_value, run_params_code, parse_temp_params, get_parm_v_by_temp
 from project.models import ProjectEnvirData
@@ -580,7 +580,7 @@ def run_step_groups(actuator_obj, step_data, prefix_label='', cascader_level=0, 
     for step in step_data:
         s_type = step['type']
         if step.get('enabled'):
-            params = {'actuator_obj': actuator_obj, 's_type': s_type, 'step': step, 'prefix_label': prefix_label,
+            params = {'actuator_obj': actuator_obj, 'step': step, 'prefix_label': prefix_label,
                       'i': i}
             if s_type in (API_CASE, API_FOREACH):
                 params['cascader_level'] = cascader_level + 1
@@ -595,14 +595,15 @@ def run_step_groups(actuator_obj, step_data, prefix_label='', cascader_level=0, 
     return run_status, step_data
 
 
-def go_step(actuator_obj, s_type, step, i=0, prefix_label='', **extra_params):
+def go_step(actuator_obj, step, i=0, prefix_label='', **extra_params):
+    s_type = step['type']
     # 执行状态为中断时则直接返回跳过，但下面的处理方式会导致循环器/引用计划直接中断，它们里面的步骤状态不会改变，还是上次的执行结果
     if actuator_obj.status in (INTERRUPT, FAILED_STOP):
         return {'status': SKIP, 'results': '执行被中断！' if s_type not in (API_CASE, API_FOREACH) else None}
     params = {'step': step, 'i': i, 'prefix_label': prefix_label, **extra_params}
     controller_data = step.get('controller_data') or {}
     # 为了避免失败跳过执行出现BUG，plan和foreach不允许设置重试，设置的话会默认不重试
-    retry_times = controller_data.get('re_times', 0) if step['type'] not in (API_CASE, API_FOREACH) else 0
+    retry_times = controller_data.get('re_times', 0) if s_type not in (API_CASE, API_FOREACH) else 0
     retry_interval, execute_on = controller_data.get('re_interval', 0), controller_data.get('execute_on', '')
     sleep_time = controller_data.get('sleep')
     res = {'status': SUCCESS, 'results': ''}
@@ -620,6 +621,7 @@ def go_step(actuator_obj, s_type, step, i=0, prefix_label='', **extra_params):
         print(step.get('step_name', '') + '，执行次数：' + str(j))
         try:
             res = getattr(actuator_obj, s_type)(**params) or {'status': SUCCESS}
+            s_type == API_SQL and res.pop('data', None)
         except Exception as e:  # 捕获步骤执行过程的异常
             res = {'status': FAILED, 'results': str(e)}
         if res['status'] == FAILED:

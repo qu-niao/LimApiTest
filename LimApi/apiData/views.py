@@ -235,13 +235,12 @@ def run_api_case_step(request):
     req_data = request.data
     user_id = request.user.id
     actuator_obj = ApiCasesActuator(user_id)
-    s_type = req_data['type']
     try:
         UserCfg.objects.filter(user_id=user_id).update(exec_status=RUNNING)
-        if s_type in (API_CASE, API_FOREACH):
+        if req_data['type'] in (API_CASE, API_FOREACH):
             thread = MyThread(target=monitor_interrupt, args=[user_id, actuator_obj])
             thread.start()
-        res = go_step(actuator_obj, s_type, req_data, i=0)
+        res = go_step(actuator_obj, req_data, i=0)
     except CaseCascaderLevelError as e:
         return Response(data={'status': FAILED, 'msg': str(e)})
     res_msg = ''
@@ -322,7 +321,7 @@ def test_api_data(request):
     req_data, user_id = request.data, request.user.id
     actuator_obj = ApiCasesActuator(user_id)
     req_data['type'] = API
-    res = go_step(actuator_obj, API, req_data, i=0)
+    res = go_step(actuator_obj, req_data, i=0)
     UserCfg.objects.filter(user_id=user_id).update(exec_status=WAITING)
     set_user_temp_params(actuator_obj.params_source, request.user.id)
     return Response(res.get('results', {}))
@@ -366,7 +365,7 @@ def get_api_report(request):
             report_data['case_count'] = len(case_ids)
             try:
                 report_case_count(case_ids, report_cases, case_name_dict, report_data)
-            except IndexError as e:
+            except Exception as e:
                 return Response(data={'msg': str(e)}, status=status.HTTP_400_BAD_REQUEST)
             return Response(data=report_data)
         return Response(data={'msg': "该用例没有步骤！"}, status=status.HTTP_400_BAD_REQUEST)

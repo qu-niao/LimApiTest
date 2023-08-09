@@ -167,4 +167,3 @@ export const REPORT_STEP_STATUS_COLOR = {
   跳过: SKIP_COLOR,
   禁用: DISABLED_COLOR,
 };
-

@@ -156,6 +156,7 @@ def get_proj_db_database(request):
 
 @api_view(['POST'])
 def run_sql(request):
+
     req_data, user_id = request.data, request.user.id
     case_obj = ApiCasesActuator(
         user_id, temp_params=UserTempParams.objects.filter(user_id=user_id, type=VAR_PARAM).values())
