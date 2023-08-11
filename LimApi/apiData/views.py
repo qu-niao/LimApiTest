@@ -235,9 +235,10 @@ def run_api_case_step(request):
     req_data = request.data
     user_id = request.user.id
     actuator_obj = ApiCasesActuator(user_id)
+    s_type = req_data['type']
     try:
         UserCfg.objects.filter(user_id=user_id).update(exec_status=RUNNING)
-        if req_data['type'] in (API_CASE, API_FOREACH):
+        if s_type in (API_CASE, API_FOREACH):
             thread = MyThread(target=monitor_interrupt, args=[user_id, actuator_obj])
             thread.start()
         res = go_step(actuator_obj, req_data, i=0)
