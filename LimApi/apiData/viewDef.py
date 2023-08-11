@@ -358,6 +358,8 @@ class ApiCasesActuator:
         """
         if params := step['params']:
             header = self.parse_source_params(params, i=i)
+            if not header.get('content-type'):
+                header['content-type'] = 'application/json'
             self.default_header = header
             self.params_source[HEADER_PARAM] = {name: {
                 'name': name, 'value': v, 'step_name': prefix_label + step['step_name'], 'type': HEADER_PARAM,
