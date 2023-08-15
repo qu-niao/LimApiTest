@@ -2,7 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Button, Input, Upload, message, Radio, Tooltip, AutoComplete, Select, Checkbox } from 'antd';
 import { getValueType } from '@/utils/utils';
 import { ExclamationCircleTwoTone, UploadOutlined } from '@ant-design/icons';
-import { EQUAL, EXPECT_RULE_LABEL, FORM_FILE_TYPE, FORM_TEXT_TYPE } from '@/utils/constant';
+import {
+  EQUAL,
+  EXPECT_RULE_LABEL,
+  FORM_FILE_TYPE,
+  FORM_TEXT_TYPE,
+  RES_BODY,
+  RES_HEADER,
+} from '@/utils/constant';
 import { putFile } from '@/services/comApi';
 
 export const ParamValue = ({ onChange, value, editorFormRef, reqParamType, index, setParmTypeFunc }: any) => {
@@ -30,7 +37,70 @@ export const ParamValue = ({ onChange, value, editorFormRef, reqParamType, index
     </>
   );
 };
+export const OutPutParam = ({
+  onChange,
+  value,
+  editorFormRef,
+  reqParamType,
+  index,
+  setParmTypeFunc,
+}: any) => {
+  const [inputValue, setInputValue] = useState<any>(
+    value
+      ? typeof value == 'string'
+        ? { value: value, source: RES_BODY }
+        : value
+      : { value: '', source: RES_BODY },
+  );
 
+  const handleInputChange = (v: string) => {
+    setInputValue(v);
+    onChange(v);
+  };
+
+  return (
+    <Input
+      onChange={(v) => {
+        inputValue.value = v.target.value;
+        setInputValue({ ...inputValue });
+        onChange({ ...inputValue });
+      }}
+      addonBefore={
+        <Select
+          value={inputValue?.source}
+          onChange={(v) => {
+            inputValue.source = v;
+            setInputValue({ ...inputValue });
+            onChange({ ...inputValue });
+          }}
+          options={[
+            {
+              value: RES_BODY,
+              label: '响应体',
+            },
+            {
+              value: RES_HEADER,
+              label: '响应头',
+            },
+          ]}
+        />
+      }
+      value={inputValue?.value}
+    />
+  );
+  return (
+    <>
+      {' '}
+      <AutoComplete
+        placeholder="请输入值"
+        value={inputValue}
+        // onSelect={(...data: any) => loadApiCaseData(data[1].case_id)}
+        onChange={handleInputChange}
+        // options={loadCaseData}
+      />
+    </>
+  );
+};
 export const ParamType: React.FC<any> = ({
   value,
   onChange,
@@ -194,7 +264,7 @@ export const paramsColumns = (
           width: '25%',
           dataIndex: 'value',
           renderFormItem: ({ index }: any) => (
-            <ParamValue
+            <OutPutParam
               reqParamType={type}
               index={index}
               editorFormRef={editorFormRef}

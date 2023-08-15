@@ -21,6 +21,8 @@ import {
   TABLE_MODE,
   GET,
   REQ_METHOD_LABEL,
+  RES_HEADER,
+  RES_BODY,
 } from '@/utils/constant';
 import apiDataContext from './context';
 import { ExclamationCircleTwoTone, ExclamationCircleOutlined } from '@ant-design/icons';
@@ -97,6 +99,7 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
             onSelect={(value: any) =>
               onDoubleClickFn({
                 doubleClick: (e: any) => {
+                  console.log('tt', type, currentTabs);
                   if (paramMode[currentTabs + '_mode'] === TABLE_MODE) {
                     let fieldName = '';
                     let parentValue = Array.isArray(srcItem) ? [...srcItem] : { ...srcItem };
@@ -131,7 +134,10 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
                     };
                     if (currentTabs === 'output') {
                       pushData['name'] = value['name'];
-                      pushData['value'] = fieldName;
+                      pushData['value'] = {
+                        value: fieldName,
+                        source: type === 'res_header' ? RES_HEADER : RES_BODY,
+                      };
                       delete pushData.type;
                     }
                     data.push(pushData);
@@ -541,7 +547,6 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
               </Tooltip>
               {reqLog.results && <pre style={{ color: 'red', marginTop: 8 }}>{reqLog.results}</pre>}
               <Tabs
-              
                 tabBarGutter={0}
                 type="card"
                 defaultActiveKey="1"

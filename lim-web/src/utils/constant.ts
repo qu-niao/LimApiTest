@@ -167,3 +167,5 @@ export const REPORT_STEP_STATUS_COLOR = {
   跳过: SKIP_COLOR,
   禁用: DISABLED_COLOR,
 };
+export const RES_BODY = 1; //响应体
+export const RES_HEADER = 2; //响应头

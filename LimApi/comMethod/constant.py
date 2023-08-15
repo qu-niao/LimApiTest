@@ -65,3 +65,5 @@ NOT_CONTAIN = 4  # 不包含
 HAVE_KEY = 5  # 字段存在即可
 # ---
 PROTECT_CODE = '1451'  # 保护关联删除还存在关联关系的报错code
+RES_BODY = 1  # 响应体
+RES_HEADER = 2  # 响应头

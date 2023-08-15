@@ -18,7 +18,7 @@ from comMethod.comDef import get_proj_envir_db_data, db_connect, execute_sql_fun
 from comMethod.constant import USER_API, VAR_PARAM, HEADER_PARAM, HOST_PARAM, RUNNING, SUCCESS, FAILED, DISABLED, \
     INTERRUPT, SKIP, API_CASE, API_FOREACH, TABLE_MODE, STRING, DIY_CFG, JSON_MODE, PY_TO_CONF_TYPE, CODE_MODE, \
     OBJECT, FAILED_STOP, WAITING, PRO_CFG, FORM_MODE, EQUAL, API_VAR, NOT_EQUAL, \
-    CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE, FORM_TEXT_TYPE, API_SQL
+    CONTAIN, NOT_CONTAIN, TEXT_MODE, API, FORM_FILE_TYPE, FORM_TEXT_TYPE, API_SQL, RES_BODY
 from comMethod.diyException import DiyBaseException, NotFoundFileError
 from comMethod.paramsDef import parse_param_value, run_params_code, parse_temp_params, get_parm_v_by_temp
 from project.models import ProjectEnvirData
@@ -107,7 +107,7 @@ class ApiCasesActuator:
             file['file'] and file['file'].close()
             os.remove(file['name'])
 
-    def parse_api_step_output(self, params, prefix_label, step_name, response, i):
+    def parse_api_step_output(self, params, prefix_label, step_name, response, res_headers, i):
         """
         处理api步骤的输出
         """
@@ -118,9 +118,16 @@ class ApiCasesActuator:
                 for out in output:
                     out_v, out_name = out['value'], str(parse_param_value(out['name'], self.default_var, i)).strip('?')
                     is_assert = not out['name'].endswith('?')
-                    value_location_list = [parse_param_value(var, self.default_var, i) for var in out_v.split('.')]
+                    # 兼容老版本2023年8月15日
+                    if isinstance(out_v, str):
+                        locate_v = out_v
+                        res_source = response
+                    else:
+                        locate_v = out_v['value']
+                        res_source = response if out_v['source'] == RES_BODY else res_headers
+                    value_location_list = [parse_param_value(var, self.default_var, i) for var in locate_v.split('.')]
                     try:
-                        res = get_parm_v_by_temp(value_location_list, response)
+                        res = get_parm_v_by_temp(value_location_list, res_source)
                     except Exception as e:
                         if is_assert:
                             return {'status': FAILED, 'results': str(e)}
@@ -128,7 +135,7 @@ class ApiCasesActuator:
                             res = False
                     if not res:
                         if is_assert:
-                            return {'status': FAILED, 'results': out_v + ':' + '未在响应结果中找到！'}
+                            return {'status': FAILED, 'results': locate_v + ':' + '未在响应中找到！'}
                     else:
                         res_v = res['value']
                         self.default_var[out_name] = res_v
@@ -138,7 +145,7 @@ class ApiCasesActuator:
                             'type': VAR_PARAM, 'param_type_id': PY_TO_CONF_TYPE.get(str(type(res_v)), STRING),
                             **self.base_params_source}
             else:  # 代码模式
-                res = run_params_code(output, self.default_var, i, response)
+                res = run_params_code(output, self.default_var, i, response,res_headers)
                 if isinstance(res, dict):
                     self.default_var.update(res)
                     out_data = res
@@ -329,7 +336,7 @@ class ApiCasesActuator:
                     except Exception:
                         response = r.text
                     out_res = self.parse_api_step_output(
-                        params, prefix_label, step.get('step_name', '未命名步骤'), response, i)
+                        params, prefix_label, step.get('step_name', '未命名步骤'), response, dict(r.headers), i)
                     res_status, results = out_res['status'], out_res.get('results')
                     if res_status == FAILED:
                         results = self.api_process + results

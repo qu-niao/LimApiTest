@@ -135,11 +135,11 @@ def parse_temp_params(temp_params):
     return {'header': header, 'var': var, 'host': host, 'params_source': params_source}
 
 
-def run_params_code(data, params, i, response=None):
+def run_params_code(data, params, i, response=None, res_headers=None):
     """
     执行编写的代码
     """
-    parse_data = 'def temp_func(var,response,i):' if response else 'def temp_func(var,i):'
+    parse_data = 'def temp_func(var,response,res_headers,i):' if response else 'def temp_func(var,i):'
     for exp in data.split('\n'):
         parse_data += '\n\t' + exp
     try:
@@ -148,7 +148,7 @@ def run_params_code(data, params, i, response=None):
         raise DiyBaseException('代码编译报错：' + str(e))
     stdout = sys.stdout
     sys.stdout = SavePrintContent()
-    res = locals()['temp_func'](params, response, i) if response else locals()['temp_func'](params, i)
+    res = locals()['temp_func'](params, response, res_headers, i) if response else locals()['temp_func'](params, i)
     text_area, sys.stdout = sys.stdout, stdout
     print_content = ''
     for content in text_area.buffer:
