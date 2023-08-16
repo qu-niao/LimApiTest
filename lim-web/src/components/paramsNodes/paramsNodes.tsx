@@ -244,7 +244,7 @@ export const ParamsNodes = ({
       if (['expect', 'output'].includes(type)) {
         modeOptions[1] = {
           label: (
-            <Tooltip placement="top" title={CODE_RES_TIPS} overlayStyle={{ maxWidth: 600 }}>
+            <Tooltip placement="top" title={CODE_RES_TIPS} overlayStyle={{ maxWidth: 800 }}>
               <span style={{ fontSize: 14 }}>代码模式</span>
               <ExclamationCircleTwoTone twoToneColor="#FAAD14" style={{ marginLeft: 3 }} />
             </Tooltip>

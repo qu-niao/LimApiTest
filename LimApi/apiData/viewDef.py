@@ -145,7 +145,7 @@ class ApiCasesActuator:
                             'type': VAR_PARAM, 'param_type_id': PY_TO_CONF_TYPE.get(str(type(res_v)), STRING),
                             **self.base_params_source}
             else:  # 代码模式
-                res = run_params_code(output, self.default_var, i, response,res_headers)
+                res = run_params_code(output, self.default_var, i, response, res_headers)
                 if isinstance(res, dict):
                     self.default_var.update(res)
                     out_data = res
@@ -159,7 +159,7 @@ class ApiCasesActuator:
                     return {'status': FAILED, 'results': '返回数据格式不符合要求！'}
         return {'status': SUCCESS, 'out_data': out_data}
 
-    def parse_api_step_expect(self, params, response, i):
+    def parse_api_step_expect(self, params, response, res_headers, i):
         """
         处理api步骤的期望
         """
@@ -193,7 +193,7 @@ class ApiCasesActuator:
                     else:
                         return {'status': FAILED, 'results': '未在响应中找到字段：' + ext_name + '\n'}
             else:  # 代码模式
-                res = run_params_code(expect, old_default_var, i, response)
+                res = run_params_code(expect, old_default_var, i, response, res_headers)
                 if res is not None:
                     if isinstance(res, tuple) and res[0] is False:
                         return {'status': FAILED, 'results': res[1]}
@@ -342,7 +342,7 @@ class ApiCasesActuator:
                         results = self.api_process + results
                     elif out_data := out_res.get('out_data'):
                         req_log['output'] = out_data
-                    ext_res = self.parse_api_step_expect(params, response, i)
+                    ext_res = self.parse_api_step_expect(params, response, dict(r.headers), i)
                     if res_status != FAILED:
                         res_status = ext_res['status']
                     if ext_res['status'] == FAILED:
