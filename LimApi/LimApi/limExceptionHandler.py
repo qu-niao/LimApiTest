@@ -33,7 +33,7 @@ def diy_exception_handler(exc, context):
     elif 'matching query does not exist' in str(exc):
         return Response({'msg': '数据不存在！'}, status=status.HTTP_400_BAD_REQUEST)
     elif '1062' in str(exc):
-        return Response({'msg': '该数据已存在！'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'msg': '已存在同名数据！'}, status=status.HTTP_400_BAD_REQUEST)
     elif isinstance(exc, IntegrityError) and '1451' in str(exc):
         return Response({'msg': '该数据还存在子数据无法删除！'}, status=status.HTTP_400_BAD_REQUEST)
     elif isinstance(exc, ProtectedError):

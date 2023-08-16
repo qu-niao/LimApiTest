@@ -68,7 +68,7 @@ const ApiData = ({ project_data }: any) => {
         treeService: treeApiModule,
         treeSpan: 4,
         extraParams: { project_id: project_id },
-        extraSaveParams: { project_id: project_id },
+        extraSaveParams: { project: project_id },
       }}
     />
   );

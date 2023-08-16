@@ -1,7 +1,7 @@
 import datetime
 import time
 
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.db.models import F, Value, JSONField
 from django.db.models.functions import Concat
 
@@ -51,6 +51,8 @@ class ProjectView(LimView):
                 ProjectEnvirData.objects.bulk_create(envir_data)
                 ApiModule.objects.create(name=DEFAULT_MODULE_NAME, project_id=proj.id)
         except Exception as e:
+            if '1062' in str(e):
+                return Response({'msg': '已存在同名项目！'}, status=status.HTTP_400_BAD_REQUEST, headers={})
             return Response(data={'msg': f"执行出错:{str(e)}"}, status=status.HTTP_400_BAD_REQUEST)
         return Response(data={'msg': '创建成功！', 'id': proj.id})
 
