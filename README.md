@@ -10,6 +10,8 @@ Lim是Less is More(少即是多)的缩写，正如它的名字我们希望在开
 #### 教学、交流、答疑+ 作者微信：qu-niao：
 <div align=center><img src="https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg" width="200" height="240"></div>
 
+**学习Python推荐蚂蚁金服大佬的[《Python全栈教程(0基础)》](https://blog.csdn.net/ml202187/article/details/132165078)**
+
 ### 主功能介绍
 #### 项目主页
 ![index](https://qu-niao.gitee.io/qu-niao-page/img/index.jpg)
