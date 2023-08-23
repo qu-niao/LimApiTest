@@ -32,14 +32,19 @@ import './index.css';
 export const StepForm: React.FC<any> = ({ stepFormState, tableState, ...props }) => {
   const formData = stepFormState.formData;
   const stepType = formData.type;
-  const formRef = useRef();
+  const formRef = useRef<any>();
   const childRef = useRef<any>();
+  const [refreshRef, setRefreshRef] = useState(false); //刷新formRef用，后面有空处理此问题2023年8月23日
   let resultText = '';
   if (typeof formData.results === 'object') {
     resultText = formData.results?.msg || '';
   } else {
     resultText = formData.results;
   }
+
+  useEffect(() => {
+    stepFormState.open && setRefreshRef(!refreshRef);
+  }, [stepFormState.open]);
   const stepContentNodes = () => {
     switch (stepType) {
       case API:

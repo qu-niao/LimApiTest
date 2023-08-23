@@ -101,6 +101,7 @@ export const CaseForm: React.FC<any> = ({ treeCaseModuleData, formOk, formData, 
     setFormWidth,
   };
   const items = menuItems(stepFormState);
+
   return (
     <>
       <LimModalForm
