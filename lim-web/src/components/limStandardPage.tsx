@@ -53,7 +53,6 @@ export const LimStandardPage = ({
       tableRef.current.onRefresh(formType);
     });
   };
-
   return (
     <Row gutter={8}>
       {treeProps && (

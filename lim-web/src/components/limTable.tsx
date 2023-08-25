@@ -136,13 +136,14 @@ const Table: React.FC<any> = ({
           );
           //处理排序条件
           let orderParams: object = {};
-          if (Object.keys(sorts).length) {
+          if (sorts && Object.keys(sorts).length) {
             orderParams = { ordering: '' };
             for (let key in sorts) {
               orderParams['ordering'] = (sorts[key] === 'ascend' ? key : `-${key}`) + ',';
             }
             orderParams['ordering'] = orderParams['ordering'].slice(0, orderParams['ordering'].length - 1);
           }
+
           return await reqService(GET, {
             ...{ page, page_size },
             ...searchParams,

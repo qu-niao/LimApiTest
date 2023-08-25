@@ -12,6 +12,10 @@ import {
   ProFormGroup,
   ProFormSelect,
 } from '@ant-design/pro-form';
+type EnvirTabType = {
+  item: any;
+  formRef: any;
+};
 const testConnect = async (formRef: any, envir_id: number, index: number, setLoading: any) => {
   const dbData = formRef?.current.getFieldValue(`envir_${envir_id}_db`)[index];
   setLoading(true);
@@ -23,7 +27,7 @@ const testConnect = async (formRef: any, envir_id: number, index: number, setLoa
   );
   setLoading(false);
 };
-const EnvirTabs = ({ item, formRef }: any) => {
+const EnvirTabs = ({ item, formRef }: EnvirTabType) => {
   const [loading, setLoading] = useState<boolean>(false);
   return (
     <Tabs

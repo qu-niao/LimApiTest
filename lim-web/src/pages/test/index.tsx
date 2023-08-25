@@ -1,23 +1,51 @@
-import type { RadioChangeEvent } from 'antd';
+import { ProTable } from '@ant-design/pro-components';
+import { RadioChangeEvent, Table } from 'antd';
 import { Radio } from 'antd';
 import React, { useState } from 'react';
 
 const App: React.FC = () => {
-  const [value, setValue] = useState(1);
+  const [handlePagination, setHandlePagination] = useState<object>({
+    current: 1,
+    pageSize: 10,
+    showSizeChanger: true,
+    onShowSizeChange: (current: number, size: number) => {
+      setHandlePagination({ ...handlePagination, ...{ pageSize: size, current: current } });
+    },
+  });
+  const dataSource = [
+    {
+      key: '1',
+      name: '胡彦斌',
+      age: 32,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '2',
+      name: '胡彦祖',
+      age: 42,
+      address: '西湖区湖底公园1号',
+    },
+  ];
 
-  const onChange = (e: RadioChangeEvent) => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
-  };
+  const columns = [
+    {
+      title: '姓名',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: '年龄',
+      dataIndex: 'age',
+      key: 'age',
+    },
+    {
+      title: '住址',
+      dataIndex: 'address',
+      key: 'address',
+    },
+  ];
 
-  return (
-    <Radio.Group onChange={onChange} value={value}>
-      <Radio value={1}>A</Radio>
-      <Radio value={2}>B</Radio>
-      <Radio value={3}>C</Radio>
-      <Radio value={4}>D</Radio>
-    </Radio.Group>
-  );
+  return <ProTable dataSource={dataSource} columns={columns} pagination={handlePagination} />;
 };
 
 export default App;
