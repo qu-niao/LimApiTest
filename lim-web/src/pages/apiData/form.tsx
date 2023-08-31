@@ -23,6 +23,7 @@ import {
   REQ_METHOD_LABEL,
   RES_HEADER,
   RES_BODY,
+  JSON_MODE,
 } from '@/utils/constant';
 import apiDataContext from './context';
 import { ExclamationCircleTwoTone, ExclamationCircleOutlined } from '@ant-design/icons';
@@ -99,7 +100,6 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
             onSelect={(value: any) =>
               onDoubleClickFn({
                 doubleClick: (e: any) => {
-                  console.log('tt', type, currentTabs);
                   if (paramMode[currentTabs + '_mode'] === TABLE_MODE) {
                     let fieldName = '';
                     let parentValue = Array.isArray(srcItem) ? [...srcItem] : { ...srcItem };
@@ -260,39 +260,69 @@ export const ApiContentForm = ({ childRef, formData, formRef }: any) => {
     );
   };
   const pathToQueryParams = (v: string) => {
+    let realHost = '';
+    let matches = null;
+    let isTip = false;
+    //请求地址转换
+    if (v.includes('http://')) {
+      matches = /http:\/\/(.*?)\//.exec(v);
+    } else if (v.includes('https://')) {
+      matches = /https:\/\/(.*?)\//.exec(v);
+    }
+    if (matches) {
+      realHost = matches[0].slice(0, matches[0].length - 1);
+      isTip = true;
+      v = v.replace(realHost, '');
+      hostType === DIY_CFG && formRef.current.setFieldValue({ host: realHost });
+    }
+    //请求参数转换
     if (v.includes('?')) {
+      isTip = true;
       const pathData = v.split('?');
       const realPath = pathData[0]; //去除参数后的真正的接口地址
       const paraseParams = pathData.slice(-1)[0]; //参数地址
       const params = paraseParams.split('&');
-      let querySource = [];
-      let queryEditKeys = [];
-      let rowKey = Date.now();
-      for (var i = 0; i < params.length; i++) {
-        const [name, value] = params[i].split('=');
-        const index = rowKey + i;
-        queryEditKeys.push(index);
-        querySource.push({
-          id: index,
-          name: name,
-          value: value,
-          type: { auto: false, type: 'string' },
+      const query_mode = paramMode['query_mode'];
+      if (query_mode === TABLE_MODE) {
+        let querySource = [];
+        let queryEditKeys = [];
+        let rowKey = Date.now();
+        for (var i = 0; i < params.length; i++) {
+          const [name, value] = params[i].split('=');
+          const index = rowKey + i;
+          queryEditKeys.push(index);
+          querySource.push({
+            id: index,
+            name: name,
+            value: value,
+            type: { auto: false, type: 'string' },
+          });
+        }
+        const editKeys: any = { ...paramEditableKeys };
+        editKeys['query_source'] = queryEditKeys;
+        formRef.current.setFieldsValue({
+          path: realPath,
+          query_source: querySource,
+        });
+        setParamEditableKeys(editKeys);
+      } else if (query_mode === JSON_MODE) { //待修复
+        let source = {};
+        for (let i = 0; i < params.length; i++) {
+          const [name, value] = params[i].split('=');
+          source[name] = value;
+        }
+
+        formRef.current.setFieldsValue({
+          path: realPath,
+          query_source: source,
         });
       }
-      const editKeys: any = { ...paramEditableKeys };
-      editKeys['query_source'] = queryEditKeys;
-      setParamMode({ ...paramMode });
-      paramMode['query_mode'] = TABLE_MODE;
+    }
+    isTip &&
       Modal.warning({
         title: '提示',
-        content: '接口地址包含参数，已自动转化到Query参数中。',
+        content: '填写的值包含参数或地址，已自动转化到Query参数或请求地址中。',
       });
-      formRef.current.setFieldsValue({
-        path: realPath,
-        query_source: querySource,
-      });
-      setParamEditableKeys(editKeys);
-    }
   };
   useImperativeHandle(childRef, () => ({
     parmsType: parmsType,

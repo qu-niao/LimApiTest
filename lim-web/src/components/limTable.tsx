@@ -23,6 +23,7 @@ const Table: React.FC<any> = ({
   const defaultPageSize = localStorage.getItem('defaultPageSize') || 10;
   const [dataLength, setDataLength] = useState<number>(0); //列表返回数据的长度（行数）
   const [otherReqParams, setOtherReqParams] = useState<object>(otherParams || {}); //额外参数
+
   //分页器
   const [handlePagination, setHandlePagination] = useState<object>({
     current: 1,
@@ -33,6 +34,7 @@ const Table: React.FC<any> = ({
       setHandlePagination({ ...handlePagination, ...{ pageSize: size, current: current } });
     },
   });
+  useEffect(() => console.log('init'), [otherReqParams]);
   const deleteDataFunc = async (func: any, record_id: any) => {
     await func(DELETE, record_id).then((_: any) => {
       const currentPage = ref.current?.pageInfo.current || 1;

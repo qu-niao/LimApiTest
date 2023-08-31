@@ -1,6 +1,7 @@
+import { caseView } from '@/services/apiData';
+import { GET } from '@/utils/constant';
 import { ProTable } from '@ant-design/pro-components';
-import { RadioChangeEvent, Table } from 'antd';
-import { Radio } from 'antd';
+
 import React, { useState } from 'react';
 
 const App: React.FC = () => {
@@ -27,25 +28,103 @@ const App: React.FC = () => {
     },
   ];
 
-  const columns = [
+  const columns: any = [
     {
-      title: '姓名',
+      title: '用例名称',
       dataIndex: 'name',
-      key: 'name',
+      sorter: true,
+      search: true,
+      width: 130,
     },
     {
-      title: '年龄',
-      dataIndex: 'age',
-      key: 'age',
+      title: '修改时间',
+      search: false,
+      sorter: true,
+      dataIndex: 'updated',
+      width: 130,
+      valueType: 'dateTime',
     },
     {
-      title: '住址',
-      dataIndex: 'address',
-      key: 'address',
+      title: '状态',
+      dataIndex: 'status',
+      width: 80,
+      search: false,
+      filters: true,
+      filterMultiple: false, //控制单选还是多选
+      valueType: 'tags',
+    },
+    {
+      title: '创建人',
+      search: false,
+      key: 'creater_name',
+      dataIndex: 'creater_name',
+      width: 80,
+    },
+    {
+      title: '修改人',
+      search: false,
+      dataIndex: 'updater_name',
+      width: 80,
+    },
+    {
+      title: '执行完成时间',
+      dataIndex: 'latest_run_time',
+      sorter: true,
+      search: false,
+      width: 130,
+      valueType: 'dateTime',
+    },
+    {
+      title: '创建时间',
+      search: false,
+      sorter: true,
+      dataIndex: 'created',
+      valueType: 'dateTime',
+      width: 130,
+    },
+    {
+      title: '操作',
+      width: 180,
+      fixed: 'right',
+      dataIndex: 'option',
+      valueType: 'option',
     },
   ];
 
-  return <ProTable dataSource={dataSource} columns={columns} pagination={handlePagination} />;
+  return (
+    <ProTable
+      columns={columns}
+      request={async (pagationAndSearch, sorts, filters) => {
+        const { current: page, pageSize: page_size, ...searchParams } = pagationAndSearch;
+        console.log('ss', searchParams);
+        const newFilters = { ...filters };
+        //删除搜索和筛选条件为空的项
+        [searchParams, newFilters].forEach((items) =>
+          Object.keys(items).forEach(
+            (key) => !items[key] && ![0, false].includes(items[key]) && delete items[key],
+          ),
+        );
+        //处理排序条件
+        let orderParams: object = {};
+        if (sorts && Object.keys(sorts).length) {
+          orderParams = { ordering: '' };
+          for (let key in sorts) {
+            orderParams['ordering'] = (sorts[key] === 'ascend' ? key : `-${key}`) + ',';
+          }
+          orderParams['ordering'] = orderParams['ordering'].slice(0, orderParams['ordering'].length - 1);
+        }
+        return await caseView(GET, {
+          ...{ page, page_size },
+          ...searchParams,
+          ...newFilters,
+          ...orderParams,
+        }).then((res: any) => {
+          return res.results;
+        });
+      }}
+      // pagination={handlePagination}
+    />
+  );
 };
 
 export default App;
