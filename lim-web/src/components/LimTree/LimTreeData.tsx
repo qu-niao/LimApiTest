@@ -55,12 +55,14 @@ export const LimTreeData = ({
           menu={{
             items: [
               {
-                label: <span onClick={(e) => showForm(POST, item)}>{`增加子${actionLabel}`}</span>,
+                label: `增加子${actionLabel}`,
                 key: 'add',
+                onClick: () => showForm(POST, item),
               }, // 菜单项务必填写 key
               {
-                label: <span onClick={(e) => showForm(PATCH, item)}>{`修改${actionLabel}`}</span>,
+                label: `修改${actionLabel}`,
                 key: 'update',
+                onClick: () => showForm(PATCH, item),
               },
               {
                 label: (
