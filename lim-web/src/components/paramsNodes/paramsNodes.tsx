@@ -177,9 +177,7 @@ export const ParamsNodes = ({
           initValue = codeValue;
         } else {
           initValue = tips;
-          let _dict = {};
-          _dict[paramName] = tips;
-          formRef.current?.setFieldsValue(_dict);
+          formRef.current?.setFieldValue(paramName, tips);
         }
 
         renderNodes = (

@@ -17,7 +17,7 @@ const BasicLayout: React.FC<{}> = (props: any) => {
   const [projectCand, setProjectCand] = useState([]);
   const [cfgOpen, setCfgOpen] = useState<boolean>(false);
   const { route } = props;
-  const ref = useRef<any>(null);
+  const ref = useRef(null);
   // 菜单
   const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
     menus.map(({ icon, children, ...item }) => ({

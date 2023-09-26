@@ -44,7 +44,7 @@ export const request: RequestConfig = {
       };
       const headers = Object.keys(options.headers).length ? options.headers : authHeader;
       return {
-        url: `${url}`,
+        url: url,
         options: {
           ...options,
           interceptors: true,

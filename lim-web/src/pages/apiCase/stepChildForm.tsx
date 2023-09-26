@@ -65,7 +65,7 @@ export const HostForm = ({ formRef, formData }: any) => {
         fieldProps={{
           onChange: (e) => {
             setHostType(e.target.value);
-            formRef.current.setFieldsValue({ value: null });
+            formRef.current.setFieldValue('value', null);
           },
           options: [
             {
