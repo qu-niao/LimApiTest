@@ -65,20 +65,11 @@ export const LimTreeData = ({
                 onClick: () => showForm(PATCH, item),
               },
               {
-                label: (
-                  <Popconfirm
-                    title="您确定要删除吗？"
-                    okText="是"
-                    cancelText="否"
-                    onConfirm={() =>
-                      onFinishService(DELETE, item.id).then((res: any) =>
-                        treeRef.current.reqTree(treeService, reqTreeParams),
-                      )
-                    }
-                  >
-                    <span style={{ color: 'red' }}>{`删除${actionLabel}`}</span>{' '}
-                  </Popconfirm>
-                ),
+                label: <span style={{ color: 'red' }}>{`删除${actionLabel}`}</span>,
+                onClick: () =>
+                  onFinishService(DELETE, item.id).then((res: any) =>
+                    treeRef.current.reqTree(treeService, reqTreeParams),
+                  ),
                 key: 'delete',
               },
             ],
