@@ -346,7 +346,7 @@ const ApiCase: React.FC = () => {
         }}
       />
       <OverviewForm key="view" open={overviewOpen} onCancel={() => setOverviewOpen(false)} />
-      <CaseSortForm open={sortOpen} formOk={onSortFormOk} setOpen={setSortOpen} formData={sortFormData} />,
+      <CaseSortForm open={sortOpen} formOk={onSortFormOk} setOpen={setSortOpen} formData={sortFormData} />
       <DeletedCaseForm
         open={deledCaseOpen}
         setOpen={setDeledCaseOpen}
@@ -356,7 +356,6 @@ const ApiCase: React.FC = () => {
           reqCascaderCaseTree();
         }}
       />
-      ,
     </Spin>
   );
 };

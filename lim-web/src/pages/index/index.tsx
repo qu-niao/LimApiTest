@@ -176,7 +176,7 @@ const Index: React.FC = () => {
         </Col>
       </Row>
       <p style={{ textAlign: 'center', backgroundColor: '#F5F5F5', marginTop: 10 }}>
-        Lim接口测试平台{VERSION} ©2023 曲鸟团队
+        Lim接口测试平台{VERSION} ©2023 曲鸟
       </p>
     </>
   );
