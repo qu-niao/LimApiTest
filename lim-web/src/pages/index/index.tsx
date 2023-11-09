@@ -158,7 +158,7 @@ const Index: React.FC = () => {
               答疑、从0教学+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
             </p>
             作者主页：
-            <a target="_blank" href="https://quniao.blog.csdn.net/">
+            <a target="_blank" href="https://quniao.blog.csdn.net/?type=blog">
               <img
                 style={{ marginBottom: 4 }}
                 src="https://img.shields.io/badge/%E6%9B%B2%E9%B8%9F-CSDN-FC5531"
