@@ -14,6 +14,7 @@ import { putFile } from '@/services/comApi';
 
 export const ParamValue = ({ onChange, value, editorFormRef, reqParamType, index, setParmTypeFunc }: any) => {
   const [inputValue, setInputValue] = useState<any>(value || '');
+
   const handleInputChange = (v: string) => {
     setInputValue(v);
     onChange(v);
@@ -87,18 +88,6 @@ export const OutPutParam = ({
       }
       value={inputValue?.value}
     />
-  );
-  return (
-    <>
-      {' '}
-      <AutoComplete
-        placeholder="请输入值"
-        value={inputValue}
-        // onSelect={(...data: any) => loadApiCaseData(data[1].case_id)}
-        onChange={handleInputChange}
-        // options={loadCaseData}
-      />
-    </>
   );
 };
 export const ParamType: React.FC<any> = ({

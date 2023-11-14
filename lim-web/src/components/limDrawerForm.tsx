@@ -30,9 +30,9 @@ export const LimDrawerForm = ({
       console.log('error', e);
     }
   };
-
   return (
     <DrawerForm
+      resize={false}
       width={width || 800}
       layout="vertical"
       title={title}
@@ -48,7 +48,6 @@ export const LimDrawerForm = ({
         destroyOnClose: true,
         onClose: cancel ? async () => await cancel() : () => setOpen(false),
         ...extraDrawerProps,
-   
       }}
     >
       {formItems}

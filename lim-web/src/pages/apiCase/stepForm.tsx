@@ -105,7 +105,6 @@ export const StepForm: React.FC<any> = ({ stepFormState, tableState, ...props })
     }
     return values;
   };
-
   return (
     <LimDrawerForm
       width={stepFormState.formWidth}

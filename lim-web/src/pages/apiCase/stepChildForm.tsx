@@ -202,7 +202,6 @@ export const VarForm = ({ formData, formRef, childRef }: any) => {
                   paramMode[newModeKey] = newData[newModeKey];
                 }
                 formRef.current.setFieldsValue(newData);
-                console.log('dd', paramMode, newData);
                 setParamMode({ ...paramMode });
               }}
             >
