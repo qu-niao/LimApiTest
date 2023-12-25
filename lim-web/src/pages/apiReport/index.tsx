@@ -145,7 +145,7 @@ const Report = (props: any) => {
               </Card>
             </Col>
             <Col className="wrapper" key={6} span={24}>
-              <Card title={<h3 style={{ fontWeight: 'bold' }}>接口用例步骤情况统计</h3>}>
+              <Card title={<h3 style={{ fontWeight: 'bold' }}>接口计划步骤情况统计</h3>}>
                 <ColumnChart data={reportData.cases || []} />
               </Card>
             </Col>
