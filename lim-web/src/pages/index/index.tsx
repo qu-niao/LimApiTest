@@ -146,16 +146,12 @@ const Index: React.FC = () => {
             <Divider />
             <p style={{ fontWeight: 'bold', marginBottom: 3 }}>
               使用文档（必看！）：
-              <a
-                style={{ fontWeight: 'bold' }}
-                target="_blank"
-                href="http://qu-niao.gitee.io/lim-doc/"
-              >
+              <a style={{ fontWeight: 'bold' }} target="_blank" href="http://qu-niao.gitee.io/lim-doc/">
                 点我访问
               </a>
             </p>
             <p style={{ marginBottom: 3 }}>
-              答疑、从0教学+微信：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
+              一对一定制化教学、答疑+V：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
             </p>
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/?type=blog">
