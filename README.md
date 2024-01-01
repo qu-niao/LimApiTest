@@ -8,7 +8,7 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 
 #### 演示地址：[点我访问](http://121.43.43.59/) &nbsp;&nbsp;&nbsp;使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 
-#### \color{Blue} {一对一定制化教学、问题答疑+V: qu-niao：}
+#### 一对一定制化教学、进阶测开，问题答疑+V: qu-niao：
 
 <div align=center><img src="https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg" width="200" height="240"></div>
 
