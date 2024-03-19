@@ -3,11 +3,10 @@ import decimal
 import json
 import re
 import threading
-from functools import lru_cache
 
 import pymysql
 import redis
-from django.db.models import Max, Q
+from django.db.models import Max
 from pymysql import OperationalError
 from pymysql.constants.CLIENT import MULTI_STATEMENTS
 from pymysql.cursors import DictCursor
