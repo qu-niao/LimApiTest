@@ -151,7 +151,14 @@ const Index: React.FC = () => {
               </a>
             </p>
             <p style={{ marginBottom: 3 }}>
-              一对一定制化教学、答疑+V：<span style={{ fontWeight: 'bold' }}>qu-niao</span>
+              1V1定制化教学课程大纲：{' '}
+              <a
+                style={{ fontWeight: 'bold' }}
+                target="_blank"
+                href="https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde?from=from_copylink"
+              >
+                点我访问
+              </a>
             </p>
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/?type=blog">
