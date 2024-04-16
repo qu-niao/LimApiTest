@@ -4,11 +4,11 @@
 
 Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在开展接口测试时能够“四两拨千斤”！让用户操作更少但开展建设的效率更高。因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的传统建设思想，甚至还取消了“登录”！<br/>
 **你是否会疑问：这群 Diao 毛去掉了这些还如何高效的开展接口测试？**<br/>
-**那还在等什么？赶快进入 Lim 的世界，看看 Lim 是怎么通过另一种方式让接口测试变得简单且高效的吧！**
+**那还在等什么？赶快进入 Lim 的世界看看 Lim 是怎么通过另一种方式让接口测试变得简单且高效的吧！**
 
 #### 演示地址：[点我访问](http://121.43.43.59/) &nbsp;&nbsp;&nbsp;使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 
-#### 1V1定制化教学([课程大纲](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde))，作者 V: qu-niao
+#### 1V1定制化教学[(课程大纲)](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)，作者 V: qu-niao
 
 <div align=center><img src="https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg" width="200" height="240"></div>
 
@@ -60,7 +60,14 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 
 步骤支持合并、复制、拖拽改变排序，批量禁用等功能。一页俱全：
 ![step](https://qu-niao.gitee.io/qu-niao-page/img/step.jpg)
+#### 数据自回填
 
+会自动解析url上的参数，回填到query中去：
+
+![auto1](https://qu-niao.gitee.io/qu-niao-page/img/auto1.jpg)
+
+编写过的接口，下次填写时能自动化回填参数，避免重复编写用例：
+![auto2](https://qu-niao.gitee.io/qu-niao-page/img/auto2.jpg)
 #### “免登录”设计
 
 安全的操作无需登录，让非用例建设人员查看数据报表、报告情况更加快捷方便，减少多余的账号管理和登录操作：
