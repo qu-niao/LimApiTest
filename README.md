@@ -9,74 +9,83 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 #### 演示地址：[点我访问](http://121.43.43.59/) &nbsp;&nbsp;&nbsp;使用文档：[点我访问](http://qu-niao.gitee.io/lim-doc/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 
 #### 1V1定制化教学[(课程大纲)](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)，作者 V: qu-niao
+<!-- vx.jpg -->
 
-<div align=center><img src="https://qu-niao.gitee.io/qu-niao-page/img/vx.jpg" width="200" height="240"></div>
+<div align=center><img src="https://s21.ax1x.com/2024/05/09/pkVf9DP.jpg" width="200" height="240"></div>
 
 ---
 
 ### 主功能介绍
 
 #### 项目主页
+<!-- index.jpg -->
 
-![index](https://qu-niao.gitee.io/qu-niao-page/img/index.jpg)
+![index](https://s21.ax1x.com/2024/05/09/pkVfCHf.jpg)
 
 #### 强大的接口编辑页
 
 参数类型自动识别、自动管理接口入库，接口参数快速回填以及多种编辑模式让应对各类复杂参数游刃有余：
+<!-- apiM.jpg -->
 
 ![api](https://s21.ax1x.com/2024/05/09/pkVWTnx.jpg)
 
 #### 参数池及执行控制
-
+<!-- globalVar2.jpg -->
 用例输出的变量全局定义的参数统一展示管理，有哪些参数一目了然，来源可追溯；用例执行状态可控制:
-![var](https://qu-niao.gitee.io/qu-niao-page/img/globalVar2.jpg)
+![var](https://s21.ax1x.com/2024/05/09/pkVhdQs.jpg)
 
 #### 多环境管理
 
 能够配置多套环境参数，让一套用例能够在多套服务环境下执行:
-
-![m_envir](https://qu-niao.gitee.io/qu-niao-page/img/more_envir.png)
-![envir](https://qu-niao.gitee.io/qu-niao-page/img/envir.jpg)
+<!-- more_envir.png -->
+![m_envir](https://s21.ax1x.com/2024/05/09/pkVh6FU.png)
+<!-- envir.jpg -->
+![envir](https://s21.ax1x.com/2024/05/09/pkVWIj1.jpg)
 
 #### 支持 Python 代码
 
 用例变量生成、期望判断、执行条件设置等操作完全兼容 python 代码：
-
-![code](https://qu-niao.gitee.io/qu-niao-page/img/code.jpg)
+<!-- code.jpg -->
+![code](https://s21.ax1x.com/2024/05/09/pkVhcYF.jpg)
 
 #### 更灵活的循环控制
 
 循环控制支持多层嵌套，循环次数支持变量以及支持代码形式 break 操作：
+<!-- foreach.jpg -->
 
-![foreach](https://qu-niao.gitee.io/qu-niao-page/img/foreach.jpg)
+![foreach](https://s21.ax1x.com/2024/05/09/pkVW5cR.jpg)
 
 #### 强大的步骤控制器
 
 用例步骤支持延时等待、重试次数及执行条件设置。交换简单且更加灵活：
+<!-- controller -->
 
-![controller](https://qu-niao.gitee.io/qu-niao-page/img/controller.jpg)
+![controller](https://s21.ax1x.com/2024/05/09/pkVW439.jpg)
 
 #### 步骤编辑功能
-
+<!-- step -->
 步骤支持合并、复制、拖拽改变排序，批量禁用等功能。一页俱全：
-![step](https://qu-niao.gitee.io/qu-niao-page/img/step.jpg)
+![step](https://s21.ax1x.com/2024/05/09/pkVhWl9.jpg)
 #### 数据自回填
 
 会自动解析url上的参数，回填到query中去：
+<!-- auto1 -->
 
-![auto1](https://qu-niao.gitee.io/qu-niao-page/img/auto1.jpg)
+![auto1](https://s21.ax1x.com/2024/05/09/pkVfput.png)
 
 编写过的接口，下次填写时能自动化回填参数，避免重复编写用例：
-![auto2](https://qu-niao.gitee.io/qu-niao-page/img/auto2.jpg)
+<!-- auto2 -->
+![auto2](https://s21.ax1x.com/2024/05/09/pkVWh9J.png)
 #### “免登录”设计
 
 安全的操作无需登录，让非用例建设人员查看数据报表、报告情况更加快捷方便，减少多余的账号管理和登录操作：
-![login](https://qu-niao.gitee.io/qu-niao-page/img/login.jpg)
+<!-- login.jpg -->
+![login](https://s21.ax1x.com/2024/05/09/pkVhLSH.jpg)
 
 #### 弹窗拖拽
-
+<!-- drag.jpg -->
 所有弹窗皆可拖拽，展示内容更加自由可控：
-![drag](https://qu-niao.gitee.io/qu-niao-page/img/drag.jpg)
+![drag](https://s21.ax1x.com/2024/05/09/pkVh5ex.jpg)
 
 <!-- ### 三分钟快速上手教程：[点我访问](https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf) -->
 
