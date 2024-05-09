@@ -24,7 +24,7 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 
 参数类型自动识别、自动管理接口入库，接口参数快速回填以及多种编辑模式让应对各类复杂参数游刃有余：
 
-![api](https://qu-niao.gitee.io/qu-niao-page/img/apiM.jpg)
+![api](https://s21.ax1x.com/2024/05/09/pkVWTnx.jpg)
 
 #### 参数池及执行控制
 
