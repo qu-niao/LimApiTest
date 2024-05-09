@@ -11,7 +11,7 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 #### 1V1定制化教学[(课程大纲)](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)，作者 V: qu-niao
 <!-- vx.jpg -->
 
-<div align=center><img src="https://s21.ax1x.com/2024/05/09/pkVf9DP.jpg" width="200" height="240"></div>
+<!-- <div align=center><img src="https://s21.ax1x.com/2024/05/09/pkVf9DP.jpg" width="200" height="240"></div> -->
 
 ---
 
