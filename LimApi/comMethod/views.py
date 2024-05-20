@@ -74,8 +74,8 @@ class LimView(mixins.ListModelMixin,
             return self.destroy(request, *args, **kwargs)
         except IntegrityError:
             mod_id = request.parser_context['kwargs']['pk']
-            plan_data = model.objects.filter(module_id=mod_id, is_deleted=False).first()
-            if plan_data:
+            case_data = model.objects.filter(module_id=mod_id, is_deleted=False).first()
+            if case_data:
                 raise IntegrityError(PROTECT_CODE)
             model.objects.filter(module_id=mod_id).delete()
             return self.destroy(request, *args, **kwargs)

@@ -143,11 +143,11 @@ class ApiCaseViews(LimView):
     def delete(self, request, *args, **kwargs):
         if request.query_params.get('real_delete'):
             return self.destroy(request, *args, **kwargs)
-        api_plan_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
+        api_case_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
         if ApiCaseStep.objects.filter(quote_case_id=request.query_params['id']):
             return Response({'msg': '该用例已经其他用例引用，请先清除相关数据后重试！'}, status=status.HTTP_400_BAD_REQUEST)
         request.data.clear()
-        request.data.update({'name': api_plan_name, 'is_deleted': True, 'updater': request.user.id})
+        request.data.update({'name': api_case_name, 'is_deleted': True, 'updater': request.user.id})
         return self.patch(request, *args, **kwargs)
 
 

@@ -611,7 +611,7 @@ def go_step(actuator_obj, step, i=0, prefix_label='', **extra_params):
         return {'status': SKIP, 'results': '执行被中断！' if s_type not in (API_CASE, API_FOREACH) else None}
     params = {'step': step, 'i': i, 'prefix_label': prefix_label, **extra_params}
     controller_data = step.get('controller_data') or {}
-    # 为了避免失败跳过执行出现BUG，plan和foreach不允许设置重试，设置的话会默认不重试
+    # 为了避免失败跳过执行出现BUG，case和foreach不允许设置重试，设置的话会默认不重试
     retry_times = controller_data.get('re_times', 0) if s_type not in (API_CASE, API_FOREACH) else 0
     retry_interval, execute_on = controller_data.get('re_interval', 0), controller_data.get('execute_on', '')
     sleep_time = controller_data.get('sleep')
