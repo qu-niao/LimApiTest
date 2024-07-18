@@ -14,7 +14,7 @@ import { CaseForm, CaseSortForm, DeletedCaseForm, OverviewForm } from './form';
 import { columns } from './columns';
 import apiDataContext from '@/pages/apiData/context';
 import { paramType, envirView } from '@/services/conf';
-import { DELETE_CONFIRM_TIP, GET, PATCH, POST, SKIP_COLOR } from '@/utils/constant';
+import { DELETE_CONFIRM_TIP, GET, PATCH, POST } from '@/utils/constant';
 import { projectView } from '@/services/project';
 import {
   caseModuleView,
@@ -33,7 +33,7 @@ import { LimStandardPage } from '@/components/limStandardPage';
 import { runEnvirSelPopconfirm } from './components';
 import Input from 'antd/lib/input';
 import { tableComponents } from '@/components/ResizeTableHeader';
-import LimTable from '@/components/limTable';
+
 
 const ApiCase: React.FC = () => {
   const { layoutRef } = useContext(layoutContext);
@@ -173,8 +173,8 @@ const ApiCase: React.FC = () => {
           otherParams: { is_deleted: false },
           search: expandSerach
             ? {
-                labelWidth: 'auto',
-              }
+              labelWidth: 'auto',
+            }
             : false,
           headerTitle: (
             <div style={{ width: 700 }}>
@@ -268,7 +268,7 @@ const ApiCase: React.FC = () => {
               tableRowOnSelectAll(selected, changeRows, selectedCases, setSelectedCases);
             },
           },
-          tableAlertRender: ({}) => (
+          tableAlertRender: ({ }) => (
             <Space size={16}>
               <span>
                 已选 {selectedCases.length} 项

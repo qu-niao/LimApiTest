@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Button, Modal, Drawer, Dropdown, message, Popconfirm } from 'antd';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import { ProFormCascader, DragSortTable as AntDragSortTable } from '@ant-design/pro-components';
+import { ProFormCascader, DragSortTable as AntDragSortTable, ProFormGroup } from '@ant-design/pro-components';
 import { API, DELETE, DELETE_CONFIRM_TIP, PATCH, POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
 import DragSortTable from '@/pages/apiCase/dragSortTable';
@@ -115,12 +115,8 @@ export const CaseForm: React.FC<any> = ({ treeCaseModuleData, formOk, formData, 
           module_related: formData.module_related || [],
         }}
         cancel={() => {
-          if (JSON.stringify(savedSource) === JSON.stringify(dataSource)) {
-            //是否对用例有修改
-            props.setOpen(false);
-          } else {
-            setConfirmOpen(true);
-          }
+          //是否对用例有修改
+          JSON.stringify(savedSource) === JSON.stringify(dataSource) ? props.setOpen(false) : setConfirmOpen(true);
         }}
         diyOnFinish={async (values: any) => {
           values['steps'] = dataSource;
@@ -170,35 +166,38 @@ export const CaseForm: React.FC<any> = ({ treeCaseModuleData, formOk, formData, 
         {...props}
         formItems={
           <>
-            <DiyFormText
-              rules={[
-                { required: true, message: '用例名称必填' },
-                { type: 'string' },
-                { max: 50, message: '最多50个字' },
-              ]}
-              label="用例名称"
-              placeholder="请输入用例名称"
-            />
-            <ProFormCascader
-              name="module_related"
-              width="lg"
-              label="所属模块"
-              allowClear={false}
-              rules={[{ required: true, message: '所属模块必选！' }]}
-              fieldProps={{
-                changeOnSelect: true,
-                expandTrigger: 'hover',
-                options: treeCaseModuleData,
-                fieldNames: { label: 'name', children: 'children', value: 'id' },
-              }}
-            />
+            <ProFormGroup>
+              <DiyFormText
+                rules={[
+                  { required: true, message: '用例名称必填' },
+                  { type: 'string' },
+                  { max: 50, message: '最多50个字' },
+                ]}
+                label="用例名称"
+                placeholder="请输入用例名称"
+              />
+              <ProFormCascader
+                name="module_related"
+                width="lg"
+                label="所属模块"
+                allowClear={false}
+                rules={[{ required: true, message: '所属模块必选！' }]}
+                fieldProps={{
+                  changeOnSelect: true,
+                  expandTrigger: 'hover',
+                  options: treeCaseModuleData,
+                  fieldNames: { label: 'name', children: 'children', value: 'id' },
+                }}
+              />
+            </ProFormGroup>
+
             <Dropdown menu={{ items }} trigger={['click']} placement="bottomLeft">
               <Button type="primary" style={{ float: 'right', bottom: 56, marginRight: 20 }}>
                 添加步骤
               </Button>
             </Dropdown>
             <DragSortTable
-              scroll={{ y: 260 }}
+              scroll={{ y: 300 }}
               columns={stepColumns}
               tableState={tableState}
               stepFormState={stepFormState}
