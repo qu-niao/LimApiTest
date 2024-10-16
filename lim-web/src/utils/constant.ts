@@ -1,19 +1,19 @@
 //export const HOST_SERVER = 'http://127.0.0.1:8006';
 export const HOST_SERVER = 'http://121.43.43.59:8006'; //接口服务地址
-export const VERSION = '1.2.2';
+export const VERSION = '1.2.3';//版本号
 export const GET = 'get'; //代表请求列表
 export const DELETE = 'delete'; //代表删除数据
 export const POST = 'post'; //代表创建数据
 export const PATCH = 'patch'; //代表修改数据
-export const DIY_CFG = 1;
-export const PRO_CFG = 2;
+export const DIY_CFG = 1; //自定义配置
+export const PRO_CFG = 2;//使用项目的配置
 export const TABLE_MODE = 1; //用例填写参数时的方式，列表格式
 export const JSON_MODE = 2; //用例填写参数时的方式，Json格式
 export const TEXT_MODE = 3; //用例填写参数时的方式，文本格式
 export const FORM_MODE = 4; //用例填写参数时的方式，表单格式
 export const CODE_MODE = 5; //用例填写参数时的方式，代码格式
-export const FORM_FILE_TYPE = 1;
-export const FORM_TEXT_TYPE = 2;
+export const FORM_FILE_TYPE = 1;//文件类型
+export const FORM_TEXT_TYPE = 2;//文本类型
 export const API_PARAM_TEXT = {
   header: 'Header(请求头)',
   query: 'Query(url参数)',
@@ -24,7 +24,7 @@ export const API_PARAM_TEXT = {
   res_header: '响应头',
   output_data: '输出变量',
 };
-
+//请求方法
 export const REQ_METHOD_OPTIONS = [
   {
     value: 'GET',
@@ -37,28 +37,6 @@ export const REQ_METHOD_OPTIONS = [
   {
     value: 'PUT',
     label: 'PUT',
-  },
-  {
-    value: 'DELETE',
-    label: 'DELETE',
-  },
-  {
-    value: 'PATCH',
-    label: 'PATCH',
-  },
-];
-export const PARAM_TYPE_LABEL = [
-  {
-    value: 'str',
-    label: '字符串',
-  },
-  {
-    value: 'POST',
-    label: '数字',
-  },
-  {
-    value: 'PUT',
-    label: '对象',
   },
   {
     value: 'DELETE',
