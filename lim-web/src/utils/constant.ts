@@ -99,7 +99,7 @@ export const SUCCESS_STATUS = 4;
 export const INTERRUPT_STATUS = 6;
 export const DISABLED_STATUS = 7;
 export const FAILED_STOP_STATUS = 8;
-export const STATUS_LABEL = {
+export const STATUS_LABEL: any = {
   0: { text: '等待执行', status: '' },
   1: { text: '执行失败', status: FAILED_COLOR },
   2: { text: '正在执行', status: STATUS_2_COLOR },

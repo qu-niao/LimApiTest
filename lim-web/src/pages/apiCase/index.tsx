@@ -125,7 +125,7 @@ const ApiCase: React.FC = () => {
     });
   };
   const copyCasesFunc = async (caseId: any) => {
-    let json = {};
+    let json: any = {};
     json[caseId] = true;
     setCopyLoadings(json);
     await copyCases({ case_id: caseId })
