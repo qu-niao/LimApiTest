@@ -8,7 +8,7 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 
 #### 演示地址：[点我访问](http://121.43.43.59/) &nbsp;&nbsp;&nbsp;视频介绍：[点我访问](https://www.bilibili.com/video/BV1hfQoYnE9F) &nbsp;&nbsp;&nbsp;使用文档：[点我访问](http://121.43.43.59:81/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
 
-### 1V1定制化教学(接口、UI、性能测试平台开发，职业规划、瓶颈突破、技能进阶)[(课程大纲)](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)，作者 V: qu-niao
+#### 1V1 定制化教学(接口、UI、性能测试平台开发，职业规划、进阶突破)[点我访问](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)，作者 V: qu-niao
 <!-- vx.jpg -->
 
 <!-- <div align=center><img src="https://s21.ax1x.com/2024/05/09/pkVf9DP.jpg" width="200" height="240"></div> -->
