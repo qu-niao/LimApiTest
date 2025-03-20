@@ -7,7 +7,7 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 **那还在等什么？赶快进入 Lim 的世界看看 Lim 是怎么通过另一种方式让接口测试变得简单且高效的吧！**
 
 #### 演示地址：[点我访问](http://121.43.43.59/) &nbsp;&nbsp;&nbsp;视频介绍：[点我访问](https://www.bilibili.com/video/BV1hfQoYnE9F) &nbsp;&nbsp;&nbsp;使用文档：[点我访问](http://121.43.43.59:81/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
-#### 作者 VX: qu-niao   问题答疑、1V1 定制化教学【全栈测试平台开发，职业规划、进阶突破】
+#### 作者 VX: qu-niao&nbsp;&nbsp;&nbsp;问题答疑、1V1 定制化教学【全栈测试平台开发，职业规划、进阶突破】
 
 
 <!-- vx.jpg -->
