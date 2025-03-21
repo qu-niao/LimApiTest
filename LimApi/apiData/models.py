@@ -99,5 +99,5 @@ class ApiForeachStep(ComCaseStepModel):
     parent = models.ForeignKey(null=True, to='self', on_delete=models.CASCADE, verbose_name="父循环步骤")
 
     class Meta:
-        verbose_name = 'api用例的步骤'
+        verbose_name = 'api用例循环控制器步骤'
         db_table = 'api_foreach_step'

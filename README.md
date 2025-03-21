@@ -90,10 +90,6 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 
 <!-- ### 三分钟快速上手教程：[点我访问](https://thzfhzdqvc.feishu.cn/docx/FgCpdAEy2oDjP4xJOkFcIjyJnnf) -->
 
-#### 技术栈
-
-**前端：react+ant-design**
-**后端：python3.9+django**
 
 在未来的版本还会加入 Swagger 导入、自定义函数以及执行实时监控等功能。大家提出的问题和 BUG 也会尽量解决。让我们一起成长吧！
 

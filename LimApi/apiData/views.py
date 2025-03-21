@@ -143,9 +143,15 @@ class ApiCaseViews(LimView):
     def delete(self, request, *args, **kwargs):
         if request.query_params.get('real_delete'):
             return self.destroy(request, *args, **kwargs)
+
+        if api_step := ApiCaseStep.objects.filter(quote_case_id=request.query_params['id']).first():
+            return Response({'msg': f'该用例已被【{api_step.case.name}】用例引用，无法删除！'},
+                            status=status.HTTP_400_BAD_REQUEST)
+        elif foreach_step := ApiForeachStep.objects.filter(quote_case_id=request.query_params['id']).first():
+            return Response({'msg': f'该用例已被【{foreach_step.step.case.name}】用例的循环控制步骤引用，无法删除！'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         api_case_name = f"{self.get_object().name}{str(timezone.now().timestamp())}"
-        if ApiCaseStep.objects.filter(quote_case_id=request.query_params['id']):
-            return Response({'msg': '该用例已经其他用例引用，请先清除相关数据后重试！'}, status=status.HTTP_400_BAD_REQUEST)
         request.data.clear()
         request.data.update({'name': api_case_name, 'is_deleted': True, 'updater': request.user.id})
         return self.patch(request, *args, **kwargs)
