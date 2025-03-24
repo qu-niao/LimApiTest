@@ -158,7 +158,6 @@ def get_proj_db_database(request):
 
 @api_view(['POST'])
 def run_sql(request):
-
     req_data, user_id = request.data, request.user.id
     case_obj = ApiCasesActuator(
         user_id, temp_params=UserTempParams.objects.filter(user_id=user_id, type=VAR_PARAM).values())
@@ -182,8 +181,10 @@ def get_index_statistics(request):
         'api_data': {}, 'case_data': {}}
     proj_data = Project.objects.values('id', 'created').order_by('-created')
     api_data = ApiData.objects.annotate(project_name=F('project__name')).values('created', 'project_name')
-    case_data = ApiCase.objects.annotate(
-        creater_name=Concat('creater__real_name', Value('-'), 'creater__username')).values('created', 'creater_name')
+    case_data = ApiCase.objects.annotate(creater_name=Concat(
+        'creater__real_name', Value('-'), 'creater__username')).filter(
+        is_deleted=False).values('created', 'creater_name')
+
     res_data['project_count'] = len(proj_data)
     for proj in proj_data:
         if time.mktime(proj['created'].timetuple()) > now_time:

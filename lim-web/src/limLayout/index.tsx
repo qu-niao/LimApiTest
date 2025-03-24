@@ -34,15 +34,12 @@ const BasicLayout: React.FC<{}> = (props: any) => {
   }, []);
   return (
     <ProLayout
-      // logo={imgURL}
-      //siderWidth={220}
-      //logo={<SlidersOutlined />}
       logo={false}
-      title="Lim 接口测试平台"
+      title="Lim 测试平台"
       pageTitleRender={false}
       headerContentRender={() => (
         <span>
-          使用中遇到疑问？请访问项目仓库提出来：
+          使用过程中遇到疑问？请访问项目仓库提出来：
           <Tooltip title="Gitee(国内用户推荐)">
             <Button
               icon={

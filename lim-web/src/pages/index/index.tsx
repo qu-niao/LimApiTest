@@ -71,7 +71,7 @@ const Index: React.FC = () => {
                       <p style={{ fontSize: 36, marginBottom: 0, fontWeight: 'bold' }}>
                         {data[item.countKey]}
                       </p>
-                      <span style={{ position: 'absolute', right: 16, fontSize: 10 }}>
+                      <span style={{ position: 'absolute', right: 16, fontSize: 12 }}>
                         较昨日新增：{data[item.newCountKey]}
                       </span>
                     </>
@@ -80,6 +80,7 @@ const Index: React.FC = () => {
               </Col>
             ))}
           </Row>
+
           <Row gutter={24} style={{ paddingTop: 16 }}>
             <Col span={12}>
               <Card
@@ -130,6 +131,35 @@ const Index: React.FC = () => {
               </Card>
             </Col>
           </Row>
+          {/* <Row gutter={24} style={{ paddingTop: 16 }}>
+            <Col span={24}>
+              <Card
+                title={
+                  <p style={{ fontWeight: 'bold' }}>
+                    接口使用频次统计{' '}
+                    <UnorderedListOutlined
+                      style={{ position: 'absolute', right: 24, top: 20, fontSize: 24 }}
+                    />
+                  </p>
+                }
+                bordered={false}
+              >
+                {loading ? (
+                  <Skeleton paragraph={{ rows: 7 }} />
+                ) : data.api_data.length ? (
+                  <DemoColumn
+                    data={data.api_data}
+                    content="接口统计"
+                    color={{
+                      color: ['#657798', '#F6C022', '#62DAAB', '#7666F9', '#74CBED', '#6395F9'],
+                    }}
+                  />
+                ) : (
+                  <EmptyComponents />
+                )}
+              </Card>
+            </Col>
+          </Row> */}
         </Col>
         <Col span={6}>
           {' '}
@@ -146,12 +176,18 @@ const Index: React.FC = () => {
             <Divider />
             <p style={{ fontWeight: 'bold', marginBottom: 3 }}>
               使用文档（必看！）：
-              <a style={{ fontWeight: 'bold' }} target="_blank" href="http://qu-niao.gitee.io/lim-doc/">
+              <a style={{ fontWeight: 'bold' }} target="_blank" href="http://121.43.43.59:81/">
                 点我访问
               </a>
             </p>
             <p style={{ marginBottom: 3 }}>
-              1V1定制化教学课程大纲：{' '}
+              平台优势及功能 视频介绍：
+              <a style={{ fontWeight: 'bold' }} target="_blank" href="https://www.bilibili.com/video/BV1hfQoYnE9F">
+                点我访问
+              </a>
+            </p>
+            <p style={{ fontWeight: 'bold' }}>
+              1V1定制化教学大纲介绍：{' '}
               <a
                 style={{ fontWeight: 'bold' }}
                 target="_blank"
@@ -159,6 +195,7 @@ const Index: React.FC = () => {
               >
                 点我访问
               </a>
+              <Divider />
             </p>
             作者主页：
             <a target="_blank" href="https://quniao.blog.csdn.net/?type=blog">
@@ -175,6 +212,7 @@ const Index: React.FC = () => {
                 alt="曲鸟-知乎"
               />
             </a>
+
           </Card>
         </Col>
       </Row>

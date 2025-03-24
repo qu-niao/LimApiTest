@@ -57,6 +57,13 @@ export default defineConfig({
           component: '@/pages/apiCase',
         },
         {
+          name: 'UI 测试',
+          title: 'Lim-UI 测试',
+          path: '/uiCase',
+          icon: 'ui',
+          component: '@/pages/uiCase',
+        },
+        {
           name: '系统设置',
           title: 'Lim-系统设置',
           path: '/config',
