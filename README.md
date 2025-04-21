@@ -1,5 +1,5 @@
 # Lim 接口测试平台
-#### 作者本人 1V1 定制化教学【全栈测试平台开发，职业规划、进阶突破】：[点我访问](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)
+
 ### 介绍
 
 Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在开展接口测试时能够“四两拨千斤”！让用户操作更少但开展建设的效率更高。因此我们做了许多交互细节上的优化和创新以及一些大胆的设计，比如：取消了局部变量、前后置计划、抛弃“先接口后用例”的传统建设思想，甚至还取消了“登录”！<br/><br/>
@@ -7,7 +7,8 @@ Lim 是 Less is More(少即是多)的缩写，正如它的名字我们希望在�
 **那还在等什么？赶快进入 Lim 的世界看看 Lim 是怎么通过另一种方式让接口测试变得简单且高效的吧！**
 
 #### 演示地址：[点我访问](http://121.43.43.59/) &nbsp;&nbsp;&nbsp;视频介绍：[点我访问](https://www.bilibili.com/video/BV1hfQoYnE9F) &nbsp;&nbsp;&nbsp;使用文档：[点我访问](http://121.43.43.59:81/) &nbsp;&nbsp;&nbsp;提问地址：[点我访问](https://gitee.com/qu-niao/LessIsMore/issues)
-#### 作者 VX: qu-niao&nbsp;&nbsp;&nbsp;&nbsp;问题答疑、1V1 定制化教学【全栈测试平台开发，职业规划、进阶突破】
+#### 问题答疑、1V1 定制化教学+作者VX：qu-niao
+#### 1V1 定制化教学大纲【全栈测试平台开发，职业规划、进阶突破】：[点我访问](https://thzfhzdqvc.feishu.cn/docx/StwJd33FNoupIJxpvIhctJ49nde)
 
 
 <!-- vx.jpg -->

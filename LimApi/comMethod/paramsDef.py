@@ -49,7 +49,6 @@ def get_parm_v_by_temp(name_list, base_params, i=0):
                     _name = _name.split('[')[0]
                     if _name:  # 返回结果可能为纯数组，这个时候是没有变量的
                         str_index += '[_name]'
-                    print('tt', _index)
                     for index_name in _index:
                         # []中字符串为纯数字，或者为i，或者为-1这种数字
                         if index_name.isdigit() or index_name == 'i' or (
@@ -90,19 +89,20 @@ def parse_param_value(v, params, i=0):
                 real_var_name = var_name
                 if '${' in var_name:  # 当变量为${${a}}代表嵌套变量，这种格式的时候走此分支
                     real_var_name += '}'
-                    if '[${' in var_name:
-                        real_var_name += ']'
+                    pattern = re.escape(real_var_name) + r"(.*?)}"
+                    real_var_name += re.findall(pattern, v)[0]  # 补齐字段
                     var_name = str(parse_param_value(real_var_name, params, i))
                 name_list = var_name.split('.')  # 获取父子级参数
                 res = get_parm_v_by_temp(name_list, params, i)
+
                 if not res:
                     if var_name == 'i':  # i为固定变量
                         res = {'value': i}
                     else:
-                        raise DiyBaseException(f'指定的变量：{var_name}，不存在!')
+                        raise Exception("指定的变量不存在")
                 res_value = res['value']
                 # name_list只有一个,如果变量加上${}后与原字符串相等，所以直接赋值就可，不需要替换
-                if j == 0 and j + 1 == var_name_len and (('${' + real_var_name + '}') == v):
+                if j == 0 and 1 == var_name_len and (('${' + real_var_name + '}') == v):
                     v = res_value
                 else:
                     if not isinstance(res_value, str):
