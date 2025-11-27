@@ -8,6 +8,7 @@ from LimApi.settings import FILE_DIR_HOST
 
 
 @api_view(['POST'])
+
 def put_file(request):
     """
     上传文件
@@ -27,4 +28,4 @@ def put_file(request):
             f.write(chunk)
     f.close()
     file_url = (FILE_DIR_HOST + appoint_dir[1:] + '/' + file_name) if appoint_dir else (FILE_DIR_HOST + file_name)
-    return Response(data={'file_url': file_url, 'file_name': file_name})
+    return Response(data={'url': file_url, 'file_name': file_name})

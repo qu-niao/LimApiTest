@@ -15,10 +15,7 @@ export default defineConfig({
       path: '/',
       redirect: '/home',
     },
-    {
-      path: '/test',
-      component: '@/pages/test',
-    },
+
     {
       path: 'cases/apiRelationCases',
       component: '@/pages/apiRelationCases',

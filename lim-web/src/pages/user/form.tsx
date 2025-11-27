@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { ProFormText, ProFormRadio, ProFormGroup } from '@ant-design/pro-components';
 import { POST } from '@/utils/constant';
 import { LimModalForm } from '@/components/limModalForm';
 const Form: React.FC<any> = ({ formData, ...props }) => {
+  const formRef = useRef<any>();
+
   return (
     <LimModalForm
+      formRef={formRef}
       title={formData.formType === POST ? '创建用户（新用户初始密码为123456）' : '修改用户'}
       initialValues={{
         username: formData.username || null,

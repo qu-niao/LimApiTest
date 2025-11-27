@@ -176,7 +176,7 @@ const Index: React.FC = () => {
             <Divider />
             <p style={{ fontWeight: 'bold', marginBottom: 3 }}>
               使用文档（必看！）：
-              <a style={{ fontWeight: 'bold' }} target="_blank" href="http://121.43.43.59:81/">
+              <a style={{ fontWeight: 'bold' }} target="_blank" href="http://1.14.98.249:81/">
                 点我访问
               </a>
             </p>
